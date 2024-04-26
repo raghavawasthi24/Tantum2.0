@@ -1,6 +1,6 @@
 import Header from "@/components/shared/Header/Header";
 import Image from "next/image";
-import LandingPage from "./components/LandngPage";
+import LandingPage from "./components/LandingPage";
 import Footer from "@/components/shared/Footer/Footer";
 
 export default function Home() {

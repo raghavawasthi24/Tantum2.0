@@ -48,3 +48,31 @@
     --ring: 240 4.9% 83.9%;
   }
 }
+
+
+.clip-custom {
+  clip-path: polygon(0 0, 100% 0, 100% 100%, 70% 95%, 0 100%);
+}
+
+
+@keyframes wiggle {
+  0% {
+    background-position: left bottom;
+  }
+  100% {
+    background-position: right bottom;
+  }
+}
+
+.animate-wiggle {
+  animation: wiggle 5s linear infinite alternate;
+}
+
+.bg-ai {
+  background-image: url("/assets/bgline.png");
+  background-color: #272142;
+  background-repeat: no-repeat;
+  background-position: center bottom;
+  animation: wiggle 10s linear infinite alternate;
+  background-size: 105% !important;
+}

@@ -81,6 +81,7 @@ export default function Header() {
                 {ProfileMenu.map((menu, key) => (
                   <Link
                     to={`${menu.link}`}
+                    key={key}
                     className="flex items-center text-[#4e4d4f] text-md font-medium  hover:bg-[#F3F3F3] p-2 rounded-lg cursor-pointer"
                   >
                     {menu.icon}

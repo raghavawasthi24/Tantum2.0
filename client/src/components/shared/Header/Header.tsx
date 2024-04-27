@@ -5,13 +5,27 @@ import { Sheet, SheetContent, SheetTrigger } from "@/components/ui/sheet";
 import { FaRegBell } from "react-icons/fa";
 import { BsPlusCircle } from "react-icons/bs";
 import { CiGlobe } from "react-icons/ci";
-import { Popover, PopoverContent, PopoverTrigger } from "@/components/ui/popover";
+import {
+  Popover,
+  PopoverContent,
+  PopoverTrigger,
+} from "@/components/ui/popover";
 import { CgProfile } from "react-icons/cg";
 import { RiMotorbikeFill } from "react-icons/ri";
 import { MdPayment } from "react-icons/md";
 import { IoIosSettings } from "react-icons/io";
 import { FiLogOut } from "react-icons/fi";
 import Link from "next/link";
+import {
+  Dialog,
+  DialogContent,
+  DialogDescription,
+  DialogFooter,
+  DialogHeader,
+  DialogTitle,
+  DialogTrigger,
+} from "@/components/ui/dialog";
+import StepperDemo from "./components/registerRide";
 // import { Link } from "react-router-dom";
 
 export default function Header() {
@@ -57,13 +71,30 @@ export default function Header() {
             </div>
           </PopoverContent>
         </Popover>
-        <Button
-          variant="outline"
-          className="bg-white sm:border sm:border-[#272142] rounded-full"
-        >
-          <BsPlusCircle className="w-4 h-4 sm:mr-2" />
-          <span className="hidden sm:block">Publish a ride</span>
-        </Button>
+
+        <Dialog>
+          <DialogTrigger asChild>
+            <Button
+              variant="outline"
+              className="bg-white sm:border sm:border-[#272142] rounded-full"
+            >
+              <BsPlusCircle className="w-4 h-4 sm:mr-2" />
+              <span className="hidden sm:block">Publish a ride</span>
+            </Button>
+          </DialogTrigger>
+          <DialogContent className="h-[90%] overflow-auto">
+            <DialogHeader>
+              <DialogTitle>Edit profile</DialogTitle>
+              <DialogDescription>
+                Make changes to your profile here. Click save when you're done.
+              </DialogDescription>
+            </DialogHeader>
+            <StepperDemo />
+            <DialogFooter>
+              <Button type="submit">Save changes</Button>
+            </DialogFooter>
+          </DialogContent>
+        </Dialog>
         {/* condition to check whether logged In or not 
         displays signin when loggged out otherwise profile options  */}
         {loggedin ? (

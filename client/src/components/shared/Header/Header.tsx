@@ -11,7 +11,8 @@ import { RiMotorbikeFill } from "react-icons/ri";
 import { MdPayment } from "react-icons/md";
 import { IoIosSettings } from "react-icons/io";
 import { FiLogOut } from "react-icons/fi";
-import { Link } from "react-router-dom";
+import Link from "next/link";
+// import { Link } from "react-router-dom";
 
 export default function Header() {
   const loggedin = true;
@@ -78,9 +79,9 @@ export default function Header() {
             </SheetTrigger>
             <SheetContent className="w-[300px] pt-12 flex flex-col justify-between">
               <div>
-                {ProfileMenu.map((menu, key) => (
+                {ProfileMenu?.map((menu, key) => (
                   <Link
-                    to={`${menu.link}`}
+                    href={`${menu.link}`}
                     key={key}
                     className="flex items-center text-[#4e4d4f] text-md font-medium  hover:bg-[#F3F3F3] p-2 rounded-lg cursor-pointer"
                   >
@@ -90,7 +91,7 @@ export default function Header() {
                 ))}
               </div>
               <Link
-                to="/logout"
+                href="/logout"
                 className="flex items-center text-white bg-red-600 text-md font-medium p-2 rounded-lg cursor-pointer"
               >
                 <FiLogOut className="w-4 h-4 mr-2" />

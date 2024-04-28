@@ -25,12 +25,12 @@ import {
   DialogTitle,
   DialogTrigger,
 } from "@/components/ui/dialog";
-import StepperDemo from "./components/registerRide";
 import { useForm } from "react-hook-form";
 import { PublishRideSchema } from "@/schemas/PublishRide";
 import { z } from "zod";
 import { zodResolver } from "@hookform/resolvers/zod";
 import { Form } from "@/components/ui/form";
+import RegisterRide from "./components/register-Ride";
 // import { Link } from "react-router-dom";
 
 export default function Header() {
@@ -111,11 +111,10 @@ export default function Header() {
                   console.log(data);
                 })}
               >
-                <StepperDemo form={form} />
+                <RegisterRide form={form} />
               </form>
             </Form>
             <DialogFooter>
-              <Button type="submit">Save changes</Button>
             </DialogFooter>
           </DialogContent>
         </Dialog>

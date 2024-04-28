@@ -1,22 +1,22 @@
 import { Button } from "@/components/ui/button";
 import {
   Step,
-  StepItem,
   Stepper,
   useStepper,
 } from "@/components/shared/stepper";
 import { toast } from "@/components/ui/use-toast";
-import SelectVehicle from "./selectVehicle";
-import SelectSource from "./selectSource";
-import SelectDestination from "./selectDestination";
-import SelectRideDate from "./selectRideDate";
+import SelectVehicle from "./select-vehicle";
+import SelectPerson from "./select-persons";
+import { GrFormPreviousLink } from "react-icons/gr";
+import SelectPickDrop from "./select-pick-drop";
+import ScheduleRide from "./schedule-ride";
 
-export default function StepperDemo({ form }: any) {
+export default function RegisterRide({ form }: any) {
   const steps = [
     { label: "1", content: <SelectVehicle form={form} /> },
-    { label: "2", content: <SelectSource form={form} /> },
-    { label: "3", content: <SelectDestination form={form} /> },
-    { label: "4", content: <SelectRideDate form={form} /> },
+    { label: "2", content: <SelectPickDrop form={form} /> },
+    { label: "3", content: <ScheduleRide form={form} /> },
+    { label: "4", content: <SelectPerson form={form} /> },
   ];
   return (
     <div className="flex w-full flex-col gap-4">
@@ -58,7 +58,7 @@ const Footer = () => {
           <h1 className="text-xl">Woohoo! All steps completed! 🎉</h1>
         </div>
       )}
-      <div className="w-full flex justify-end gap-2">
+      <div className="w-full flex justify-between gap-2">
         {hasCompletedAllSteps ? (
           <Button size="sm" onClick={resetSteps}>
             Reset
@@ -69,10 +69,11 @@ const Footer = () => {
               disabled={isDisabledStep}
               onClick={prevStep}
               size="sm"
-              variant="secondary"
+              variant="ghost"
               type="button"
             >
-              Prev
+              <GrFormPreviousLink className="w-4 h-4 mr-2" />
+              Back
             </Button>
             <Button size="sm" onClick={nextStep} type="button">
               {isLastStep ? "Finish" : isOptionalStep ? "Skip" : "Next"}

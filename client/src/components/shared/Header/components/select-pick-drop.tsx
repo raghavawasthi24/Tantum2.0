@@ -3,10 +3,9 @@ import React from "react";
 import { ComboBox } from "../../ComboxBox";
 import { TbLocationFilled } from "react-icons/tb";
 import { cities } from "@/constants";
-import { Input } from "@/components/ui/input";
 import { MdLocationPin } from "react-icons/md";
 
-export default function SelectSource({ form }: any) {
+export default function SelectPickDrop({ form }: any) {
   return (
     <div className="grid gap-4">
       <FormField

@@ -13,7 +13,7 @@ import {
 } from "@/components/ui/popover";
 import { cn } from "@/lib/utils";
 
-export function CustomizedCalendar({ field }: any) {
+export function CustomizedCalendar({ field, className }: any) {
 
   return (
     <Popover>
@@ -23,7 +23,7 @@ export function CustomizedCalendar({ field }: any) {
             variant={"outline"}
             className={cn(
               "w-[240px] pl-3 flex justify-start items-center rounded-none h-10"
-            )}
+            ,className)}
           >
             <CalendarIcon className="h-4 w-4 mr-2 opacity-50" />
             {field.value ? (

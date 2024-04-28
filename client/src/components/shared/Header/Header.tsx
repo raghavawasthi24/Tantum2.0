@@ -26,6 +26,11 @@ import {
   DialogTrigger,
 } from "@/components/ui/dialog";
 import StepperDemo from "./components/registerRide";
+import { useForm } from "react-hook-form";
+import { PublishRideSchema } from "@/schemas/PublishRide";
+import { z } from "zod";
+import { zodResolver } from "@hookform/resolvers/zod";
+import { Form } from "@/components/ui/form";
 // import { Link } from "react-router-dom";
 
 export default function Header() {
@@ -52,6 +57,17 @@ export default function Header() {
       link: "/settings",
     },
   ];
+  const form = useForm<z.infer<typeof PublishRideSchema>>({
+    resolver: zodResolver(PublishRideSchema),
+    defaultValues: {
+      source: "",
+      destination: "",
+      date: "",
+      time: "",
+      seats: 0,
+      price: 0,
+    },
+  });
   return (
     <nav className="flex w-full fixed bg-white top-0 justify-between items-center px-4 py-2 z-20">
       <p className="font-bold text-xl md:text-4xl text-[#272142]">Tantum.</p>
@@ -82,14 +98,22 @@ export default function Header() {
               <span className="hidden sm:block">Publish a ride</span>
             </Button>
           </DialogTrigger>
-          <DialogContent className="h-[90%] overflow-auto">
+          <DialogContent className="max-h-[90%] overflow-auto">
             <DialogHeader>
               <DialogTitle>Edit profile</DialogTitle>
               <DialogDescription>
                 Make changes to your profile here. Click save when you're done.
               </DialogDescription>
             </DialogHeader>
-            <StepperDemo />
+            <Form {...form}>
+              <form
+                onSubmit={form.handleSubmit((data) => {
+                  console.log(data);
+                })}
+              >
+                <StepperDemo form={form} />
+              </form>
+            </Form>
             <DialogFooter>
               <Button type="submit">Save changes</Button>
             </DialogFooter>

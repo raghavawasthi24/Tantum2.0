@@ -27,21 +27,11 @@ import {
 } from "@/components/ui/command";
 import { ComboBox } from "@/components/shared/ComboxBox";
 import { CustomizedCalendar } from "@/components/shared/CustomizedCalender";
+import { cities } from "@/constants";
 
 export default function LandingPage() {
   const form = useForm();
   const [searchCity, setSearchCity] = useState([]);
-
-  const cities = [
-    {
-      label: "Delhi",
-      value: "delhi",
-    },
-    {
-      label: "Mumbai",
-      value: "mumbai",
-    },
-  ];
 
   const onSubmit = (data: any) => {
     console.log(data);

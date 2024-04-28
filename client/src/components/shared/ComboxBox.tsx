@@ -24,9 +24,10 @@ type PageProps = {
   options: { label: string; value: string }[];
   name: string;
   icon?: React.ReactNode;
+  className?: string;
 };
 
-export function ComboBox({ options, name, icon }: PageProps) {
+export function ComboBox({ options, name, icon, className }: PageProps) {
   const [open, setOpen] = React.useState(false);
   const [value, setValue] = React.useState("");
 
@@ -37,7 +38,7 @@ export function ComboBox({ options, name, icon }: PageProps) {
           variant="outline"
           role="combobox"
           aria-expanded={open}
-          className="w-[200px] flex justify-start rounded-none"
+          className={cn("flex justify-start rounded-none",className)}
         >
           {icon && <span className="mr-2">{icon}</span>}
           {value
@@ -45,7 +46,7 @@ export function ComboBox({ options, name, icon }: PageProps) {
             : `${name}`}
         </Button>
       </PopoverTrigger>
-      <PopoverContent className="w-[200px] p-0">
+      <PopoverContent className={cn("p-0",className)}>
         <Command>
           <CommandInput placeholder="Search" />
           <CommandEmpty>No framework found.</CommandEmpty>

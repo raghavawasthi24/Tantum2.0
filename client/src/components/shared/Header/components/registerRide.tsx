@@ -7,12 +7,16 @@ import {
 } from "@/components/shared/stepper";
 import { toast } from "@/components/ui/use-toast";
 import SelectVehicle from "./selectVehicle";
+import SelectSource from "./selectSource";
+import SelectDestination from "./selectDestination";
+import SelectRideDate from "./selectRideDate";
 
-export default function StepperDemo() {
+export default function StepperDemo({ form }: any) {
   const steps = [
-    { label: "1", content: <SelectVehicle /> },
-    { label: "2", content: <SelectVehicle /> },
-    { label: "3", content: <SelectVehicle /> },
+    { label: "1", content: <SelectVehicle form={form} /> },
+    { label: "2", content: <SelectSource form={form} /> },
+    { label: "3", content: <SelectDestination form={form} /> },
+    { label: "4", content: <SelectRideDate form={form} /> },
   ];
   return (
     <div className="flex w-full flex-col gap-4">
@@ -29,11 +33,7 @@ export default function StepperDemo() {
         }}
       >
         {steps.map((stepProps, index) => {
-          return (
-            <Step key={stepProps.label}>
-              {stepProps.content}
-            </Step>
-          );
+          return <Step key={stepProps.label}>{stepProps.content}</Step>;
         })}
         <Footer />
       </Stepper>
@@ -70,10 +70,11 @@ const Footer = () => {
               onClick={prevStep}
               size="sm"
               variant="secondary"
+              type="button"
             >
               Prev
             </Button>
-            <Button size="sm" onClick={nextStep}>
+            <Button size="sm" onClick={nextStep} type="button">
               {isLastStep ? "Finish" : isOptionalStep ? "Skip" : "Next"}
             </Button>
           </>

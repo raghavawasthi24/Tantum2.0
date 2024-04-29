@@ -54,7 +54,9 @@ export default function EmailPasswordLogin() {
             </FormItem>
           )}
         />
-        <Button type="submit">Submit</Button>
+        <Button type="submit" className="bg-blue-500">
+          Submit
+        </Button>
       </form>
     </Form>
   );

@@ -115,8 +115,7 @@ export default function Header() {
                 <RegisterRide form={form} />
               </form>
             </Form>
-            <DialogFooter>
-            </DialogFooter>
+            <DialogFooter></DialogFooter>
           </DialogContent>
         </Dialog>
         {/* condition to check whether logged In or not 

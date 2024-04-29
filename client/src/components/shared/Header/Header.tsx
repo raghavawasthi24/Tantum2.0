@@ -30,7 +30,8 @@ import { PublishRideSchema } from "@/schemas/PublishRide";
 import { z } from "zod";
 import { zodResolver } from "@hookform/resolvers/zod";
 import { Form } from "@/components/ui/form";
-import RegisterRide from "./components/register-Ride";
+import RegisterRide from "./components/register-ride";
+// import RegisterRide from "./components/register-Ride";
 // import { Link } from "react-router-dom";
 
 export default function Header() {
@@ -102,7 +103,7 @@ export default function Header() {
             <DialogHeader>
               <DialogTitle>Edit profile</DialogTitle>
               <DialogDescription>
-                Make changes to your profile here. Click save when you're done.
+                Make changes to your profile here. Click save done.
               </DialogDescription>
             </DialogHeader>
             <Form {...form}>

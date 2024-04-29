@@ -400,10 +400,11 @@ interface StepInternalConfig {
 
 interface FullStepProps extends StepProps, StepInternalConfig {}
 
+//eslint-disable-next-line
 const Step = React.forwardRef<HTMLLIElement, StepProps>(
   (props, ref: React.Ref<any>) => {
     const {
-      children,
+      // children,
       description,
       icon,
       state,
@@ -484,179 +485,180 @@ const verticalStepVariants = cva(
   }
 );
 
-const VerticalStep = React.forwardRef<HTMLDivElement, VerticalStepProps>(
-  (props, ref) => {
-    const {
-      children,
-      index,
-      isCompletedStep,
-      isCurrentStep,
-      label,
-      description,
-      icon,
-      hasVisited,
-      state,
-      checkIcon: checkIconProp,
-      errorIcon: errorIconProp,
-      onClickStep,
-    } = props;
+// const VerticalStep = React.forwardRef<HTMLDivElement, VerticalStepProps>(
+//   (props, ref) => {
+//     const {
+//       children,
+//       index,
+//       isCompletedStep,
+//       isCurrentStep,
+//       label,
+//       description,
+//       icon,
+//       hasVisited,
+//       state,
+//       checkIcon: checkIconProp,
+//       errorIcon: errorIconProp,
+//       onClickStep,
+//     } = props;
 
-    const {
-      checkIcon: checkIconContext,
-      errorIcon: errorIconContext,
-      isError,
-      isLoading,
-      variant,
-      onClickStep: onClickStepGeneral,
-      clickable,
-      expandVerticalSteps,
-      styles,
-      scrollTracking,
-      orientation,
-      steps,
-      setStep,
-      isLastStep: isLastStepCurrentStep,
-      previousActiveStep,
-    } = useStepper();
+//     const {
+//       checkIcon: checkIconContext,
+//       errorIcon: errorIconContext,
+//       isError,
+//       isLoading,
+//       variant,
+//       onClickStep: onClickStepGeneral,
+//       clickable,
+//       expandVerticalSteps,
+//       styles,
+//       scrollTracking,
+//       orientation,
+//       steps,
+//       setStep,
+//       isLastStep: isLastStepCurrentStep,
+//       previousActiveStep,
+//     } = useStepper();
 
-    const opacity = hasVisited ? 1 : 0.8;
-    const localIsLoading = isLoading || state === "loading";
-    const localIsError = isError || state === "error";
+//     const opacity = hasVisited ? 1 : 0.8;
+//     const localIsLoading = isLoading || state === "loading";
+//     const localIsError = isError || state === "error";
 
-    const isLastStep = index === steps.length - 1;
+//     const isLastStep = index === steps.length - 1;
 
-    const active =
-      variant === "line" ? isCompletedStep || isCurrentStep : isCompletedStep;
-    const checkIcon = checkIconProp || checkIconContext;
-    const errorIcon = errorIconProp || errorIconContext;
+//     const active =
+//       variant === "line" ? isCompletedStep || isCurrentStep : isCompletedStep;
+//     const checkIcon = checkIconProp || checkIconContext;
+//     const errorIcon = errorIconProp || errorIconContext;
 
-    const renderChildren = () => {
-      if (!expandVerticalSteps) {
-        return (
-          <Collapsible open={isCurrentStep}>
-            <CollapsibleContent
-              ref={(node) => {
-                if (
-                  // If the step is the first step and the previous step
-                  // was the last step or if the step is not the first step
-                  // This prevents initial scrolling when the stepper
-                  // is located anywhere other than the top of the view.
-                  scrollTracking &&
-                  ((index === 0 &&
-                    previousActiveStep &&
-                    previousActiveStep === steps.length) ||
-                    (index && index > 0))
-                ) {
-                  node?.scrollIntoView({
-                    behavior: "smooth",
-                    block: "center",
-                  });
-                }
-              }}
-              className="overflow-hidden data-[state=open]:animate-collapsible-down data-[state=closed]:animate-collapsible-up"
-            >
-              {children}
-            </CollapsibleContent>
-          </Collapsible>
-        );
-      }
-      return children;
-    };
+//     const renderChildren = () => {
+//       if (!expandVerticalSteps) {
+//         return (
+//           <Collapsible open={isCurrentStep}>
+//             <CollapsibleContent
+//               ref={(node) => {
+//                 if (
+//                   // If the step is the first step and the previous step
+//                   // was the last step or if the step is not the first step
+//                   // This prevents initial scrolling when the stepper
+//                   // is located anywhere other than the top of the view.
+//                   scrollTracking &&
+//                   ((index === 0 &&
+//                     previousActiveStep &&
+//                     previousActiveStep === steps.length) ||
+//                     (index && index > 0))
+//                 ) {
+//                   node?.scrollIntoView({
+//                     behavior: "smooth",
+//                     block: "center",
+//                   });
+//                 }
+//               }}
+//               className="overflow-hidden data-[state=open]:animate-collapsible-down data-[state=closed]:animate-collapsible-up"
+//             >
+//               {children}
+//             </CollapsibleContent>
+//           </Collapsible>
+//         );
+//       }
+//       return children;
+//     };
 
-    return (
-      <div
-        ref={ref}
-        className={cn(
-          "stepper__vertical-step",
-          verticalStepVariants({
-            variant: variant?.includes("circle") ? "circle" : "line",
-          }),
-          isLastStepCurrentStep && "gap-[var(--step-gap)]",
-          styles?.["vertical-step"]
-        )}
-        data-optional={steps[index || 0]?.optional}
-        data-completed={isCompletedStep}
-        data-active={active}
-        data-clickable={clickable || !!onClickStep}
-        data-invalid={localIsError}
-        onClick={() =>
-          onClickStep?.(index || 0, setStep) ||
-          onClickStepGeneral?.(index || 0, setStep)
-        }
-      >
-        <div
-          data-vertical={true}
-          data-active={active}
-          className={cn(
-            "stepper__vertical-step-container",
-            "flex items-center",
-            variant === "line" &&
-              "border-s-[3px] data-[active=true]:border-primary py-2 ps-3",
-            styles?.["vertical-step-container"]
-          )}
-        >
-          {/* <StepButtonContainer
-            {...{ isLoading: localIsLoading, isError: localIsError, ...props }}
-          >
-            <StepIcon
-              {...{
-                index,
-                isError: localIsError,
-                isLoading: localIsLoading,
-                isCurrentStep,
-                isCompletedStep,
-              }}
-              icon={icon}
-              checkIcon={checkIcon}
-              errorIcon={errorIcon}
-            />
-          </StepButtonContainer>
-          <StepLabel
-            label={label}
-            description={description}
-            {...{ isCurrentStep, opacity }}
-          /> */}
-        </div>
-        <div
-          className={cn(
-            "stepper__vertical-step-content",
-            !isLastStep && "min-h-4",
-            variant !== "line" && "ps-[--step-icon-size]",
-            variant === "line" && orientation === "vertical" && "min-h-0",
-            styles?.["vertical-step-content"]
-          )}
-        >
-          {renderChildren()}
-        </div>
-      </div>
-    );
-  }
-);
+//     return (
+//       <div
+//         ref={ref}
+//         className={cn(
+//           "stepper__vertical-step",
+//           verticalStepVariants({
+//             variant: variant?.includes("circle") ? "circle" : "line",
+//           }),
+//           isLastStepCurrentStep && "gap-[var(--step-gap)]",
+//           styles?.["vertical-step"]
+//         )}
+//         data-optional={steps[index || 0]?.optional}
+//         data-completed={isCompletedStep}
+//         data-active={active}
+//         data-clickable={clickable || !!onClickStep}
+//         data-invalid={localIsError}
+//         onClick={() =>
+//           onClickStep?.(index || 0, setStep) ||
+//           onClickStepGeneral?.(index || 0, setStep)
+//         }
+//       >
+//         <div
+//           data-vertical={true}
+//           data-active={active}
+//           className={cn(
+//             "stepper__vertical-step-container",
+//             "flex items-center",
+//             variant === "line" &&
+//               "border-s-[3px] data-[active=true]:border-primary py-2 ps-3",
+//             styles?.["vertical-step-container"]
+//           )}
+//         >
+//           {/* <StepButtonContainer
+//             {...{ isLoading: localIsLoading, isError: localIsError, ...props }}
+//           >
+//             <StepIcon
+//               {...{
+//                 index,
+//                 isError: localIsError,
+//                 isLoading: localIsLoading,
+//                 isCurrentStep,
+//                 isCompletedStep,
+//               }}
+//               icon={icon}
+//               checkIcon={checkIcon}
+//               errorIcon={errorIcon}
+//             />
+//           </StepButtonContainer>
+//           <StepLabel
+//             label={label}
+//             description={description}
+//             {...{ isCurrentStep, opacity }}
+//           /> */}
+//         </div>
+//         <div
+//           className={cn(
+//             "stepper__vertical-step-content",
+//             !isLastStep && "min-h-4",
+//             variant !== "line" && "ps-[--step-icon-size]",
+//             variant === "line" && orientation === "vertical" && "min-h-0",
+//             styles?.["vertical-step-content"]
+//           )}
+//         >
+//           {renderChildren()}
+//         </div>
+//       </div>
+//     );
+//   }
+// );
 
 // <---------- HORIZONTAL STEP ---------->
 
+//eslint-disable-next-line
 const HorizontalStep = React.forwardRef<HTMLDivElement, StepSharedProps>(
-  (props, ref) => {
+  (props) => {
     const {
       isError,
       isLoading,
-      onClickStep,
+      // onClickStep,
       variant,
-      clickable,
+      // clickable,
       checkIcon: checkIconContext,
       errorIcon: errorIconContext,
-      styles,
-      steps,
-      setStep,
+      // styles,
+      // steps,
+      // setStep,
     } = useStepper();
 
     const {
-      index,
+      // index,
       isCompletedStep,
       isCurrentStep,
       hasVisited,
-      icon,
-      label,
+      // icon,
+      // label,
       description,
       isKeepError,
       state,
@@ -801,104 +803,104 @@ interface StepIconProps {
   errorIcon?: IconType;
 }
 
-const StepIcon = React.forwardRef<HTMLDivElement, StepIconProps>(
-  (props, ref) => {
-    const { size } = useStepper();
+// const StepIcon = React.forwardRef<HTMLDivElement, StepIconProps>(
+//   (props, ref) => {
+//     const { size } = useStepper();
 
-    const {
-      isCompletedStep,
-      isCurrentStep,
-      isError,
-      isLoading,
-      isKeepError,
-      icon: CustomIcon,
-      index,
-      checkIcon: CustomCheckIcon,
-      errorIcon: CustomErrorIcon,
-    } = props;
+//     const {
+//       isCompletedStep,
+//       isCurrentStep,
+//       isError,
+//       isLoading,
+//       isKeepError,
+//       icon: CustomIcon,
+//       index,
+//       checkIcon: CustomCheckIcon,
+//       errorIcon: CustomErrorIcon,
+//     } = props;
 
-    const Icon = React.useMemo(
-      () => (CustomIcon ? CustomIcon : null),
-      [CustomIcon]
-    );
+//     const Icon = React.useMemo(
+//       () => (CustomIcon ? CustomIcon : null),
+//       [CustomIcon]
+//     );
 
-    const ErrorIcon = React.useMemo(
-      () => (CustomErrorIcon ? CustomErrorIcon : null),
-      [CustomErrorIcon]
-    );
+//     const ErrorIcon = React.useMemo(
+//       () => (CustomErrorIcon ? CustomErrorIcon : null),
+//       [CustomErrorIcon]
+//     );
 
-    const Check = React.useMemo(
-      () => (CustomCheckIcon ? CustomCheckIcon : CheckIcon),
-      [CustomCheckIcon]
-    );
+//     const Check = React.useMemo(
+//       () => (CustomCheckIcon ? CustomCheckIcon : CheckIcon),
+//       [CustomCheckIcon]
+//     );
 
-    return React.useMemo(() => {
-      if (isCompletedStep) {
-        if (isError && isKeepError) {
-          return (
-            <div key="icon">
-              <X className={cn(iconVariants({ size }))} />
-            </div>
-          );
-        }
-        return (
-          <div key="check-icon">
-            <Check className={cn(iconVariants({ size }))} />
-          </div>
-        );
-      }
-      if (isCurrentStep) {
-        if (isError && ErrorIcon) {
-          return (
-            <div key="error-icon">
-              <ErrorIcon className={cn(iconVariants({ size }))} />
-            </div>
-          );
-        }
-        if (isError) {
-          return (
-            <div key="icon">
-              <X className={cn(iconVariants({ size }))} />
-            </div>
-          );
-        }
-        if (isLoading) {
-          return (
-            <Loader2 className={cn(iconVariants({ size }), "animate-spin")} />
-          );
-        }
-      }
-      if (Icon) {
-        return (
-          <div key="step-icon">
-            <Icon className={cn(iconVariants({ size }))} />
-          </div>
-        );
-      }
-      return (
-        <span
-          ref={ref}
-          key="label"
-          className={cn("font-medium text-center text-md")}
-        >
-          {(index || 0) + 1}
-        </span>
-      );
-    }, [
-      isCompletedStep,
-      isCurrentStep,
-      isError,
-      isLoading,
-      Icon,
-      index,
-      Check,
-      ErrorIcon,
-      isKeepError,
-      ref,
-      size,
-    ]);
-  }
-);
+//     return React.useMemo(() => {
+//       if (isCompletedStep) {
+//         if (isError && isKeepError) {
+//           return (
+//             <div key="icon">
+//               <X className={cn(iconVariants({ size }))} />
+//             </div>
+//           );
+//         }
+//         return (
+//           <div key="check-icon">
+//             <Check className={cn(iconVariants({ size }))} />
+//           </div>
+//         );
+//       }
+//       if (isCurrentStep) {
+//         if (isError && ErrorIcon) {
+//           return (
+//             <div key="error-icon">
+//               <ErrorIcon className={cn(iconVariants({ size }))} />
+//             </div>
+//           );
+//         }
+//         if (isError) {
+//           return (
+//             <div key="icon">
+//               <X className={cn(iconVariants({ size }))} />
+//             </div>
+//           );
+//         }
+//         if (isLoading) {
+//           return (
+//             <Loader2 className={cn(iconVariants({ size }), "animate-spin")} />
+//           );
+//         }
+//       }
+//       if (Icon) {
+//         return (
+//           <div key="step-icon">
+//             <Icon className={cn(iconVariants({ size }))} />
+//           </div>
+//         );
+//       }
+//       return (
+//         <span
+//           ref={ref}
+//           key="label"
+//           className={cn("font-medium text-center text-md")}
+//         >
+//           {(index || 0) + 1}
+//         </span>
+//       );
+//     }, [
+//       isCompletedStep,
+//       isCurrentStep,
+//       isError,
+//       isLoading,
+//       Icon,
+//       index,
+//       Check,
+//       ErrorIcon,
+//       isKeepError,
+//       ref,
+//       size,
+//     ]);
+//   }
+// );
 
 // <---------- STEP LABEL ---------->
 

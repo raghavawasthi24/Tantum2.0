@@ -10,8 +10,8 @@ export default function SelectPerson({ form }: any) {
       name="source"
       render={({ field }) => (
         <FormItem className="w-full flex flex-wrap gap-4 justify-center items-end">
-          {person?.map((person) => (
-            <Card className="w-24 h-24 flex justify-center items-center hover:bg-muted">
+          {person?.map((person,key) => (
+            <Card key={key} className="w-24 h-24 flex justify-center items-center hover:bg-muted">
               {person}
             </Card>
           ))}

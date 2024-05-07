@@ -1,18 +1,34 @@
 import React from "react";
-import { GoogleLogin } from "@react-oauth/google";
-import EmailPasswordLogin from "@/app/auth/login/components/EmailPasswordLogin";
-import { handleError, handleSuccess } from "./function";
+import EmailPasswordLogin from "@/app/auth/login/components/email-password-login";
+import GoogleLogin from "@/app/auth/login/components/google-login";
 import AuthHeader from "@/components/shared/AuthHaeder/auth-header";
+import MsLogin from "@/app/auth/login/components/ms-login";
+import GitLogin from "./components/git-login";
+import Link from "next/link";
 
 export default function Page() {
   return (
-    <section className="h-screen flex items-center">
-      <AuthHeader />
-      <div className="shadow-md p-8 w-[450px] mx-auto flex flex-col gap-4 bg-white">
-        <p className="text-2xl font-semibold">Sign In</p>
-        <GoogleLogin onSuccess={handleSuccess} onError={handleError} />
-        <p className="text-center text-muted text-xs">or login through</p>
+    <section className="h-screen flex items-center bg-slate-200">
+      <div className=" p-8 w-[450px] mx-auto flex flex-col gap-4 bg-white">
+        <AuthHeader />
         <EmailPasswordLogin />
+        <p className="text-center text-sm">
+          Don't have an account?{""}
+          <Link
+            href="/auth/register"
+            className="mx-1 text-blue-500 font-semibold"
+          >
+            Sign up
+          </Link>
+        </p>
+        <p className="text-center text-muted text-xs">
+          or you can continue with
+        </p>
+        <div className="flex gap-2">
+          <GoogleLogin />
+          <MsLogin />
+          <GitLogin />
+        </div>
       </div>
     </section>
   );

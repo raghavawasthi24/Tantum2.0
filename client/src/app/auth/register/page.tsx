@@ -1,10 +1,10 @@
 import React from "react";
-import EmailPasswordLogin from "@/app/auth/login/components/email-password-login";
 import GoogleLogin from "@/components/shared/Auth/google-login";
 import AuthHeader from "@/components/shared/AuthHaeder/auth-header";
 import MsLogin from "@/components/shared/Auth/ms-login";
 import GitLogin from "../../../components/shared/Auth/git-login";
 import Link from "next/link";
+import EmailPasswordLogin from "./components/email-password-login";
 
 export default function Page() {
   return (
@@ -13,12 +13,9 @@ export default function Page() {
         <AuthHeader />
         <EmailPasswordLogin />
         <p className="text-center text-sm">
-          Don't have an account?{""}
-          <Link
-            href="/auth/register"
-            className="mx-1 text-blue-500 font-semibold"
-          >
-            Sign up
+          Already have an account?{""}
+          <Link href="/auth/login" className="mx-1 text-blue-500 font-semibold">
+            Sign in
           </Link>
         </p>
         <p className="text-center text-muted text-xs">

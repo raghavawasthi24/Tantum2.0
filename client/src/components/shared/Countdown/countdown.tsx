@@ -16,8 +16,9 @@ const Countdown: React.FC<CountdownProps> = ({
 
   useEffect(() => {
     if (timeout) {
-      clearInterval(intervalId!); // Clear interval when timeout triggers
+      clearInterval(intervalId!);
     }
+    //eslint-disable-next-line
   }, [timeout]);
 
   useEffect(() => {
@@ -36,12 +37,14 @@ const Countdown: React.FC<CountdownProps> = ({
       clearInterval(intervalId!); // Clear interval when time is up
       setTimeout(true); // Trigger timeout
     }
+    //eslint-disable-next-line
   }, [timeLeft]);
 
   useEffect(() => {
     if (!timeout) {
       setTimeLeft(seconds); // Reset time when timeout is false
     }
+    //eslint-disable-next-line
   }, [timeout]);
 
   const formatTime = (time: number): string => {

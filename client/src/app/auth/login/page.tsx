@@ -13,7 +13,7 @@ export default function Page() {
         <AuthHeader />
         <EmailPasswordLogin />
         <p className="text-center text-sm">
-          Don't have an account?{""}
+          Don&apos;t have an account?
           <Link href="/auth/register" className="mx-1 text-primary font-medium">
             Sign up
           </Link>

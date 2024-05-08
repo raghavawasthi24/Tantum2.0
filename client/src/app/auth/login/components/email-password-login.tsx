@@ -78,9 +78,7 @@ export default function EmailPasswordLogin() {
             Forgot Password
           </Link>
         </div>
-        <Button type="submit" className="bg-blue-500">
-          Submit
-        </Button>
+        <Button type="submit">Submit</Button>
       </form>
     </Form>
   );

@@ -13,9 +13,6 @@ import { zodResolver } from "@hookform/resolvers/zod";
 import React from "react";
 import { useForm } from "react-hook-form";
 import { LoginSchema } from "../../../../schemas/Login";
-import { Checkbox } from "@/components/ui/checkbox";
-import Link from "next/link";
-import { LiaQuestionCircleSolid } from "react-icons/lia";
 
 export default function EmailPasswordLogin() {
   const form = useForm({
@@ -57,7 +54,7 @@ export default function EmailPasswordLogin() {
             </FormItem>
           )}
         />
-        <Button type="submit" className="bg-blue-500">
+        <Button type="submit">
           Submit
         </Button>
       </form>

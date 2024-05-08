@@ -9,15 +9,12 @@ import Link from "next/link";
 export default function Page() {
   return (
     <section className="h-screen flex items-center bg-slate-200">
-      <div className=" p-8 w-[450px] mx-auto flex flex-col gap-4 bg-white">
+      <div className=" p-8 w-[450px] mx-auto flex flex-col gap-4 bg-background">
         <AuthHeader />
         <EmailPasswordLogin />
         <p className="text-center text-sm">
           Don't have an account?{""}
-          <Link
-            href="/auth/register"
-            className="mx-1 text-blue-500 font-semibold"
-          >
+          <Link href="/auth/register" className="mx-1 text-primary font-medium">
             Sign up
           </Link>
         </p>

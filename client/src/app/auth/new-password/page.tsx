@@ -53,14 +53,22 @@ export default function page() {
           name="username"
           render={({ field }) => (
             <FormItem className="w-1/3">
-              <FormLabel className="font-semibold text-xl">
-                Forgot Password
-              </FormLabel>
-              <FormDescription>
-                A link will be sent on your registered email.
-              </FormDescription>
+              <FormLabel>New Password</FormLabel>
               <FormControl>
-                <Input placeholder="Email" {...field} />
+                <Input placeholder="Password" {...field} />
+              </FormControl>
+              <FormMessage />
+            </FormItem>
+          )}
+        />
+        <FormField
+          control={form.control}
+          name="username"
+          render={({ field }) => (
+            <FormItem className="w-1/3">
+              <FormLabel>Confirm New Password</FormLabel>
+              <FormControl>
+                <Input placeholder="Re-enter password" {...field} />
               </FormControl>
               <FormMessage />
             </FormItem>

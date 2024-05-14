@@ -4,6 +4,7 @@ import jwt from "jsonwebtoken";
 import User from "../models/user";
 import dotenv from "dotenv";
 import { UserSchema } from "../types/user";
+import { tokengenerate } from "../services/tokengenerate";
 // import multer from "multer";
 // import { v4 as uuidv4 } from "uuid";
 // import path from "path";
@@ -59,22 +60,25 @@ const registerUser = async (req: Request, res: Response): Promise<void> => {
     const hashedPassword = await bcrypt.hash(password, 15);
 
     // Create a new user
+
+    const token = tokengenerate(
+        email,
+        process.env.ACCESS_TOKEN_SECRET as string,
+        process.env.ACCESS_TOKEN_EXPIRY as string,
+        process.env.REFRESH_TOKEN_SECRET as string,
+        process.env.REFRESH_TOKEN_EXPIRY as string
+        );
+
+        console.log(token);
+
     const newUser: UserSchema = new User({
       email,
       password: hashedPassword,
+      token
     });
 
     // Save the new user to the database
     await newUser.save();
-
-    // Generate JWT token
-    const token = jwt.sign(
-      { userId: newUser._id },
-      process.env.JWT_SECRET_KEY || "qwert1234",
-      {
-        expiresIn: "1h",
-      }
-    );
 
     // Return success response with JWT token
     res.status(201).json({ message: "Registration successful", token });

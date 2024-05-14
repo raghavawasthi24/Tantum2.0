@@ -21,7 +21,11 @@ const userSchema = new mongoose.Schema<UserSchema>({
     offered: { type: [String] },
     booked: { type: [String] },
   },
-});
+},{
+  timestamps: true,
+
+}
+);
 
 const UserModel = mongoose.model<UserSchema>("User", userSchema);
 

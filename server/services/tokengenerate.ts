@@ -16,10 +16,10 @@ export const tokengenerate = (
       : accessTokenExpiry;
 
 
-  const refreshTokenExpirySeconds =
-    typeof refreshTokenExpiry === "string"
-      ? convertToSeconds(refreshTokenExpiry)
-      : refreshTokenExpiry;
+  // const refreshTokenExpirySeconds =
+  //   typeof refreshTokenExpiry === "string"
+  //     ? convertToSeconds(refreshTokenExpiry)
+  //     : refreshTokenExpiry;
 
 
   const accessToken = jwt.sign(
@@ -28,7 +28,7 @@ export const tokengenerate = (
     },
     accessTokenSecret,
     {
-      expiresIn: accessTokenExpirySeconds,
+      expiresIn: accessTokenExpiry,
     }
   );
 
@@ -39,7 +39,7 @@ export const tokengenerate = (
     },
     refreshTokenSecret,
     {
-      expiresIn: refreshTokenExpirySeconds,
+      expiresIn: refreshTokenExpiry,
     }
   );
 

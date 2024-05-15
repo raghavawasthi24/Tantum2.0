@@ -1,16 +1,14 @@
 import express from "express";
+import { loginUser, registerUser, dummy } from "../controllers/authController";
+import { verify } from "jsonwebtoken";
 const router = express.Router();
+import verifyToken from "../middleware/index";
 // const auth = require("../middleware/auth");
-const {  registerUser } = require("../controllers/authController");
-// const { bookSlot, allSlot, pendingSlot } = require("../controllers/slots");
 
 //Routes for user
-// router.post("/login", loginUser);
+router.post("/login", loginUser);
 router.post("/register", registerUser);
+router.get("/dummy",verifyToken, dummy);
 
-//Routes for slots
-// router.post("/bookSlot", bookSlot);
-// router.post("/allSlots", allSlot);
-// router.post("/pendingSlots", pendingSlot);
 
 module.exports = router;

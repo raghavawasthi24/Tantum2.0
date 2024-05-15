@@ -11,42 +11,45 @@ import { tokengenerate } from "../services/tokengenerate";
 
 dotenv.config();
 
-// const loginUser = async (req: Request, res: Response): Promise<void> => {
-//   const { id, password } = req.body;
+const loginUser = async (req: Request, res: Response): Promise<any> => {
+  const { email, password } = req.body;
 
-//   try {
-//     const user = (await User.findOne({ id }));
+  try {
+    if(!email || !password) 
+     return res.status(400).json({ msg: "Please enter all fields" });
 
-//     if (user) {
-//       const payload = { _id: user._id };
-//       const cookie_token = jwt.sign(payload, process.env.SECRET_KEY as string);
-//       res.cookie("jwt", cookie_token, {
-//         secure: true,
-//         expires: new Date(Date.now() + 10800),
-//         httpOnly: false,
-//       });
+    const user = (await User.findOne({ email }));
 
-//       const isPasswordMatched = await bcrypt.compare(password, user.password);
+    if (user) {
+       const token = tokengenerate(
+         email,
+         process.env.ACCESS_TOKEN_SECRET as string,
+         process.env.ACCESS_TOKEN_EXPIRY as string,
+         process.env.REFRESH_TOKEN_SECRET as string,
+         process.env.REFRESH_TOKEN_EXPIRY as string
+       );
 
-//       if (isPasswordMatched) {
-//         res.status(200).json({ msg: "Logged in", jwt_token: cookie_token });
-//       } else {
-//         res.status(200).json({ msg: "Password not matched" });
-//       }
-//     } else {
-//       res.status(200).json({ msg: "User not found" });
-//     }
-//   } catch (error) {
-//     console.error(error);
-//     res.status(500).json({ error: "Login failed" });
-//   }
-// };
+      const isPasswordMatched = await bcrypt.compare(password, user.password);
+
+      if (isPasswordMatched) {
+        return res.status(200).json({ msg: "Logged in",id:user._id, token });
+      } else {
+        return res.status(200).json({ msg: "Password not matched" });
+      }
+    } else {
+      return res.status(200).json({ msg: "User not found" });
+    }
+  } catch (error) {
+    console.error(error);
+    res.status(500).json({ error: "Login failed" });
+  }
+};
+
 
 const registerUser = async (req: Request, res: Response): Promise<void> => {
   const { email, password } = req.body;
 
   try {
-    // Check if user with the given email already exists
     const existingUser = await User.findOne({ email });
 
     if (existingUser) {
@@ -54,12 +57,7 @@ const registerUser = async (req: Request, res: Response): Promise<void> => {
       return;
     }
 
-    // Validate password (e.g., length, complexity)
-
-    // Hash the password
     const hashedPassword = await bcrypt.hash(password, 15);
-
-    // Create a new user
 
     const token = tokengenerate(
         email,
@@ -77,10 +75,8 @@ const registerUser = async (req: Request, res: Response): Promise<void> => {
       token
     });
 
-    // Save the new user to the database
     await newUser.save();
 
-    // Return success response with JWT token
     res.status(201).json({ message: "Registration successful", token });
   } catch (error) {
     console.error(error);
@@ -88,4 +84,8 @@ const registerUser = async (req: Request, res: Response): Promise<void> => {
   }
 };
 
-export { registerUser };
+const dummy = (req: Request, res: Response): void => {
+  res.status(200).json({ message: "Dummy route" });
+}
+
+export {loginUser, registerUser, dummy };

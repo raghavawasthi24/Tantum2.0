@@ -4,6 +4,10 @@ import jwt from "jsonwebtoken";
 import { UserSchema } from "../types/user";
 
 const verifyToken = (req: any, res: Response, next: NextFunction) => {
+
+  /**  token must beign with Bearer
+   e.g Bearer eryr******bdwjve */
+
   if (
     req.headers &&
     req.headers.authorization &&

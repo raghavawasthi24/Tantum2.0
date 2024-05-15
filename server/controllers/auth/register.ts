@@ -13,32 +13,40 @@ const signup = async (req: Request, res: Response): Promise<void> => {
   try {
     const existingUser = await User.findOne({ email });
 
-    if (existingUser) {
+    if (existingUser && existingUser.isVerified) {
       res.status(400).json({ error: "User is already registered" });
       return;
     }
 
+
     const hashedPassword = await bcrypt.hash(password, 15);
+    if(!existingUser){
 
-    const token = tokengenerate(
-      email,
-      process.env.ACCESS_TOKEN_SECRET as string,
-      process.env.ACCESS_TOKEN_EXPIRY as string,
-      process.env.REFRESH_TOKEN_SECRET as string,
-      process.env.REFRESH_TOKEN_EXPIRY as string
-    );
+    // const token = tokengenerate(
+    //   email,
+    //   process.env.ACCESS_TOKEN_SECRET as string,
+    //   process.env.ACCESS_TOKEN_EXPIRY as string,
+    //   process.env.REFRESH_TOKEN_SECRET as string,
+    //   process.env.REFRESH_TOKEN_EXPIRY as string
+    // );
 
-    console.log(token);
+    // console.log(token);
 
     const newUser: UserSchema = new User({
       email,
-      password: hashedPassword,
-      token,
+      password: hashedPassword
     });
 
     await newUser.save();
 
-    res.status(201).json({ message: "Registration successful", token });
+    res.status(201).json({ message: "OTP is sent to your email" });
+  } else {
+
+    await User.findOneAndUpdate({email}, {password:hashedPassword}, {new: true});
+
+    res.status(201).json({ message: "OTP is sent to your email" });
+
+  }
   } catch (error) {
     console.error(error);
     res.status(500).json({ error: "Registration failed" });

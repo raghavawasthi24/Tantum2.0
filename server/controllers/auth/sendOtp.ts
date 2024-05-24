@@ -2,6 +2,7 @@ import User from "../../models/user";
 import { Request, Response } from "express";
 import { otpVerification } from "../../services/otpVerification";
 import { tokengenerate } from "../../services/tokengenerate";
+import { otpGenerate } from "../../services/otpgenerate";
 
 const sendOtp = async (req: Request, res: Response) => {
   const { email } = req.body;
@@ -11,33 +12,24 @@ const sendOtp = async (req: Request, res: Response) => {
 
     const user = await User.findOne({ email });
 
-    if (!user) return res.status(400).json({ msg: "User not found" });
+    if (!user) return res.status(404).json({ msg: "User not found" });
 
+    const newotp = otpGenerate();
+
+    const otp = {
+      otp: newotp,
+      expiresIn: new Date(new Date().getTime() + 60000),
+    };
+
+    user.otp = otp;
+    await user.save();
+
+    res.status(200).json({ msg: "OTP sent successfully" });
     
-
-    if (otpResult === "Email verified") {
-      const token = tokengenerate(
-        email,
-        process.env.ACCESS_TOKEN_SECRET as string,
-        process.env.ACCESS_TOKEN_EXPIRY as string,
-        process.env.REFRESH_TOKEN_SECRET as string,
-        process.env.REFRESH_TOKEN_EXPIRY as string
-      );
-
-      user.isVerified = true;
-      user.tokens = token;
-
-      await user.save();
-      return res
-        .status(200)
-        .json({ msg: "Email verified", id: user.id, token });
-    } else {
-      return res.status(400).json({ msg: otpResult });
-    }
   } catch (error) {
     console.error(error);
     res.status(500).json({ error: "Verification failed" });
   }
 };
 
-export { verifyEmail };
+export { sendOtp };

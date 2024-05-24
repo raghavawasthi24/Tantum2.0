@@ -23,7 +23,7 @@ const signup = async (req: Request, res: Response): Promise<void> => {
     const newotp = otpGenerate();
     const otp = {
       otp: newotp,
-      expiresIn: new Date().getTime() + 60000,
+      expiresIn: new Date(new Date().getTime() + 60000),
     };
 
     if (!existingUser) {

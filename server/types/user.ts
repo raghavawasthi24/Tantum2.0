@@ -1,7 +1,7 @@
 import { Document } from "mongoose";
 
 interface OtpSchema {
-  otp: number;
+  otp: String;
   expiresIn: Date;
 }
 

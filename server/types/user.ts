@@ -5,6 +5,12 @@ interface OtpSchema {
   expiresIn: Date;
 }
 
+interface tokenSchema {
+  accessToken: string;
+  refreshToken: string;
+  expiryDate: Date;
+}
+
 interface UserRideInfo {
   rating: string;
   peopleRated: number;
@@ -24,4 +30,5 @@ export interface UserSchema extends Document {
   dob: Date;
   avatar: string;
   rideInfo: UserRideInfo;
+  tokens: tokenSchema;
 }

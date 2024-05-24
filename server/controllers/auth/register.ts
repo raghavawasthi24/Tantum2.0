@@ -2,7 +2,6 @@ import { Request, Response } from "express";
 import bcrypt from "bcrypt";
 import dotenv from "dotenv";
 import User from "../../models/user";
-import { tokengenerate } from "../../services/tokengenerate";
 import { UserSchema } from "../../types/user";
 import { otpGenerate } from "../../services/otpgenerate";
 import { sendEmail } from "../../services/emailService";
@@ -20,7 +19,6 @@ const signup = async (req: Request, res: Response): Promise<void> => {
       return;
     }
 
-
     const hashedPassword = await bcrypt.hash(password, 15);
     const newotp = otpGenerate();
     const otp = {
@@ -28,38 +26,29 @@ const signup = async (req: Request, res: Response): Promise<void> => {
       expiresIn: new Date().getTime() + 60000,
     };
 
+    if (!existingUser) {
+    
+      const newUser: UserSchema = new User({
+        email,
+        password: hashedPassword,
+        otp,
+      });
 
-    if(!existingUser){
+      await newUser.save();
 
-    // const token = tokengenerate(
-    //   email,
-    //   process.env.ACCESS_TOKEN_SECRET as string,
-    //   process.env.ACCESS_TOKEN_EXPIRY as string,
-    //   process.env.REFRESH_TOKEN_SECRET as string,
-    //   process.env.REFRESH_TOKEN_EXPIRY as string
-    // );
+      sendEmail({ email, otp: newotp });
 
-    // console.log(token);
+      res.status(201).json({ message: "OTP is sent to your email" });
+    } else {
+      sendEmail({ email, otp: newotp });
+      await User.findOneAndUpdate(
+        { email },
+        { password: hashedPassword, otp },
+        { new: true }
+      );
 
-    const newUser: UserSchema = new User({
-      email,
-      password: hashedPassword,
-      otp
-    });
-
-    await newUser.save();
-
-    sendEmail({ email, otp: newotp });
-
-    res.status(201).json({ message: "OTP is sent to your email" });
-  } else {
-
-    sendEmail({ email, otp: newotp });
-    await User.findOneAndUpdate({email}, {password:hashedPassword}, {new: true});
-
-    res.status(201).json({ message: "OTP is sent to your email" });
-
-  }
+      res.status(201).json({ message: "OTP is sent to your email" });
+    }
   } catch (error) {
     console.error(error);
     res.status(500).json({ error: "Registration failed" });

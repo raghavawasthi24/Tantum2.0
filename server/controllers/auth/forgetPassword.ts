@@ -4,7 +4,7 @@ import { otpVerification } from "../../services/otpVerification";
 import { tokengenerate } from "../../services/tokengenerate";
 
 
-const verifyEmail= async (req: Request, res: Response) => {
+const forgotPassword= async (req: Request, res: Response) => {
     const { email, otp } = req.body;
     
     try {
@@ -43,4 +43,4 @@ const verifyEmail= async (req: Request, res: Response) => {
     }
 }
 
-export { verifyEmail };
+export { forgotPassword };

@@ -1,40 +1,24 @@
 import User from "../../models/user";
 import { Request, Response } from "express";
-import { otpVerification } from "../../services/otpVerification";
-import { tokengenerate } from "../../services/tokengenerate";
-
+import bcrypt from "bcrypt";
 
 const forgotPassword= async (req: Request, res: Response) => {
-    const { email, otp } = req.body;
+    const { email, password } = req.body;
     
     try {
-        if (!email || !otp)
+        if (!email || !password)
         return res.status(400).json({ msg: "Invalid fields" });
     
         const user = await User.findOne({ email });
         
         if(!user)
         return res.status(400).json({ msg: "User not found" });
+        
+        const hashedPassword = await bcrypt.hash(password, 15);
 
-        let otpResult = otpVerification(user, otp);
-        if(otpResult === "Email verified"){
-          const token = tokengenerate(
-            email,
-            process.env.ACCESS_TOKEN_SECRET as string,
-            process.env.ACCESS_TOKEN_EXPIRY as string,
-            process.env.REFRESH_TOKEN_SECRET as string,
-            process.env.REFRESH_TOKEN_EXPIRY as string
-          );
-
-          user.isVerified = true;
-          user.tokens= token;
-
-          await user.save();
-          return res.status(200).json({ msg: "Email verified",id:user.id, token});
-        }
-        else {
-            return res.status(400).json({ msg: otpResult });
-        }
+        user.password = hashedPassword;
+        await user.save();
+        res.status(200).json({ msg: "Password changed successfully" });
 
     }
     catch (error) {

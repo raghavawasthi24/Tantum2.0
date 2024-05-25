@@ -6,6 +6,8 @@ import { dummy, signup } from "../controllers/auth/register";
 import { verifyEmail } from "../controllers/auth/verifyEmail";
 import { sendOtp } from "../controllers/auth/sendOtp";
 import { verifyOtp } from "../controllers/auth/verifyOtp";
+import { sendLink } from "../controllers/auth/sendLink";
+import { forgotPassword } from "../controllers/auth/forgetPassword";
 
 //Routes for user
 router.post("/login", login);
@@ -13,6 +15,8 @@ router.post("/register", signup);
 router.post('/verify-otp', verifyOtp);
 router.post('/send-otp', sendOtp);
 router.post('verify-email', verifyEmail);
+router.get('/send-link',sendLink);
+router.post('/forgot-password',forgotPassword);
 router.get("/dummy",verifyToken, dummy);
 
 

@@ -55,8 +55,8 @@ const signup = async (req: Request, res: Response): Promise<void> => {
   }
 };
 
-const dummy = (res: Response): void => {
-  res.status(200).json({ message: "Dummy route" });
+const dummy = (req:any,res: any) => {
+  res.status(200).json({ message: "hello" });
 };
 
 export { signup, dummy };

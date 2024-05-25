@@ -3,8 +3,7 @@ import User from "../models/user";
 import jwt from "jsonwebtoken";
 import { UserSchema } from "../types/user";
 
-const verifyToken = (req: any, res: Response, next: NextFunction) => {
-
+const verifyToken = (req: any, res: any, next: NextFunction) => {
   /**  token must beign with Bearer
    e.g Bearer eryr******bdwjve */
 
@@ -18,9 +17,11 @@ const verifyToken = (req: any, res: Response, next: NextFunction) => {
       process.env.ACCESS_TOKEN_SECRET as string,
       (err: jwt.VerifyErrors | null, decode: any) => {
         if (err) {
+          console.log(err);
           return res.status(401).send("Invalid Token");
           next();
         } else {
+          console.log(decode.email);
           User.findOne({
             email: decode.email,
           })
@@ -29,7 +30,7 @@ const verifyToken = (req: any, res: Response, next: NextFunction) => {
               next();
             })
             .catch((err: any) => {
-              return res.status(401).send("Invalid Token");
+              console.log(err);
               next();
             });
         }

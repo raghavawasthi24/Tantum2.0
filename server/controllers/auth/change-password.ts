@@ -2,7 +2,7 @@ import User from "../../models/user";
 import { Request, Response } from "express";
 import bcrypt from "bcrypt";
 
-const forgotPassword= async (req: Request, res: Response) => {
+const changePassword= async (req: Request, res: Response) => {
     const { email, password } = req.body;
     
     try {
@@ -27,4 +27,4 @@ const forgotPassword= async (req: Request, res: Response) => {
     }
 }
 
-export { forgotPassword };
+export { changePassword };

@@ -3,7 +3,7 @@ import { Request, Response } from "express";
 import { otpGenerate } from "../../services/otpgenerate";
 import { sendEmail } from "../../services/emailService";
 
-const sendLink = async (req: Request, res: Response) => {
+const forgotPassword = async (req: Request, res: Response) => {
   const email = req.query.email as string;
 
   try {
@@ -32,4 +32,4 @@ const sendLink = async (req: Request, res: Response) => {
   }
 };
 
-export { sendLink };
+export { forgotPassword };

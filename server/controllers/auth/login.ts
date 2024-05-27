@@ -12,7 +12,7 @@ const login = async (req: Request, res: Response): Promise<any> => {
 
   try {
     if (!email || !password)
-      return res.status(400).json({ msg: "Invalid fields" });
+      return res.status(400).json({ message: "Invalid fields" });
 
     const user = await User.findOne({ email });
 
@@ -28,12 +28,16 @@ const login = async (req: Request, res: Response): Promise<any> => {
       const isPasswordMatched = await bcrypt.compare(password, user.password);
 
       if (isPasswordMatched) {
-        return res.status(200).json({ msg: "Logged in", id: user._id, token });
+        return res
+          .status(200)
+          .json({ message: "Logged in", id: user._id, token });
       } else {
-        return res.status(200).json({ msg: "Email or password is incorrect" });
+        return res
+          .status(200)
+          .json({ message: "Email or password is incorrect" });
       }
     } else {
-      return res.status(200).json({ msg: "Email is not registered" });
+      return res.status(200).json({ message: "Email is not registered" });
     }
   } catch (error) {
     console.error(error);

@@ -15,7 +15,7 @@ app.use(`/${process.env.VERSION}`, require("./routes/index"));
 
 app.get("/", (req: Request, res: Response) => {
   res.status(200).json({
-    msg: "Hello, Welcome To This Page",
+    message: "Hello, Welcome To This Page",
   });
 });
 

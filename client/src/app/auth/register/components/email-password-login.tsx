@@ -17,11 +17,11 @@ import { registerAction } from "@/actions/Auth/auth";
 import { z } from "zod";
 import toast from "react-hot-toast";
 import { useRouter } from "next/navigation";
+import Cookies from "js-cookie";
 
 export default function EmailPasswordLogin() {
-
   const router = useRouter();
-  
+
   const form = useForm({
     resolver: zodResolver(LoginSchema),
     defaultValues: {
@@ -33,10 +33,11 @@ export default function EmailPasswordLogin() {
     try {
       const res = await registerAction(data);
       toast.success(res);
-      router.push('/auth/verify-otp');
-    } catch (error:any) {
-       const errorMessage = error.message || "Something went wrong!";
-       toast.error(errorMessage);
+      Cookies.set("email", data.email, { expires: 1 }); // The cookie will expire in 1 day
+      router.push("/auth/verify-otp");
+    } catch (error: any) {
+      const errorMessage = error.message || "Something went wrong!";
+      toast.error(errorMessage);
     }
   };
   return (

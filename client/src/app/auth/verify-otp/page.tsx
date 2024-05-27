@@ -19,14 +19,21 @@ import {
   InputOTPGroup,
   InputOTPSlot,
 } from "@/components/ui/input-otp";
-import { toast } from "@/components/ui/use-toast";
 import Countdown from "@/components/shared/Countdown/countdown";
 import { useState } from "react";
 import { useRouter } from "next/navigation";
+import { REGEXP_ONLY_DIGITS_AND_CHARS } from "input-otp";
+import toast from "react-hot-toast";
+import { VerifyOtpAction, resendOtpAction } from "@/actions/Auth/auth";
+import Cookies from "js-cookie";
 
-const FormSchema = z.object({
-  pin: z.string().min(6, {
-    message: "Your one-time password must be 6 characters.",
+
+export const FormSchema = z.object({
+  email: z.string().email({
+    message: "Enter a valid email",
+  }),
+  otp: z.string().min(6, {
+    message: "Enter correct OTP",
   }),
 });
 
@@ -34,22 +41,34 @@ export default function Page() {
   const form = useForm<z.infer<typeof FormSchema>>({
     resolver: zodResolver(FormSchema),
     defaultValues: {
-      pin: "",
+      email: Cookies.get("email") || "",
+      otp: "",
     },
   });
 
   const [timeout, setTimeout] = useState(false);
   const router = useRouter();
 
-  function onSubmit(data: z.infer<typeof FormSchema>) {
-    toast({
-      title: "You submitted the following values:",
-      description: (
-        <pre className="mt-2 w-[340px] rounded-md bg-slate-950 p-4">
-          <code className="text-white">{JSON.stringify(data, null, 2)}</code>
-        </pre>
-      ),
-    });
+  async function onSubmit(data: z.infer<typeof FormSchema>) {
+   try {
+     const res = await VerifyOtpAction(data);
+     toast.success(res);
+     router.push("/");
+   } catch (error: any) {
+    console.log(error);
+     const errorMessage = error.message || "Something went wrong!";
+     toast.error(errorMessage);
+   }
+  }
+
+  async function resendCode() {
+    try {
+      const res= await resendOtpAction({ email: form.getValues("email") });
+      toast.success(res);
+    } catch (error: any) {
+      const errorMessage = error.message || "Something went wrong!";
+      toast.error(errorMessage);
+    }
   }
 
   return (
@@ -60,7 +79,7 @@ export default function Page() {
       >
         <FormField
           control={form.control}
-          name="pin"
+          name="otp"
           render={({ field }) => (
             <FormItem className="w-1/3 flex flex-col ">
               <FormLabel className="text-xl font-semibold">
@@ -70,7 +89,11 @@ export default function Page() {
                 Please enter the one-time password sent to your email.
               </FormDescription>
               <FormControl>
-                <InputOTP maxLength={6} {...field}>
+                <InputOTP
+                  maxLength={6}
+                  {...field}
+                  pattern={REGEXP_ONLY_DIGITS_AND_CHARS}
+                >
                   <InputOTPGroup>
                     <InputOTPSlot index={0} className="w-16 h-16" />
                     <InputOTPSlot index={1} className="w-16 h-16" />
@@ -93,12 +116,12 @@ export default function Page() {
           className="text-red-500"
         >
           {timeout ? (
-            <div>Resend Code</div>
+            <div onClick={resendCode}>Resend Code</div>
           ) : (
             <div className="flex">
               Resend Code in{" "}
               <Countdown
-                seconds={120}
+                seconds={20}
                 setTimeout={setTimeout}
                 timeout={timeout}
               />

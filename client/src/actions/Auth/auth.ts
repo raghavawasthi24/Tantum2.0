@@ -1,9 +1,10 @@
 "use server";
+import { FormSchema } from "@/app/auth/verify-otp/page";
 import { LoginSchema } from "@/schemas/Login";
 import { z } from "zod";
 
 export const registerAction = async (data: z.infer<typeof LoginSchema>) => {
-    
+
     const res = await fetch(`${process.env.NEXT_PUBLIC_API_URL}/register`, {
       method: "POST",
       headers: {
@@ -23,3 +24,53 @@ export const registerAction = async (data: z.infer<typeof LoginSchema>) => {
     const resData = await res.json();
     return resData.message;
 };
+
+
+export const VerifyOtpAction = async (data: z.infer<typeof FormSchema>) => {
+
+    console.log(data);
+    
+        const res = await fetch(`${process.env.NEXT_PUBLIC_API_URL}/verify-email`, {
+        method: "POST",
+        headers: {
+            "Content-Type": "application/json",
+            cache: "no-store",
+        },
+        body: JSON.stringify(data),
+        });
+    
+        // Check if response is okay and handle different status codes
+        console.log(res);
+        if (!res.ok) {
+        const errorData = await res.json();
+        console.log(errorData);
+        throw new Error(errorData.message || "An error occurred");
+        }
+    
+        // Parse response data
+        const resData = await res.json();
+        console.log(resData);
+        return resData.message;
+    }
+
+
+    export const resendOtpAction = async (data: any) => {
+        const res = await fetch(`${process.env.NEXT_PUBLIC_API_URL}/send-otp`, {
+          method: "POST",
+          headers: {
+            "Content-Type": "application/json",
+            cache: "no-store",
+          },
+          body: JSON.stringify(data),
+        });
+    
+        // Check if response is okay and handle different status codes
+        if (!res.ok) {
+          const errorData = await res.json();
+          throw new Error(errorData.message || "An error occurred");
+        }
+    
+        // Parse response data
+        const resData = await res.json();
+        return resData.message;
+    }

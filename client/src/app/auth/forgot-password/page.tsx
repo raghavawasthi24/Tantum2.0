@@ -15,31 +15,29 @@ import {
   FormMessage,
 } from "@/components/ui/form";
 import { Input } from "@/components/ui/input";
-import { toast } from "@/components/ui/use-toast";
+import { forgotPasswordAction } from "@/actions/Auth/auth";
+import toast from "react-hot-toast";
 
 const FormSchema = z.object({
-  username: z.string().min(2, {
-    message: "Username must be at least 2 characters.",
-  }),
+  email: z.string().email()
 });
 
 export default function Page() {
   const form = useForm<z.infer<typeof FormSchema>>({
     resolver: zodResolver(FormSchema),
     defaultValues: {
-      username: "",
+      email: "",
     },
   });
 
-  function onSubmit(data: z.infer<typeof FormSchema>) {
-    toast({
-      title: "You submitted the following values:",
-      description: (
-        <pre className="mt-2 w-[340px] rounded-md bg-slate-950 p-4">
-          <code className="text-white">{JSON.stringify(data, null, 2)}</code>
-        </pre>
-      ),
-    });
+  async function onSubmit(data: z.infer<typeof FormSchema>) {
+   try{
+    const res = await forgotPasswordAction(data);
+    toast.success(res.message || "OTP sent successfully");
+   }
+    catch(error:any){
+      toast.error(error.message || "An error occurred");
+    }
   }
 
   return (
@@ -50,7 +48,7 @@ export default function Page() {
       >
         <FormField
           control={form.control}
-          name="username"
+          name="email"
           render={({ field }) => (
             <FormItem className="w-1/3">
               <FormLabel className="font-semibold text-xl">

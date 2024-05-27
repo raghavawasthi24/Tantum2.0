@@ -16,8 +16,12 @@ import { LoginSchema } from "../../../../schemas/Login";
 import { Checkbox } from "@/components/ui/checkbox";
 import Link from "next/link";
 import { LiaQuestionCircleSolid } from "react-icons/lia";
+import { loginAction } from "@/actions/Auth/auth";
+import toast from "react-hot-toast";
+import { useRouter } from "next/navigation";
 
 export default function EmailPasswordLogin() {
+  const router = useRouter();
   const form = useForm({
     resolver: zodResolver(LoginSchema),
     defaultValues: {
@@ -25,8 +29,15 @@ export default function EmailPasswordLogin() {
       password: "",
     },
   });
-  const onSubmit = (data: any) => {
-    console.log(data);
+  const onSubmit = async (data: any) => {
+    try{
+      const res = await loginAction(data)
+      toast.success(res.message || "Login successful");
+      router.push("/");
+    }
+    catch(error:any){
+      toast.error(error.message || "An error occurred");
+    }
   };
   return (
     <Form {...form}>

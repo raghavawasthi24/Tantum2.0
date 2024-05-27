@@ -33,15 +33,15 @@ const login = async (req: Request, res: Response): Promise<any> => {
           .json({ message: "Logged in", id: user._id, token });
       } else {
         return res
-          .status(200)
+          .status(400)
           .json({ message: "Email or password is incorrect" });
       }
     } else {
-      return res.status(200).json({ message: "Email is not registered" });
+      return res.status(404).json({ message: "Email is not registered" });
     }
   } catch (error) {
     console.error(error);
-    res.status(500).json({ error: "Login failed" });
+    res.status(500).json({ message: "Login failed" });
   }
 };
 

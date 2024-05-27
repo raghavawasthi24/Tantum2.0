@@ -13,8 +13,15 @@ import { zodResolver } from "@hookform/resolvers/zod";
 import React from "react";
 import { useForm } from "react-hook-form";
 import { LoginSchema } from "../../../../schemas/Login";
+import { registerAction } from "@/actions/Auth/auth";
+import { z } from "zod";
+import toast from "react-hot-toast";
+import { useRouter } from "next/navigation";
 
 export default function EmailPasswordLogin() {
+
+  const router = useRouter();
+  
   const form = useForm({
     resolver: zodResolver(LoginSchema),
     defaultValues: {
@@ -22,8 +29,15 @@ export default function EmailPasswordLogin() {
       password: "",
     },
   });
-  const onSubmit = (data: any) => {
-    console.log(data);
+  const onSubmit = async (data: z.infer<typeof LoginSchema>) => {
+    try {
+      const res = await registerAction(data);
+      toast.success(res);
+      router.push('/auth/verify-otp');
+    } catch (error:any) {
+       const errorMessage = error.message || "Something went wrong!";
+       toast.error(errorMessage);
+    }
   };
   return (
     <Form {...form}>
@@ -54,9 +68,7 @@ export default function EmailPasswordLogin() {
             </FormItem>
           )}
         />
-        <Button type="submit">
-          Submit
-        </Button>
+        <Button type="submit">Submit</Button>
       </form>
     </Form>
   );

@@ -10,7 +10,7 @@ const forgotPassword = async (req: Request, res: Response) => {
     if (!email) return res.status(400).json({ message: "Invalid fields" });
 
     const user = await User.findOne({ email });
-    if (!user) return res.status(404).json({ message: "User not found" });
+    if (!user) return res.status(404).json({ message: "Email is not registered" });
 
     const newotp = otpGenerate();
     let link = `http://localhost:3000/auth/forgot-password/${newotp}`;
@@ -25,10 +25,10 @@ const forgotPassword = async (req: Request, res: Response) => {
     user.otp = otp;
     await user.save();
 
-    res.status(200).json({ message: "OTP sent successfully" });
+    res.status(200).json({ message: "Link sent to your email" });
   } catch (error) {
     console.error(error);
-    res.status(500).json({ error: "Verification failed" });
+    res.status(500).json({ error: "" });
   }
 };
 

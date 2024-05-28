@@ -19,6 +19,7 @@ import { LiaQuestionCircleSolid } from "react-icons/lia";
 import { loginAction } from "@/actions/Auth/auth";
 import toast from "react-hot-toast";
 import { useRouter } from "next/navigation";
+import { signIn } from "next-auth/react";
 
 export default function EmailPasswordLogin() {
   const router = useRouter();
@@ -30,10 +31,14 @@ export default function EmailPasswordLogin() {
     },
   });
   const onSubmit = async (data: any) => {
+    console.log(data);
     try{
-      const res = await loginAction(data)
-      toast.success(res.message || "Login successful");
-      router.push("/");
+      const res = await signIn();
+      console.log(res);
+      // const res = await loginAction(data)
+      if(res)
+      toast.success(res || "Login successful");
+      // router.push("/");
     }
     catch(error:any){
       toast.error(error.message || "An error occurred");

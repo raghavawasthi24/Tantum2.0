@@ -8,7 +8,7 @@ import EmailPasswordLogin from "./components/email-password-login";
 
 export default function Page() {
   return (
-    <section className="h-screen flex items-center bg-slate-200">
+    <section className="h-screen flex items-center sm:bg-slate-200">
       <div className=" p-8 w-[450px] mx-auto flex flex-col gap-4 bg-background">
         <AuthHeader />
         <EmailPasswordLogin />

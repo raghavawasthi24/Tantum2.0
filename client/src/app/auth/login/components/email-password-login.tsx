@@ -32,15 +32,23 @@ export default function EmailPasswordLogin() {
   });
   const onSubmit = async (data: any) => {
     console.log(data);
-    try{
-      const res = await signIn();
+    try {
+      // Call signIn with "credentials" provider
+      const res = await signIn("credentials", {
+        redirect: false,
+        email: data.email,
+        password: data.password,
+      });
+
       console.log(res);
-      // const res = await loginAction(data)
-      if(res)
-      toast.success(res || "Login successful");
-      // router.push("/");
-    }
-    catch(error:any){
+
+      if (res?.status == 200) {
+        toast.success("Login successful");
+        router.push("/");
+      } else {
+        toast.error("Invalid Credentials");
+      }
+    } catch (error: any) {
       toast.error(error.message || "An error occurred");
     }
   };

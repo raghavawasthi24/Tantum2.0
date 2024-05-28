@@ -28,8 +28,12 @@ import {
 import { ComboBox } from "@/components/shared/ComboxBox";
 import { CustomizedCalendar } from "@/components/shared/CustomizedCalender";
 import { cities } from "@/constants";
+import { useSession } from "next-auth/react";
 
 export default function LandingPage() {
+
+  const {data:session} = useSession();
+  console.log(session);
   const form = useForm();
   const [searchCity, setSearchCity] = useState([]);
 

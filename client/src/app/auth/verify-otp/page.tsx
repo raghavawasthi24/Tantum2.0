@@ -27,7 +27,6 @@ import toast from "react-hot-toast";
 import { VerifyOtpAction, resendOtpAction } from "@/actions/Auth/auth";
 import Cookies from "js-cookie";
 
-
 export const FormSchema = z.object({
   email: z.string().email({
     message: "Enter a valid email",
@@ -50,20 +49,20 @@ export default function Page() {
   const router = useRouter();
 
   async function onSubmit(data: z.infer<typeof FormSchema>) {
-   try {
-     const res = await VerifyOtpAction(data);
-     toast.success(res);
-     router.push("/");
-   } catch (error: any) {
-    console.log(error);
-     const errorMessage = error.message || "Something went wrong!";
-     toast.error(errorMessage);
-   }
+    try {
+      const res = await VerifyOtpAction(data);
+      toast.success(res);
+      router.push("/");
+    } catch (error: any) {
+      console.log(error);
+      const errorMessage = error.message || "Something went wrong!";
+      toast.error(errorMessage);
+    }
   }
 
   async function resendCode() {
     try {
-      const res= await resendOtpAction({ email: form.getValues("email") });
+      const res = await resendOtpAction({ email: form.getValues("email") });
       toast.success(res);
     } catch (error: any) {
       const errorMessage = error.message || "Something went wrong!";
@@ -75,13 +74,13 @@ export default function Page() {
     <Form {...form}>
       <form
         onSubmit={form.handleSubmit(onSubmit)}
-        className="w-screen h-screen flex flex-col gap-4 justify-center items-center"
+        className="w-screen h-screen flex flex-col gap-4 justify-center items-center px-4"
       >
         <FormField
           control={form.control}
           name="otp"
           render={({ field }) => (
-            <FormItem className="w-1/3 flex flex-col ">
+            <FormItem className=" flex flex-col items-center">
               <FormLabel className="text-xl font-semibold">
                 One-Time Password
               </FormLabel>
@@ -95,12 +94,12 @@ export default function Page() {
                   pattern={REGEXP_ONLY_DIGITS_AND_CHARS}
                 >
                   <InputOTPGroup>
-                    <InputOTPSlot index={0} className="w-16 h-16" />
-                    <InputOTPSlot index={1} className="w-16 h-16" />
-                    <InputOTPSlot index={2} className="w-16 h-16" />
-                    <InputOTPSlot index={3} className="w-16 h-16" />
-                    <InputOTPSlot index={4} className="w-16 h-16" />
-                    <InputOTPSlot index={5} className="w-16 h-16" />
+                    <InputOTPSlot index={0} className="sm:w-16 sm:h-16" />
+                    <InputOTPSlot index={1} className="sm:w-16 sm:h-16" />
+                    <InputOTPSlot index={2} className="sm:w-16 sm:h-16" />
+                    <InputOTPSlot index={3} className="sm:w-16 sm:h-16" />
+                    <InputOTPSlot index={4} className="sm:w-16 sm:h-16" />
+                    <InputOTPSlot index={5} className="sm:w-16 sm:h-16" />
                   </InputOTPGroup>
                 </InputOTP>
               </FormControl>
@@ -108,6 +107,19 @@ export default function Page() {
             </FormItem>
           )}
         />
+        <div className="w-[300px] sm:w-[400px] flex gap-4">
+          <Button
+            type="button"
+            className="w-full"
+            variant="secondary"
+            onClick={() => router.back()}
+          >
+            Back
+          </Button>
+          <Button type="submit" className="w-full">
+            Submit
+          </Button>
+        </div>
         <Button
           variant="ghost"
           disabled={!timeout}
@@ -129,19 +141,6 @@ export default function Page() {
             </div>
           )}
         </Button>
-        <div className="w-1/3 flex gap-4">
-          <Button
-            type="button"
-            className="w-full"
-            variant="secondary"
-            onClick={() => router.back()}
-          >
-            Back
-          </Button>
-          <Button type="submit" className="w-full">
-            Submit
-          </Button>
-        </div>
       </form>
     </Form>
   );

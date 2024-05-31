@@ -2,8 +2,9 @@ import User from "../../models/user";
 import { Request, Response } from "express";
 import { otpGenerate } from "../../services/otpgenerate";
 import { sendEmail } from "../../services/emailService";
+import { tokenEncode } from "../../services/token-encode-decode";
 
-const forgotPassword = async (req: Request, res: Response) => {
+const sendLink = async (req: Request, res: Response) => {
   const email = req.query.email as string;
 
   try {
@@ -12,18 +13,12 @@ const forgotPassword = async (req: Request, res: Response) => {
     const user = await User.findOne({ email });
     if (!user) return res.status(404).json({ message: "Email is not registered" });
 
-    const newotp = otpGenerate();
-    let link = `http://localhost:3000/auth/forgot-password/${newotp}`;
+    const token = tokenEncode(email, process.env.JWT_SECRET_KEY || "hjbdcbkhbck", "1h");
+    let link = `http://localhost:3000/auth/forgot-password/${token}`;
 
-    const otp = {
-      otp: newotp,
-      expiresIn: new Date(new Date().getTime() + 60000),
-    };
+    
 
     sendEmail({ email, otp: link });
-
-    user.otp = otp;
-    await user.save();
 
     res.status(200).json({ message: "Link sent to your email" });
   } catch (error) {
@@ -32,4 +27,4 @@ const forgotPassword = async (req: Request, res: Response) => {
   }
 };
 
-export { forgotPassword };
+export { sendLink };

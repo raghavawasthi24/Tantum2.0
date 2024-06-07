@@ -9,18 +9,22 @@ import { verifyOtp } from "../controllers/auth/verifyOtp";
 import { sendLink } from "../controllers/auth/sendLink";
 import { changePassword } from "../controllers/auth/change-password";
 import { verifyLink } from "../controllers/auth/verify-link";
-
+import { addRide } from "../controllers/rides/addRide";
+import { getRide } from "../controllers/rides/getRide";
 
 //Routes for user
 router.post("/login", login);
 router.post("/register", signup);
-router.post('/verify-otp', verifyOtp);
-router.post('/send-otp', sendOtp);
-router.post('/verify-login-email', verifyEmail);
+router.post("/verify-otp", verifyOtp);
+router.post("/send-otp", sendOtp);
+router.post("/verify-login-email", verifyEmail);
 router.get("/send-link", sendLink);
 router.get("/verify-link", verifyLink);
-router.post('/change-password',changePassword);
-router.get("/dummy",verifyToken, dummy);
+router.post("/change-password", changePassword);
+router.get("/dummy", verifyToken, dummy);
 
+//Routes for rides
+router.post("/ride", addRide);
+router.post("/findride", getRide);
 
 module.exports = router;

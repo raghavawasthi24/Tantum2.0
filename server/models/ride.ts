@@ -38,6 +38,6 @@ const rideSchema = new mongoose.Schema<RideSchema>(
   }
 );
 
-const RideModel = mongoose.model<RideSchema>("User", rideSchema);
+const RideModel = mongoose.model<RideSchema>("Ride", rideSchema);
 
 export default RideModel;

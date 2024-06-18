@@ -17,6 +17,8 @@ export const getRide = async (req: Request, res: Response): Promise<any> => {
     const filterRides = ride.filter(
       (ride) => ride.seatsVacant >= rideDetails.seatsVacant
     );
+
+    console.log(filterRides);
     return res
       .status(201)
       .json({ msg: "All rides fetched successfully", data: filterRides });

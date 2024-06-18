@@ -21,6 +21,7 @@ import { useSession } from "next-auth/react";
 import { RideSchema } from "@/schemas/Ride";
 import { z } from "zod";
 import { zodResolver } from "@hookform/resolvers/zod";
+import { getRide } from "@/actions/Rides/ride";
 
 export default function LandingPage() {
   const { data: session } = useSession();
@@ -30,9 +31,15 @@ export default function LandingPage() {
     resolver: zodResolver(RideSchema),
   });
 
-  const onSubmit = (data: z.infer<typeof RideSchema>) => {
-    console.log(data);
-  };
+  const onSubmit = async (data: z.infer<typeof RideSchema>) => {
+     try{
+       const res= await getRide(data);
+        console.log(res);
+     }
+      catch(error){
+        console.log(error);
+      }
+   };
 
   return (
     <section className="mt-[56px] py-20 flex flex-col items-center clip-custom bg-ai gap-12">

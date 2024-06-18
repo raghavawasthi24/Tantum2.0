@@ -26,7 +26,7 @@ import {
   DialogTrigger,
 } from "@/components/ui/dialog";
 import { useForm } from "react-hook-form";
-import { PublishRideSchema } from "@/schemas/PublishRide";
+import { PublishRideSchema } from "@/schemas/Ride";
 import { z } from "zod";
 import { zodResolver } from "@hookform/resolvers/zod";
 import { Form } from "@/components/ui/form";
@@ -93,7 +93,7 @@ export default function Header() {
           <DialogTrigger asChild>
             <Button
               variant="outline"
-              className="bg-white sm:border sm:border-[#272142] rounded-full"
+              className="text-white bg-gradient-to-br from-pink-500 to-orange-400 hover:bg-gradient-to-bl rounded-lg  focus:outline-none focus:ring-pink-200 dark:focus:ring-pink-800 font-medium text-sm px-5 py-2.5 text-center hover:text-white"
             >
               <BsPlusCircle className="w-4 h-4 sm:mr-2" />
               <span className="hidden sm:block">Publish a ride</span>

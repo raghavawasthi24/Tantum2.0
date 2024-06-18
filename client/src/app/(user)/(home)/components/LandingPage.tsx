@@ -1,42 +1,36 @@
 "use client";
-import React, { useState } from "react";
+import React from "react";
 import { Input } from "@/components/ui/input";
 import { Button } from "@/components/ui/button";
 import { TbLocationFilled } from "react-icons/tb";
 import { MdLocationPin } from "react-icons/md";
-import { FaCalendarAlt } from "react-icons/fa";
 import { BsPersonFill } from "react-icons/bs";
 import {
   Form,
+  FormControl,
   FormField,
   FormItem,
-  FormLabel,
   FormMessage,
 } from "@/components/ui/form";
 import { useForm } from "react-hook-form";
-import {
-  Command,
-  CommandDialog,
-  CommandEmpty,
-  CommandGroup,
-  CommandInput,
-  CommandItem,
-  CommandList,
-  CommandSeparator,
-  CommandShortcut,
-} from "@/components/ui/command";
+
 import { ComboBox } from "@/components/shared/ComboxBox";
 import { CustomizedCalendar } from "@/components/shared/CustomizedCalender";
 import { cities } from "@/constants";
 import { useSession } from "next-auth/react";
+import { RideSchema } from "@/schemas/Ride";
+import { z } from "zod";
+import { zodResolver } from "@hookform/resolvers/zod";
 
 export default function LandingPage() {
   const { data: session } = useSession();
   console.log(session);
-  const form = useForm();
-  const [searchCity, setSearchCity] = useState([]);
 
-  const onSubmit = (data: any) => {
+  const form = useForm<z.infer<typeof RideSchema>>({
+    resolver: zodResolver(RideSchema),
+  });
+
+  const onSubmit = (data: z.infer<typeof RideSchema>) => {
     console.log(data);
   };
 
@@ -64,10 +58,12 @@ export default function LandingPage() {
             render={({ field }) => (
               <FormItem className="">
                 <ComboBox
+                  name="source"
                   className="w-full md:w-[150px]"
                   options={cities}
-                  name="Source"
                   icon={<TbLocationFilled />}
+                  placeholder="Source"
+                  form={form}
                 />
               </FormItem>
             )}
@@ -77,18 +73,22 @@ export default function LandingPage() {
             name="destination"
             render={({ field }) => (
               <FormItem>
-                <ComboBox
-                  className="w-full md:w-[150px]"
-                  options={cities}
-                  name="Destination"
-                  icon={<MdLocationPin />}
-                />
+                <FormControl>
+                  <ComboBox
+                    className="w-full md:w-[150px]"
+                    options={cities}
+                    name="destination"
+                    icon={<MdLocationPin />}
+                    placeholder="Destination"
+                    form={form}
+                  />
+                </FormControl>
               </FormItem>
             )}
           />
           <FormField
             control={form.control}
-            name="dob"
+            name="date"
             render={({ field }) => (
               <FormItem className="flex flex-col">
                 <CustomizedCalendar
@@ -101,15 +101,19 @@ export default function LandingPage() {
           />
           <FormField
             control={form.control}
-            name="dob"
+            name="seats"
             render={({ field }) => (
               <FormItem className="flex flex-col">
-                <div className="relative md:w-[100px] w-full">
+                <div className="relative md:w-[150px] w-full">
                   <BsPersonFill className="absolute left-2 top-3.5 h-4 w-4 " />
-                  <Input
-                    placeholder="People"
-                    className="pl-8 focus-visible:ring-0 rounded-none focus-visible:ring-offset-0 h-10 placeholder:text-foreground"
-                  />
+                  <FormControl>
+                    <Input
+                      placeholder="People"
+                      className="pl-8 focus-visible:ring-0 rounded-none focus-visible:ring-offset-0 h-10 placeholder:text-foreground"
+                      {...field}
+                      type="number"
+                    />
+                  </FormControl>
                 </div>
                 <FormMessage />
               </FormItem>

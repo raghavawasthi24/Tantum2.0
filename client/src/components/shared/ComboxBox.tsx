@@ -25,9 +25,11 @@ type PageProps = {
   name: string;
   icon?: React.ReactNode;
   className?: string;
+  placeholder?: string;
+  form?: any;
 };
 
-export function ComboBox({ options, name, icon, className }: PageProps) {
+export function ComboBox({ options, name, icon, className, placeholder, form }: PageProps) {
   const [open, setOpen] = React.useState(false);
   const [value, setValue] = React.useState("");
 
@@ -43,7 +45,7 @@ export function ComboBox({ options, name, icon, className }: PageProps) {
           {icon && <span className="mr-2">{icon}</span>}
           {value
             ? options.find((framework) => framework.value === value)?.label
-            : `${name}`}
+            : `${placeholder}`}
         </Button>
       </PopoverTrigger>
       <PopoverContent className={cn("p-0",className)}>
@@ -57,6 +59,7 @@ export function ComboBox({ options, name, icon, className }: PageProps) {
                 value={framework.value}
                 onSelect={(currentValue) => {
                   console.log(currentValue);
+                  form.setValue(name, currentValue);
                   setValue(currentValue === value ? "" : currentValue);
                   setOpen(false);
                 }}

@@ -31,8 +31,7 @@ import { cities } from "@/constants";
 import { useSession } from "next-auth/react";
 
 export default function LandingPage() {
-
-  const {data:session} = useSession();
+  const { data: session } = useSession();
   console.log(session);
   const form = useForm();
   const [searchCity, setSearchCity] = useState([]);
@@ -44,21 +43,28 @@ export default function LandingPage() {
   return (
     <section className="mt-[56px] py-20 flex flex-col items-center clip-custom bg-ai gap-12">
       <div className="flex flex-col items-center gap-2 text-white">
-        <p className="text-6xl font-bold"> Book, Ride, Enjoy!</p>
-        <p className="font-medium ">
+        <p className="sm:text-6xl text-4xl font-bold text-center">
+          {" "}
+          Book, Ride, Enjoy!
+        </p>
+        <p className="font-medium text-center">
           Unlock Your Travel Potential: Instant Bookings, Comfortable Rides,
           Endless Enjoyment!
         </p>
       </div>
 
       <Form {...form}>
-        <form onSubmit={form.handleSubmit(onSubmit)} className="flex">
+        <form
+          onSubmit={form.handleSubmit(onSubmit)}
+          className="w-3/4 flex md:flex-row flex-col justify-center"
+        >
           <FormField
             control={form.control}
             name="source"
             render={({ field }) => (
-              <FormItem>
+              <FormItem className="">
                 <ComboBox
+                  className="w-full md:w-[150px]"
                   options={cities}
                   name="Source"
                   icon={<TbLocationFilled />}
@@ -72,6 +78,7 @@ export default function LandingPage() {
             render={({ field }) => (
               <FormItem>
                 <ComboBox
+                  className="w-full md:w-[150px]"
                   options={cities}
                   name="Destination"
                   icon={<MdLocationPin />}
@@ -84,7 +91,10 @@ export default function LandingPage() {
             name="dob"
             render={({ field }) => (
               <FormItem className="flex flex-col">
-                <CustomizedCalendar field={field} />
+                <CustomizedCalendar
+                  field={field}
+                  className="w-full md:w-[150px]"
+                />
                 <FormMessage />
               </FormItem>
             )}
@@ -94,7 +104,7 @@ export default function LandingPage() {
             name="dob"
             render={({ field }) => (
               <FormItem className="flex flex-col">
-                <div className="relative w-[100px]">
+                <div className="relative md:w-[100px] w-full">
                   <BsPersonFill className="absolute left-2 top-3.5 h-4 w-4 " />
                   <Input
                     placeholder="People"

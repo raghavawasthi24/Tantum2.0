@@ -72,7 +72,7 @@ export default function Header() {
   return (
     <nav className="flex w-full fixed bg-white top-0 justify-between items-center px-4 py-2 z-20">
       <p className="font-bold text-xl md:text-4xl text-[#272142]">Tantum.</p>
-      <div className="flex items-center md:gap-4">
+      <div className="flex items-center md:gap-4 gap-2">
         <Popover>
           <PopoverTrigger asChild>
             <div>

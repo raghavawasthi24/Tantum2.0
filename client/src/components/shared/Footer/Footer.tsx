@@ -7,17 +7,17 @@ import { FaLinkedin } from "react-icons/fa";
 export default function Footer() {
   return (
     <div className="text-white">
-      <div className="border-b flex gap-28 justify-between p-10">
-        <div className="w-1/2 grid gap-2">
+      <div className="border-b flex md:flex-row flex-col gap-5 md:gap-28 justify-between p-10">
+        <div className="md:w-1/2 grid gap-2">
           <p className="text-4xl font-bold">Tantum</p>
-          <p>
+          <p className="font-extralight">
             Book or share your ride with Tantum. Easily connect with partner,
             share your live location, call or text a meassage.
           </p>
         </div>
-        <div className="w-1/2 text-right grid gap-2">
+        <div className="md:w-1/2 md:text-right grid gap-2">
           <p className="font-bold">Disclaimer</p>
-          <p>
+          <p className="font-extralight">
             Our carpooling website facilitates connections between users for
             shared rides. While we strive for a safe and positive experience,
             users are responsible for their interactions and arrangements.
@@ -29,18 +29,16 @@ export default function Footer() {
         </div>
       </div>
       <div className="flex justify-between p-10">
-        <div className="flex gap-8">
+        <div className="flex sm:gap-8 gap-2">
           <a href="">
-            <FaGithub className="w-8 h-8" />
+            <FaGithub className="sm:w-8 sm:h-8" />
           </a>
           <a href="">
-            <FaLinkedin className="w-8 h-8" />
+            <FaLinkedin className="sm:w-8 sm:h-8" />
           </a>
         </div>
-        <div className="flex gap-2">
+        <div className="flex gap-2 text-xs">
           <p>&copy; 2024 All rights reserved.</p>
-          <Image src="/assets/india-flag.webp" alt="image" width={40} height={30}/>
-          <p>India</p>
         </div>
       </div>
     </div>

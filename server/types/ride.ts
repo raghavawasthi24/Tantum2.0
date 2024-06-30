@@ -8,4 +8,5 @@ export interface RideSchema extends Document {
   date: Date;
   time: string;
   seatsVacant: number;
+  price:number
 }

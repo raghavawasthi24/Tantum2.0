@@ -77,7 +77,7 @@ const Footer = () => {
               <GrFormPreviousLink className="w-4 h-4 mr-2" />
               Back
             </Button>
-            <Button size="sm" onClick={nextStep} type="button">
+            <Button size="sm" onClick={nextStep} type="submit">
               {isLastStep ? "Post Ride" : isOptionalStep ? "Skip" : "Next"}
               {isLastStep?<FaArrowAltCircleRight className="w-4 h-4 ml-2" />:null}
             </Button>

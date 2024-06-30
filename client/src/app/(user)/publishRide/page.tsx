@@ -17,7 +17,7 @@ export default function page() {
        destination: "",
        date: "",
        time: "",
-       seats: 0,
+       seatsVacant: 0,
        price: 0,
      },
    });

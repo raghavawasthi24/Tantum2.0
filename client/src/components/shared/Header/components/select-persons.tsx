@@ -12,7 +12,7 @@ export default function SelectPerson({ form }: any) {
       </h1>
       <FormField
         control={form.control}
-        name="source"
+        name="price"
         render={({ field }) => (
           <FormItem className="w-full flex flex-wrap gap-4">
             <Input
@@ -21,6 +21,7 @@ export default function SelectPerson({ form }: any) {
               placeholder="Amount"
               className="w-full"
               startAdornment={<LiaRupeeSignSolid className="h-4 w-4 mr-2" />}
+              {...field}
             />
           </FormItem>
         )}

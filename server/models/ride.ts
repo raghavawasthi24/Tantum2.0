@@ -32,6 +32,10 @@ const rideSchema = new mongoose.Schema<RideSchema>(
       type: Number,
       required: true,
     },
+    price:{
+      type:Number,
+      required:true
+    }
   },
   {
     timestamps: true,

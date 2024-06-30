@@ -16,10 +16,11 @@ export default function SelectPickDrop({ form }: any) {
           <FormItem className="w-full">
             <ComboBox
               options={cities}
-              name="Source"
+              name="source"
               icon={<TbLocationFilled />}
               placeholder="Source"
               className="w-full"
+              form={form}
             />
           </FormItem>
         )}
@@ -35,6 +36,7 @@ export default function SelectPickDrop({ form }: any) {
               icon={<MdLocationPin />}
               placeholder="Destination"
               className="w-full"
+              form={form}
             />
           </FormItem>
         )}

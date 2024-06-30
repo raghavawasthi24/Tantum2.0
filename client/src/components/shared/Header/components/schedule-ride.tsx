@@ -25,7 +25,7 @@ export default function ScheduleRide({ form }: any) {
         render={({ field }) => (
           <FormItem className="w-full">
             <FormLabel>Time</FormLabel>
-            <Input id="time" type="time" className="w-full" />
+            <Input id="time" type="time" className="w-full" {...field}/>
           </FormItem>
         )}
       />

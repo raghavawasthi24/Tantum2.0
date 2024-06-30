@@ -58,7 +58,7 @@ export function ComboBox({ options, name, icon, className, placeholder, form }: 
                 key={framework.value}
                 value={framework.value}
                 onSelect={(currentValue) => {
-                  console.log(currentValue);
+                  console.log(currentValue,value);
                   form.setValue(name, currentValue);
                   setValue(currentValue === value ? "" : currentValue);
                   setOpen(false);

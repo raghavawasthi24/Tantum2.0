@@ -19,9 +19,13 @@ export default function SelectVehicle({form}:any) {
     },
   ];
    const incrementperson = () => {
-     if (person < 5) setPerson(person + 1);
+     if (person < 5){ 
+      setPerson(prev=>prev+1)};
+      form.setValue("seatsVacant", person)
    };
-   const decrementperson = () => {if(person>1) setPerson(person - 1)};
+   const decrementperson = () => {if(person>1) {
+    setPerson(prev=>prev-1)}};
+    form.setValue("seatsVacant", person);
   return (
     <section className="flex flex-col items-start gap-12">
       <div className="flex gap-4 w-fit">

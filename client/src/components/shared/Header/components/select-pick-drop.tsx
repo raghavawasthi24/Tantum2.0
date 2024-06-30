@@ -8,6 +8,7 @@ import { MdLocationPin } from "react-icons/md";
 export default function SelectPickDrop({ form }: any) {
   return (
     <div className="grid gap-4">
+      <h1 className="text-2xl sm:text-6xl font-bold mb-4">From where to where?</h1>
       <FormField
         control={form.control}
         name="source"
@@ -17,7 +18,8 @@ export default function SelectPickDrop({ form }: any) {
               options={cities}
               name="Source"
               icon={<TbLocationFilled />}
-              className="w-[400px]"
+              placeholder="Source"
+              className="w-full"
             />
           </FormItem>
         )}
@@ -31,7 +33,8 @@ export default function SelectPickDrop({ form }: any) {
               options={cities}
               name="Destination"
               icon={<MdLocationPin />}
-              className="w-[400px]"
+              placeholder="Destination"
+              className="w-full"
             />
           </FormItem>
         )}

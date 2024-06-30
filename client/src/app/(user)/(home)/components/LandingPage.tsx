@@ -42,7 +42,7 @@ export default function LandingPage() {
    };
 
   return (
-    <section className="mt-[56px] py-20 flex flex-col items-center clip-custom bg-ai gap-12">
+    <section className=" py-20 flex flex-col items-center clip-custom bg-ai gap-12">
       <div className="flex flex-col items-center gap-2 text-white">
         <p className="sm:text-6xl text-4xl font-bold text-center">
           {" "}

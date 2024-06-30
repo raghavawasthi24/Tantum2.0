@@ -1,11 +1,15 @@
-import { FormField, FormItem } from "@/components/ui/form";
+import { FormField, FormItem, FormLabel } from "@/components/ui/form";
 import React from "react";
 import { CustomizedCalendar } from "../../CustomizedCalender";
 import { Input } from "@/components/ui/input";
 
 export default function ScheduleRide({ form }: any) {
   return (
-    <div className="grid gap-4">
+    <div className="w-full grid gap-4">
+      <h1 className="text-2xl sm:text-6xl font-bold mb-4">
+        When you want to go?
+      </h1>
+
       <FormField
         control={form.control}
         name="date"
@@ -20,7 +24,8 @@ export default function ScheduleRide({ form }: any) {
         name="date"
         render={({ field }) => (
           <FormItem className="w-full">
-            <Input id="time" type="time" />
+            <FormLabel>Time</FormLabel>
+            <Input id="time" type="time" className="w-full" />
           </FormItem>
         )}
       />

@@ -1,22 +1,30 @@
 import { FormField, FormItem } from "@/components/ui/form";
 import React from "react";
-import { Card } from "@/components/ui/card";
+import { Input } from "@/components/ui/input";
+import { Label } from "@/components/ui/label";
+import { LiaRupeeSignSolid } from "react-icons/lia";
 
 export default function SelectPerson({ form }: any) {
-  const person = [1, 2,3,4];
   return (
-    <FormField
-      control={form.control}
-      name="source"
-      render={({ field }) => (
-        <FormItem className="w-full flex flex-wrap gap-4 justify-center items-end">
-          {person?.map((person,key) => (
-            <Card key={key} className="w-24 h-24 flex justify-center items-center hover:bg-muted">
-              {person}
-            </Card>
-          ))}
-        </FormItem>
-      )}
-    />
+    <div className="grid gap-8">
+      <h1 className="text-2xl sm:text-6xl font-bold mb-4">
+       Set price for the ride
+      </h1>
+      <FormField
+        control={form.control}
+        name="source"
+        render={({ field }) => (
+          <FormItem className="w-full flex flex-wrap gap-4">
+            <Input
+              id="picture"
+              type="number"
+              placeholder="Amount"
+              className="w-full"
+              startAdornment={<LiaRupeeSignSolid className="h-4 w-4 mr-2" />}
+            />
+          </FormItem>
+        )}
+      />
+    </div>
   );
 }

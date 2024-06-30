@@ -22,7 +22,7 @@ export function CustomizedCalendar({ field, className }: any) {
           <Button
             variant={"outline"}
             className={cn(
-              "w-[240px] pl-3 flex justify-start items-center rounded-none h-10"
+              "w-full pl-3 flex justify-start items-center rounded-none h-10"
             ,className)}
           >
             <CalendarIcon className="h-4 w-4 mr-2 opacity-50" />

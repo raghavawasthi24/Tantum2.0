@@ -9,7 +9,7 @@ import {
 export default function FilterRides() {
   return (
     <div>
-      <p className="py-4 text-red-500 font-semibold">Filters</p>
+      <p className=" w-1/3 py-4 text-red-500 font-semibold">Filters</p>
       <Accordion type="single" collapsible className="w-64">
         <AccordionItem value="item-1">
           <AccordionTrigger>Pricing</AccordionTrigger>

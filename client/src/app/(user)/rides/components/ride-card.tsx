@@ -9,7 +9,7 @@ import { FaCloudscale } from "react-icons/fa";
 
 export default function RideCard() {
   return (
-    <div className="w-[500px] bg-background rounded-md px-2 py-4">
+    <div className="w-full rounded-md px-2 py-4 shadow-sm">
       <div className="flex justify-between">
         <div className="flex items-center gap-2">
           <Avatar className="w-8 h-8">
@@ -35,7 +35,7 @@ export default function RideCard() {
           <FaCloudscale className="w-3 h-3" />
           3+ year driving experience</p>
         <div className="flex justify-end">
-          <Button className="bg-destructive">Book Rs. 412</Button>
+          <Button className="bg-black">Book Rs. 412</Button>
         </div>
       </div>
     </div>

@@ -6,7 +6,6 @@ import Footer from "@/components/shared/Footer/Footer";
 export default function Home() {
   return (
     <section className="bg-[#272142]">
-      <Header />
       <LandingPage />
       <Footer />
     </section>

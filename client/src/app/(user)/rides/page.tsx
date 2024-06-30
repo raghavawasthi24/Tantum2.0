@@ -7,7 +7,7 @@ import Rides from "./components/rides";
 
 export default function page() {
   return (
-    <div className="bg-gradient-to-r from-cyan-50 to-blue-50 min-h-screen">
+    <div className="min-h-screen">
       <Header />
       <RideHeader />
       <div className="flex justify-center gap-8">

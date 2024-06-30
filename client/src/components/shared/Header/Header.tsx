@@ -58,19 +58,9 @@ export default function Header() {
       link: "/settings",
     },
   ];
-  const form = useForm<z.infer<typeof PublishRideSchema>>({
-    resolver: zodResolver(PublishRideSchema),
-    defaultValues: {
-      source: "",
-      destination: "",
-      date: "",
-      time: "",
-      seats: 0,
-      price: 0,
-    },
-  });
+ 
   return (
-    <nav className="flex w-full fixed bg-white top-0 justify-between items-center px-4 py-2 z-20">
+    <nav className="flex w-full fixed bg-white border-b top-0 justify-between items-center px-4 py-2 z-20">
       <p className="font-bold text-xl md:text-4xl text-[#272142]">Tantum.</p>
       <div className="flex items-center md:gap-4 gap-2">
         <Popover>
@@ -106,15 +96,7 @@ export default function Header() {
                 Make changes to your profile here. Click save done.
               </DialogDescription>
             </DialogHeader>
-            <Form {...form}>
-              <form
-                onSubmit={form.handleSubmit((data) => {
-                  console.log(data);
-                })}
-              >
-                <RegisterRide form={form} />
-              </form>
-            </Form>
+           
             <DialogFooter></DialogFooter>
           </DialogContent>
         </Dialog>

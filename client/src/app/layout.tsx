@@ -5,6 +5,7 @@ import { GoogleOAuthProvider } from "@react-oauth/google";
 import { Toaster } from "react-hot-toast";
 import { SessionProvider } from "next-auth/react";
 import Providers from "@/components/Provider";
+import Header from "@/components/shared/Header/Header";
 
 const inter = Inter({ subsets: ["latin"] });
 
@@ -23,7 +24,8 @@ export default function RootLayout({
       <Providers>
         <GoogleOAuthProvider clientId="1060861804241-3q08iprj3j6gghdn3g4lbjdeh54496q9.apps.googleusercontent.com">
           <body className={inter.className}>
-            {children}
+            <Header />
+            <div className="mt-[56px]">{children}</div>
             <Toaster />
           </body>
         </GoogleOAuthProvider>

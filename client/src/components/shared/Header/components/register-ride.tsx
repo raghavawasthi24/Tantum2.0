@@ -10,16 +10,18 @@ import SelectPerson from "./select-persons";
 import { GrFormPreviousLink } from "react-icons/gr";
 import SelectPickDrop from "./select-pick-drop";
 import ScheduleRide from "./schedule-ride";
+import { FaArrowAltCircleRight } from "react-icons/fa";
 
 export default function RegisterRide({ form }: any) {
   const steps = [
-    { label: "1", content: <SelectVehicle form={form} /> },
-    { label: "2", content: <SelectPickDrop form={form} /> },
-    { label: "3", content: <ScheduleRide form={form} /> },
+    { label: "1", content: <SelectPickDrop form={form} /> },
+    { label: "2", content: <ScheduleRide form={form} /> },
+    { label: "3", content: <SelectVehicle form={form} /> },
     { label: "4", content: <SelectPerson form={form} /> },
   ];
+  
   return (
-    <div className="flex w-full flex-col gap-4">
+    <div className="w-full flex flex-col gap-4 px-4">
       <Stepper
         initialStep={0}
         steps={steps}
@@ -76,7 +78,8 @@ const Footer = () => {
               Back
             </Button>
             <Button size="sm" onClick={nextStep} type="button">
-              {isLastStep ? "Finish" : isOptionalStep ? "Skip" : "Next"}
+              {isLastStep ? "Post Ride" : isOptionalStep ? "Skip" : "Next"}
+              {isLastStep?<FaArrowAltCircleRight className="w-4 h-4 ml-2" />:null}
             </Button>
           </>
         )}

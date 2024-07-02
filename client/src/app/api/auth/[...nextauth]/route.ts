@@ -20,18 +20,17 @@
 
 // export const handler = NextAuth(authOptions);
 
-import { NextAuthOptions } from "next-auth";
-import { JWT } from "next-auth/jwt";
-import NextAuth from "next-auth/next";
+import NextAuth, { NextAuthOptions } from "next-auth";
 import CredentialsProvider from "next-auth/providers/credentials";
 
-export const authOptions: NextAuthOptions = {
+const authOptions: NextAuthOptions = {
   providers: [
     CredentialsProvider({
       name: "Credentials",
       credentials: {
         email: {
           label: "Email",
+          type: "text",
         },
         password: { label: "Password", type: "password" },
       },
@@ -51,8 +50,8 @@ export const authOptions: NextAuthOptions = {
         });
 
         if (res.status == 200) {
-            const user = await res.json();
-            return user;
+          const user = await res.json();
+          return user;
         }
 
         return null;

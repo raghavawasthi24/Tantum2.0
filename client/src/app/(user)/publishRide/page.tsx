@@ -1,15 +1,13 @@
 "use client";
-import Header from '@/components/shared/Header/Header'
 import RegisterRide from '@/components/shared/Header/components/register-ride';
 import { Form } from '@/components/ui/form';
 import { PublishRideSchema } from '@/schemas/Ride';
 import { zodResolver } from '@hookform/resolvers/zod';
-import Image from 'next/image';
 import React from 'react'
 import { useForm } from 'react-hook-form';
 import { z } from 'zod';
 
-export default function page() {
+export default function Page() {
    const form = useForm<z.infer<typeof PublishRideSchema>>({
      resolver: zodResolver(PublishRideSchema),
      defaultValues: {

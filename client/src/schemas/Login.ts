@@ -8,3 +8,13 @@ export const LoginSchema = z.object({
     .string()
     .min(5, { message: "Password must be at least 5 characters" }),
 });
+
+
+export const VerifyOtpSchema = z.object({
+  email: z.string().email({
+    message: "Enter a valid email",
+  }),
+  otp: z.string().min(6, {
+    message: "Enter correct OTP",
+  }),
+});

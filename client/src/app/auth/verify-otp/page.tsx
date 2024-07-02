@@ -26,19 +26,13 @@ import { REGEXP_ONLY_DIGITS_AND_CHARS } from "input-otp";
 import toast from "react-hot-toast";
 import { VerifyOtpAction, resendOtpAction } from "@/actions/Auth/auth";
 import Cookies from "js-cookie";
+import { VerifyOtpSchema } from "@/schemas/Login";
 
-export const FormSchema = z.object({
-  email: z.string().email({
-    message: "Enter a valid email",
-  }),
-  otp: z.string().min(6, {
-    message: "Enter correct OTP",
-  }),
-});
+
 
 export default function Page() {
-  const form = useForm<z.infer<typeof FormSchema>>({
-    resolver: zodResolver(FormSchema),
+  const form = useForm<z.infer<typeof VerifyOtpSchema>>({
+    resolver: zodResolver(VerifyOtpSchema),
     defaultValues: {
       email: Cookies.get("email") || "",
       otp: "",
@@ -48,7 +42,7 @@ export default function Page() {
   const [timeout, setTimeout] = useState(false);
   const router = useRouter();
 
-  async function onSubmit(data: z.infer<typeof FormSchema>) {
+  async function onSubmit(data: z.infer<typeof VerifyOtpSchema>) {
     try {
       const res = await VerifyOtpAction(data);
       toast.success(res);

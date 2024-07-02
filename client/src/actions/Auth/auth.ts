@@ -1,6 +1,5 @@
 "use server";
-import { FormSchema } from "@/app/auth/verify-otp/page";
-import { LoginSchema } from "@/schemas/Login";
+import { LoginSchema, VerifyOtpSchema } from "@/schemas/Login";
 import { z } from "zod";
 
 export const registerAction = async (data: z.infer<typeof LoginSchema>) => {
@@ -41,7 +40,7 @@ export const loginAction = async (data: z.infer<typeof LoginSchema>) => {
   else throw new Error(resData.message || "An error occurred");
 };
 
-export const VerifyOtpAction = async (data: z.infer<typeof FormSchema>) => {
+export const VerifyOtpAction = async (data: z.infer<typeof VerifyOtpSchema>) => {
   console.log(data);
 
   const res = await fetch(`${process.env.NEXT_PUBLIC_API_URL}/verify-email`, {

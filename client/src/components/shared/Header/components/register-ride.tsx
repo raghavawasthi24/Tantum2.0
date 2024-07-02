@@ -21,7 +21,7 @@ export default function RegisterRide({ form }: any) {
   ];
   
   return (
-    <div className="w-full flex flex-col gap-4 px-4">
+    <div className="w-full flex flex-col gap-4 p-4 border">
       <Stepper
         initialStep={0}
         steps={steps}

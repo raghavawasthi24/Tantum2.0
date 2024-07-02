@@ -3,6 +3,7 @@ import React, { useState } from "react";
 import { CiCirclePlus } from "react-icons/ci";
 import { CiCircleMinus } from "react-icons/ci";
 import { FaCar } from "react-icons/fa";
+import { FaMotorcycle } from "react-icons/fa6";
 
 export default function SelectVehicle({form}:any) {
    const [person, setPerson] = useState(1);
@@ -10,7 +11,7 @@ export default function SelectVehicle({form}:any) {
     {
       key: "2wheeler",
       name: "2 - Wheeler",
-      icon: <FaCar className="w-24 h-24 text-gray-400" />,
+      icon: <FaMotorcycle className="w-16 h-16 mb-1 text-gray-400" />,
     },
     {
       key: "4wheeler",
@@ -27,7 +28,11 @@ export default function SelectVehicle({form}:any) {
     setPerson(prev=>prev-1)}};
     form.setValue("seatsVacant", person);
   return (
-    <section className="flex flex-col items-start gap-12">
+    <section className="flex flex-col items-start gap-4">
+      <h1 className="text-2xl sm:text-4xl font-bold">What are the specifications of your vehicle?</h1>
+      <p>
+        Give us a brief specification of the vehicle and the number of seats which are vacant
+      </p>
       <div className="flex gap-4 w-fit">
         {vehicleType.map((mode) => {
           return (
@@ -37,28 +42,27 @@ export default function SelectVehicle({form}:any) {
             >
               {mode.icon}
               <div className="text-start">
-                <p className="font-bold">{mode.name}</p>
+                <p className="">{mode.name}</p>
               </div>
             </button>
           );
         })}
-        </div>
+      </div>
 
-        <div className="grid grid-cols-2 gap-4">
-          <div className="flex flex-col items-center gap-2">
-            <h3 className="text-md font-semibold">Number of seats vacant</h3>
-            <div className="flex items-center gap-4">
-              <Button variant="ghost" onClick={decrementperson}>
-                <CiCircleMinus className="h-6 w-6" />
-              </Button>
-              <span className="text-2xl font-bold">{person}</span>
-              <Button variant="ghost" onClick={incrementperson}>
-                <CiCirclePlus className="h-6 w-6" />
-              </Button>
-            </div>
+      <div className="grid grid-cols-2 gap-4">
+        <div className="flex flex-col items-center gap-2">
+          <p className="text-md font-medium">Number of seats vacant</p>
+          <div className="flex items-center gap-4">
+            <Button variant="ghost" onClick={decrementperson}>
+              <CiCircleMinus className="h-6 w-6" />
+            </Button>
+            <span className="text-2xl font-bold">{person}</span>
+            <Button variant="ghost" onClick={incrementperson}>
+              <CiCirclePlus className="h-6 w-6" />
+            </Button>
           </div>
-    
         </div>
+      </div>
     </section>
   );
 }

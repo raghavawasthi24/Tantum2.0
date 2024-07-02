@@ -31,6 +31,7 @@ import { z } from "zod";
 import { zodResolver } from "@hookform/resolvers/zod";
 import { Form } from "@/components/ui/form";
 import RegisterRide from "./components/register-ride";
+import { usePathname } from "next/navigation";
 // import RegisterRide from "./components/register-Ride";
 // import { Link } from "react-router-dom";
 
@@ -58,6 +59,8 @@ export default function Header() {
       link: "/settings",
     },
   ];
+
+  const pathname= usePathname();
  
   return (
     <nav className="flex w-full fixed bg-white border-b top-0 justify-between items-center px-4 py-2 z-20">
@@ -79,27 +82,16 @@ export default function Header() {
           </PopoverContent>
         </Popover>
 
-        <Dialog>
-          <DialogTrigger asChild>
-            <Button
+          {pathname!="/publishRide"? <Button
               variant="outline"
               className="text-white bg-gradient-to-br from-pink-500 to-orange-400 hover:bg-gradient-to-bl rounded-lg  focus:outline-none focus:ring-pink-200 dark:focus:ring-pink-800 font-medium text-sm px-5 py-2.5 text-center hover:text-white"
             >
               <BsPlusCircle className="w-4 h-4 sm:mr-2" />
               <span className="hidden sm:block">Publish a ride</span>
-            </Button>
-          </DialogTrigger>
-          <DialogContent className="max-h-[90%] overflow-auto">
-            <DialogHeader>
-              <DialogTitle>Edit profile</DialogTitle>
-              <DialogDescription>
-                Make changes to your profile here. Click save done.
-              </DialogDescription>
-            </DialogHeader>
+            </Button>:null}
+       
            
-            <DialogFooter></DialogFooter>
-          </DialogContent>
-        </Dialog>
+         
         {/* condition to check whether logged In or not 
         displays signin when loggged out otherwise profile options  */}
         {loggedin ? (

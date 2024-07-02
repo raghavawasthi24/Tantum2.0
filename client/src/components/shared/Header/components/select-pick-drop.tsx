@@ -8,7 +8,8 @@ import { MdLocationPin } from "react-icons/md";
 export default function SelectPickDrop({ form }: any) {
   return (
     <div className="grid gap-4">
-      <h1 className="text-2xl sm:text-6xl font-bold mb-4">From where to where?</h1>
+      <h1 className="text-2xl sm:text-4xl font-bold">From where to where?</h1>
+      <p>You need to select the location from where you want to go and upto where</p>
       <FormField
         control={form.control}
         name="source"

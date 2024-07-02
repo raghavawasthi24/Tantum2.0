@@ -6,9 +6,10 @@ import { Input } from "@/components/ui/input";
 export default function ScheduleRide({ form }: any) {
   return (
     <div className="w-full grid gap-4">
-      <h1 className="text-2xl sm:text-6xl font-bold mb-4">
+      <h1 className="text-2xl sm:text-4xl font-bold">
         When you want to go?
       </h1>
+      <p>Pick the date and time of leaving the location</p>
 
       <FormField
         control={form.control}

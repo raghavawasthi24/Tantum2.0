@@ -7,9 +7,10 @@ import { LiaRupeeSignSolid } from "react-icons/lia";
 export default function SelectPerson({ form }: any) {
   return (
     <div className="grid gap-8">
-      <h1 className="text-2xl sm:text-6xl font-bold mb-4">
+      <h1 className="text-2xl sm:text-4xl font-bold">
        Set price for the ride
       </h1>
+      <p>Enter the appropriate amount for the travel. Minimum anount will increase the chances of faster booking</p>
       <FormField
         control={form.control}
         name="price"

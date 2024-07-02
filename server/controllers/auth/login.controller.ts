@@ -1,9 +1,8 @@
 import { Request, Response } from "express";
 import bcrypt from "bcrypt";
 import dotenv from "dotenv";
-import User from "../../models/user";
+import User from "../../models/user.model";
 import { tokengenerate } from "../../services/tokengenerate";
-import { sendEmail } from "../../services/emailService";
 
 dotenv.config();
 

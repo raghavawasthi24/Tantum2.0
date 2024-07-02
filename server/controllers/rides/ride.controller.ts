@@ -1,7 +1,22 @@
 import { Request, Response } from "express";
-import RideModel from "../../models/ride";
+import RideModel from "../../models/ride.model";
 
-export const getRide = async (req: Request, res: Response): Promise<any> => {
+//TO ADD NEW RIDE
+
+const addRide = async (req: Request, res: Response): Promise<any> => {
+  const rideDetails = req.body;
+  try {
+    const ride = new RideModel(rideDetails);
+    await ride.save();
+    return res.status(201).json({ msg: "Your ride is recorded successfully" });
+  } catch (error) {
+    res.status(400).json("Something went wrong!");
+  }
+};
+
+//TO GET ALL RIDES
+
+const getRide = async (req: Request, res: Response): Promise<any> => {
   const rideDetails = req.body;
   try {
     const ride = await RideModel.find({
@@ -26,3 +41,6 @@ export const getRide = async (req: Request, res: Response): Promise<any> => {
     res.status(400).json("Something went wrong!");
   }
 };
+
+export {addRide, getRide};
+

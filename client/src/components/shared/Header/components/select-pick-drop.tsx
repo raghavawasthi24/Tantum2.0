@@ -9,7 +9,9 @@ export default function SelectPickDrop({ form }: any) {
   return (
     <div className="grid gap-4">
       <h1 className="text-2xl sm:text-4xl font-bold">From where to where?</h1>
-      <p>You need to select the location from where you want to go and upto where</p>
+      <p>
+        You need to select the location from where you want to go and upto where
+      </p>
       <FormField
         control={form.control}
         name="source"
@@ -28,12 +30,12 @@ export default function SelectPickDrop({ form }: any) {
       />
       <FormField
         control={form.control}
-        name="source"
+        name="destination"
         render={({ field }) => (
           <FormItem className="w-full">
             <ComboBox
               options={cities}
-              name="Destination"
+              name="destination"
               icon={<MdLocationPin />}
               placeholder="Destination"
               className="w-full"

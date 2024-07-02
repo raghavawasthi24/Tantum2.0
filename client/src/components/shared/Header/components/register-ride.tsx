@@ -1,9 +1,5 @@
 import { Button } from "@/components/ui/button";
-import {
-  Step,
-  Stepper,
-  useStepper,
-} from "@/components/shared/stepper";
+import { Step, Stepper, useStepper } from "@/components/shared/stepper";
 import { toast } from "@/components/ui/use-toast";
 import SelectVehicle from "./select-vehicle";
 import SelectPerson from "./select-persons";
@@ -19,7 +15,7 @@ export default function RegisterRide({ form }: any) {
     { label: "3", content: <SelectVehicle form={form} /> },
     { label: "4", content: <SelectPerson form={form} /> },
   ];
-  
+
   return (
     <div className="w-full flex flex-col gap-4 p-4 border">
       <Stepper
@@ -77,10 +73,17 @@ const Footer = () => {
               <GrFormPreviousLink className="w-4 h-4 mr-2" />
               Back
             </Button>
-            <Button size="sm" onClick={nextStep} type="submit">
-              {isLastStep ? "Post Ride" : isOptionalStep ? "Skip" : "Next"}
-              {isLastStep?<FaArrowAltCircleRight className="w-4 h-4 ml-2" />:null}
-            </Button>
+
+            {isLastStep ? (
+              <Button type="submit">
+                Post Ride
+                <FaArrowAltCircleRight className="w-4 h-4 ml-2" />
+              </Button>
+            ) : (
+              <Button type="button" onClick={nextStep} size="sm">
+                Next
+              </Button>
+            )}
           </>
         )}
       </div>

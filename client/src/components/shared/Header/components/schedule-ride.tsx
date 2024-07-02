@@ -22,7 +22,7 @@ export default function ScheduleRide({ form }: any) {
       />
       <FormField
         control={form.control}
-        name="date"
+        name="time"
         render={({ field }) => (
           <FormItem className="w-full">
             <FormLabel>Time</FormLabel>

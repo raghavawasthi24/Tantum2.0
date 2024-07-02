@@ -5,7 +5,7 @@ import express, { Application, Request, Response } from "express";
 const PORT = process.env.PORT || 5000;
 const app: Application = express();
 import cors from "cors";
-import "./config/db";
+import "./config/db.config";
 
 app.use(express.json());
 app.use(express.urlencoded({ extended: false }));

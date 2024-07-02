@@ -9,15 +9,9 @@ import { z } from 'zod';
 
 export default function Page() {
    const form = useForm<z.infer<typeof PublishRideSchema>>({
-     resolver: zodResolver(PublishRideSchema),
-     defaultValues: {
-       source: "",
-       destination: "",
-       date: "",
-       time: "",
-       seatsVacant: 0,
-     },
+     resolver: zodResolver(PublishRideSchema)
    });
+   
   return (
     <Form {...form}>
       <div className="flex h-screen justify-center">

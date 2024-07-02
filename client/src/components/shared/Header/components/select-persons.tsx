@@ -1,4 +1,4 @@
-import { FormField, FormItem } from "@/components/ui/form";
+import { FormField, FormItem, FormLabel } from "@/components/ui/form";
 import React from "react";
 import { Input } from "@/components/ui/input";
 import { Label } from "@/components/ui/label";
@@ -16,6 +16,7 @@ export default function SelectPerson({ form }: any) {
         name="price"
         render={({ field }) => (
           <FormItem className="w-full flex flex-wrap gap-4">
+            <FormLabel>Amount</FormLabel>
             <Input
               id="picture"
               type="number"

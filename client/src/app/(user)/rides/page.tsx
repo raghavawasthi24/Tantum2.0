@@ -10,8 +10,8 @@ export default function page() {
     <div className="min-h-screen">
       <Header />
       <RideHeader />
-      <div className="flex justify-center gap-8">
-        <FilterRides />
+      <div className="flex justify-center gap-8 p-4">
+        {/* <FilterRides /> */}
         <Rides />
       </div>
     </div>

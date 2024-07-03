@@ -16,24 +16,7 @@ import { MdPayment } from "react-icons/md";
 import { IoIosSettings } from "react-icons/io";
 import { FiLogOut } from "react-icons/fi";
 import Link from "next/link";
-import {
-  Dialog,
-  DialogContent,
-  DialogDescription,
-  DialogFooter,
-  DialogHeader,
-  DialogTitle,
-  DialogTrigger,
-} from "@/components/ui/dialog";
-import { useForm } from "react-hook-form";
-import { PublishRideSchema } from "@/schemas/Ride";
-import { z } from "zod";
-import { zodResolver } from "@hookform/resolvers/zod";
-import { Form } from "@/components/ui/form";
-import RegisterRide from "./components/register-ride";
 import { usePathname } from "next/navigation";
-// import RegisterRide from "./components/register-Ride";
-// import { Link } from "react-router-dom";
 
 export default function Header() {
   const loggedin = true;

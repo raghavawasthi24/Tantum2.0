@@ -82,16 +82,18 @@ export default function Header() {
           </PopoverContent>
         </Popover>
 
-          {pathname!="/publishRide"? <Button
+        {pathname != "/publishRide" ? (
+          <Link href="/publishRide">
+            <Button
               variant="outline"
               className="text-white bg-gradient-to-br from-pink-500 to-orange-400 hover:bg-gradient-to-bl rounded-lg  focus:outline-none focus:ring-pink-200 dark:focus:ring-pink-800 font-medium text-sm px-5 py-2.5 text-center hover:text-white"
             >
               <BsPlusCircle className="w-4 h-4 sm:mr-2" />
               <span className="hidden sm:block">Publish a ride</span>
-            </Button>:null}
-       
-           
-         
+            </Button>
+          </Link>
+        ) : null}
+
         {/* condition to check whether logged In or not 
         displays signin when loggged out otherwise profile options  */}
         {loggedin ? (

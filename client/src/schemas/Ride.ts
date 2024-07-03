@@ -5,6 +5,7 @@ export const PublishRideSchema = z.object({
   destination: z.string(),
   date: z.date(),
   time: z.string(),
+  vehicleType: z.string(),
   seatsVacant: z.number(),
   price: z.coerce.number(),
 });

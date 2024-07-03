@@ -14,7 +14,7 @@ export default function Page() {
    
   return (
     <Form {...form}>
-      <div className="flex h-screen justify-center">
+      <div className="flex h-screen justify-center bg-blue-50">
         <form
           onSubmit={form.handleSubmit((data) => {
             console.log(data);

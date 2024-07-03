@@ -1,6 +1,5 @@
 import { Button } from "@/components/ui/button";
 import { Step, Stepper, useStepper } from "@/components/shared/stepper";
-import { toast } from "@/components/ui/use-toast";
 import SelectVehicle from "./select-vehicle";
 import SelectPerson from "./select-persons";
 import { GrFormPreviousLink } from "react-icons/gr";
@@ -22,15 +21,10 @@ export default function RegisterRide({ form }: any) {
         initialStep={0}
         steps={steps}
         onClickStep={(step, setStep) => {
-          toast({
-            title: "Step clicked",
-            description:
-              "This event is executed globally for all steps. If you want to have an event for a specific step, use the `onClickStep` prop of the independent step.",
-          });
           setStep(step);
         }}
       >
-        {steps.map((stepProps, index) => {
+        {steps.map((stepProps) => {
           return <Step key={stepProps.label}>{stepProps.content}</Step>;
         })}
         <Footer />
@@ -43,48 +37,32 @@ const Footer = () => {
   const {
     nextStep,
     prevStep,
-    resetSteps,
     isDisabledStep,
-    hasCompletedAllSteps,
     isLastStep,
-    isOptionalStep,
   } = useStepper();
   return (
     <>
-      {hasCompletedAllSteps && (
-        <div className="h-40 flex items-center justify-center my-2 border bg-secondary text-primary rounded-md">
-          <h1 className="text-xl">Woohoo! All steps completed! 🎉</h1>
-        </div>
-      )}
       <div className="w-full flex justify-between gap-2">
-        {hasCompletedAllSteps ? (
-          <Button size="sm" onClick={resetSteps}>
-            Reset
+        <Button
+          disabled={isDisabledStep}
+          onClick={prevStep}
+          size="sm"
+          variant="ghost"
+          type="button"
+        >
+          <GrFormPreviousLink className="w-4 h-4 mr-2" />
+          Back
+        </Button>
+
+        {isLastStep ? (
+          <Button type="submit">
+            Post Ride
+            <FaArrowAltCircleRight className="w-4 h-4 ml-2" />
           </Button>
         ) : (
-          <>
-            <Button
-              disabled={isDisabledStep}
-              onClick={prevStep}
-              size="sm"
-              variant="ghost"
-              type="button"
-            >
-              <GrFormPreviousLink className="w-4 h-4 mr-2" />
-              Back
-            </Button>
-
-            {isLastStep ? (
-              <Button type="submit">
-                Post Ride
-                <FaArrowAltCircleRight className="w-4 h-4 ml-2" />
-              </Button>
-            ) : (
-              <Button type="button" onClick={nextStep} size="sm">
-                Next
-              </Button>
-            )}
-          </>
+          <Button type="button" onClick={nextStep} size="sm">
+            Next
+          </Button>
         )}
       </div>
     </>

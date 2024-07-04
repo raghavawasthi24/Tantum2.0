@@ -17,6 +17,7 @@ import { IoIosSettings } from "react-icons/io";
 import { FiLogOut } from "react-icons/fi";
 import Link from "next/link";
 import { usePathname } from "next/navigation";
+import { BiUser } from "react-icons/bi";
 
 export default function Header() {
   const loggedin = true;
@@ -43,8 +44,8 @@ export default function Header() {
     },
   ];
 
-  const pathname= usePathname();
- 
+  const pathname = usePathname();
+
   return (
     <nav className="flex w-full fixed bg-white border-b top-0 justify-between items-center px-4 py-2 z-20">
       <p className="font-bold text-xl md:text-4xl text-[#272142]">Tantum.</p>
@@ -83,11 +84,10 @@ export default function Header() {
           <Sheet>
             <SheetTrigger asChild>
               <Avatar className="cursor-pointer">
-                <AvatarImage
-                  src="https://github.com/shadcn.png"
-                  alt="@shadcn"
-                />
-                <AvatarFallback>CN</AvatarFallback>
+                <AvatarImage src="https://github.com/shadcn.pg" alt="@shadcn" />
+                <AvatarFallback className="bg-gray-100">
+                  <BiUser className="w-6 h-6" />
+                </AvatarFallback>
               </Avatar>
             </SheetTrigger>
             <SheetContent className="w-[300px] pt-12 flex flex-col justify-between">

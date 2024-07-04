@@ -22,11 +22,11 @@ export default function Page() {
 
   return (
     <Form {...form}>
-      <div className="flex h-screen justify-center bg-blue-50">
+      <div className="flex h-screen justify-center bg-blue-50 sm:bg-[url('/assets/plainline.png')] bg-cover">
         <form
           onSubmit={form.handleSubmit(async (data) => {
             try {
-              console.log(data)
+              console.log(data);
               const res = await postRide(data);
               toast.success(res.message);
               router.push("/");

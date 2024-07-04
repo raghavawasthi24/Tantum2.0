@@ -1,39 +1,58 @@
 "use client";
-import Header from "@/components/shared/Header/Header";
-import React from "react";
-import RideHeader from "./components/ride-header";
-import { Filter } from "lucide-react";
-import FilterRides from "./components/filter-rides";
+import React, { useEffect, useState } from "react";
 import Rides from "./components/rides";
-import { RideSchema } from "@/schemas/Ride";
 import { getRide } from "@/actions/Rides/ride";
-import { z } from "zod";
 import FindRideForm from "@/components/FindRideForm";
 import { Button } from "@/components/ui/button";
 import {
   Drawer,
-  DrawerClose,
   DrawerContent,
-  DrawerDescription,
-  DrawerFooter,
-  DrawerHeader,
-  DrawerTitle,
   DrawerTrigger,
 } from "@/components/ui/drawer";
 import { IoIosSearch } from "react-icons/io";
+import { useSearchParams } from "next/navigation";
+import { toDate } from "date-fns";
 
-export default function page() {
-   const onSubmit = async (data: z.infer<typeof RideSchema>) => {
-     try {
-       const res = await getRide(data);
-       console.log(res);
-     } catch (error) {
-       console.log(error);
-     }
-   };
+interface Props {
+  source: string;
+  destination: string;
+  date: Date;
+  seatsVacant: number;
+};
+
+
+export default function Page() {
+
+  const params = useSearchParams();
+  const [allRides, setAllRides] = useState<Props[]>([]);
+
+
+
+  useEffect(()=>{
+
+    const getAllRides = async() =>{
+        try {
+          const rides: Props[] = await getRide({
+            source: params.get("source") || "",
+            destination: params.get("destination") || "",
+            date: new Date(params.get("date") || new Date()),
+            seatsVacant: parseInt(params.get("seatsVacant") || "0"),
+          });
+          console.log("rides", rides);
+          setAllRides(rides.data);
+        } catch (error) {
+          console.error("Failed to fetch rides:", error);
+        }
+    }
+
+    getAllRides();
+   
+  },[])
+   
+
   return (
     <div className="min-h-screen p-4">
-      <FindRideForm onSubmit={onSubmit} className="w-full hidden md:flex mx-auto" />
+      <FindRideForm  className="w-full hidden md:flex mx-auto" />
       <div className="flex md:hidden">
         <Drawer>
           <DrawerTrigger asChild>
@@ -43,13 +62,13 @@ export default function page() {
               Delhi to Mumbai - 19 March, 2024</Button>
           </DrawerTrigger>
           <DrawerContent>
-            <FindRideForm onSubmit={onSubmit} className="w-full mx-auto py-2" />
+            <FindRideForm  className="w-full mx-auto py-2" />
           </DrawerContent>
         </Drawer>
       </div>
       <div className="flex justify-center gap-8 py-4">
         {/* <FilterRides /> */}
-        <Rides />
+        <Rides allRides={allRides}/>
       </div>
     </div>
   );

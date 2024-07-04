@@ -22,18 +22,41 @@ import { CustomizedCalendar } from "@/components/shared/CustomizedCalender";
 import { cities } from "@/constants";
 import { RideSchema } from "@/schemas/Ride";
 import { cn } from '@/lib/utils';
+import { useRouter } from 'next/navigation';
 
-export default function FindRideForm({onSubmit, className}:any) {
+export default function FindRideForm({className}:any) {
     const form = useForm<z.infer<typeof RideSchema>>({
       resolver: zodResolver(RideSchema),
     });
+
+    const router = useRouter();
+
+    // const onSubmit = async (data: z.infer<typeof RideSchema>) => {
+    //   try {
+    //     const res = await getRide(data);
+    //     console.log(res);
+    //   } catch (error) {
+    //     console.log(error);
+    //   }
+    // };
+
+     const onSubmit = async (data: z.infer<typeof RideSchema>) => {
+       try {
+         router.push(
+           `/rides?source=${data.source}&destination=${data.destination}&date=${data.date}&seatsVacant=${data.seatsVacant}`
+         );
+       } catch (error) {
+         console.log(error);
+       }
+     };
+
 
     
   return (
     <Form {...form}>
       <form
         onSubmit={form.handleSubmit(onSubmit)}
-        className={cn("flex md:flex-row flex-col justify-center",className)}
+        className={cn("flex md:flex-row flex-col justify-center", className)}
       >
         <FormField
           control={form.control}
@@ -84,7 +107,7 @@ export default function FindRideForm({onSubmit, className}:any) {
         />
         <FormField
           control={form.control}
-          name="seats"
+          name="seatsVacant"
           render={({ field }) => (
             <FormItem className="flex flex-col">
               <div className="relative md:w-[150px] w-full">

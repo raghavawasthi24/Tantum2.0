@@ -1,6 +1,7 @@
 import { z } from "zod";
 
 export const PublishRideSchema = z.object({
+  ownerId: z.string(),
   source: z.string(),
   destination: z.string(),
   date: z.date(),
@@ -14,5 +15,5 @@ export const RideSchema = z.object({
   source: z.string(),
   destination: z.string(),
   date: z.date(),
-  seats: z.coerce.number(),
+  seatsVacant: z.coerce.number(),
 });

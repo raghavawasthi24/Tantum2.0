@@ -27,11 +27,13 @@ type PageProps = {
   className?: string;
   placeholder?: string;
   form?: any;
+  defaultValue:string;
 };
 
-export function ComboBox({ options, name, icon, className, placeholder, form }: PageProps) {
+export function ComboBox({ options, name, icon, className, placeholder, form, defaultValue }: PageProps) {
   const [open, setOpen] = React.useState(false);
-  const [value, setValue] = React.useState("");
+  const [value, setValue] = React.useState(defaultValue);
+
 
   return (
     <Popover open={open} onOpenChange={setOpen}>

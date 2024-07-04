@@ -6,6 +6,8 @@ import { cities } from "@/constants";
 import { MdLocationPin } from "react-icons/md";
 
 export default function SelectPickDrop({ form }: any) {
+  const sourceValue = form.watch("source");
+  const destinationValue = form.watch("destination");
   return (
     <div className="grid gap-4">
       <h1 className="text-2xl sm:text-4xl font-bold">From where to where?</h1>
@@ -24,6 +26,7 @@ export default function SelectPickDrop({ form }: any) {
               placeholder="Source"
               className="w-full"
               form={form}
+              defaultValue={sourceValue}
             />
           </FormItem>
         )}
@@ -40,6 +43,7 @@ export default function SelectPickDrop({ form }: any) {
               placeholder="Destination"
               className="w-full"
               form={form}
+              defaultValue={destinationValue}
             />
           </FormItem>
         )}

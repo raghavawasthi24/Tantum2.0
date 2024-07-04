@@ -17,11 +17,11 @@ import { Input } from "@/components/ui/input";
 import { Label } from "@/components/ui/label";
 import { LiaRupeeSignSolid } from "react-icons/lia";
 
-export default function RideCard() {
+export default function RideCard({data}:any) {
   return (
     <div className="rounded-xl px-2 py-4 border-2 grid gap-4 hover:bg-muted/5">
       <div className="flex text-2xl sm:text-3xl">
-        <p>8:00</p>
+        <p>{data.departure_time}</p>
         <div className="flex flex-col items-center">
           <p className="text-xs -mb-2">3hr 10min</p>
           <div className="flex items-center">
@@ -30,7 +30,7 @@ export default function RideCard() {
             <TbPointFilled />
           </div>
         </div>
-        <p>23:00</p>
+        <p>{data.reaching_time}</p>
       </div>
 
       <div className="flex flex-col sm:flex-row md:flex-col lg:flex-row justify-between gap-4 sm:gap-0 md:gap-4 lg:gap-0">

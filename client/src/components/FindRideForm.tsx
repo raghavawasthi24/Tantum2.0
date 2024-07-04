@@ -1,5 +1,5 @@
 "use client";
-import React from 'react';
+import React, { useEffect } from "react";
 import { Input } from "@/components/ui/input";
 import { Button } from "@/components/ui/button";
 import { TbLocationFilled } from "react-icons/tb";
@@ -14,44 +14,46 @@ import {
 } from "@/components/ui/form";
 import { z } from "zod";
 import { zodResolver } from "@hookform/resolvers/zod";
-import { getRide } from "@/actions/Rides/ride";
 import { useForm } from "react-hook-form";
 
 import { ComboBox } from "@/components/shared/ComboxBox";
 import { CustomizedCalendar } from "@/components/shared/CustomizedCalender";
 import { cities } from "@/constants";
 import { RideSchema } from "@/schemas/Ride";
-import { cn } from '@/lib/utils';
-import { useRouter } from 'next/navigation';
+import { cn } from "@/lib/utils";
+import { useRouter } from "next/navigation";
+import { IoIosSearch } from "react-icons/io";
 
-export default function FindRideForm({className}:any) {
-    const form = useForm<z.infer<typeof RideSchema>>({
-      resolver: zodResolver(RideSchema),
-    });
+export default function FindRideForm({ className, defaultValues }: any) {
+  const form = useForm<z.infer<typeof RideSchema>>({
+    resolver: zodResolver(RideSchema),
+    defaultValues:{
+      date:defaultValues.date,
+      seatsVacant:defaultValues.seatsVacant
+    }
+  });
 
-    const router = useRouter();
+  const router = useRouter();
 
-    // const onSubmit = async (data: z.infer<typeof RideSchema>) => {
-    //   try {
-    //     const res = await getRide(data);
-    //     console.log(res);
-    //   } catch (error) {
-    //     console.log(error);
-    //   }
-    // };
+  // const onSubmit = async (data: z.infer<typeof RideSchema>) => {
+  //   try {
+  //     const res = await getRide(data);
+  //     console.log(res);
+  //   } catch (error) {
+  //     console.log(error);
+  //   }
+  // };
 
-     const onSubmit = async (data: z.infer<typeof RideSchema>) => {
-       try {
-         router.push(
-           `/rides?source=${data.source}&destination=${data.destination}&date=${data.date}&seatsVacant=${data.seatsVacant}`
-         );
-       } catch (error) {
-         console.log(error);
-       }
-     };
+  const onSubmit = async (data: z.infer<typeof RideSchema>) => {
+    try {
+      router.push(
+        `/rides?source=${data.source}&destination=${data.destination}&date=${data.date}&seatsVacant=${data.seatsVacant}`
+      );
+    } catch (error) {
+      console.log(error);
+    }
+  };
 
-
-    
   return (
     <Form {...form}>
       <form
@@ -67,9 +69,10 @@ export default function FindRideForm({className}:any) {
                 name="source"
                 className="w-full md:w-[150px]"
                 options={cities}
-                icon={<TbLocationFilled />}
+                icon={<TbLocationFilled className="text-green-800 w-4 h-4" />}
                 placeholder="Source"
                 form={form}
+                defaultValue={defaultValues.source}
               />
             </FormItem>
           )}
@@ -84,9 +87,10 @@ export default function FindRideForm({className}:any) {
                   className="w-full md:w-[150px]"
                   options={cities}
                   name="destination"
-                  icon={<MdLocationPin />}
+                  icon={<MdLocationPin className="text-red-800 w-4 h-4" />}
                   placeholder="Destination"
                   form={form}
+                  defaultValue={defaultValues.destination}
                 />
               </FormControl>
             </FormItem>
@@ -101,7 +105,6 @@ export default function FindRideForm({className}:any) {
                 field={field}
                 className="w-full md:w-[150px]"
               />
-              <FormMessage />
             </FormItem>
           )}
         />
@@ -111,22 +114,22 @@ export default function FindRideForm({className}:any) {
           render={({ field }) => (
             <FormItem className="flex flex-col">
               <div className="relative md:w-[150px] w-full">
-                <BsPersonFill className="absolute left-2 top-3.5 h-4 w-4 " />
+                <BsPersonFill className="absolute left-4 top-3.5 h-4 w-4" />
                 <FormControl>
                   <Input
                     placeholder="People"
-                    className="pl-8 focus-visible:ring-0 rounded-none focus-visible:ring-offset-0 h-10 placeholder:text-foreground"
+                    className="pl-10 focus-visible:ring-0 rounded-none focus-visible:ring-offset-0 h-10 placeholder:text-foreground"
                     {...field}
                     type="number"
                   />
                 </FormControl>
               </div>
-              <FormMessage />
             </FormItem>
           )}
         />
         <Button type="submit" className="bg-destructive hover:bg-destructive">
-          Submit
+          <IoIosSearch className="w-4 h-4 mr-1" />
+          Find
         </Button>
       </form>
     </Form>

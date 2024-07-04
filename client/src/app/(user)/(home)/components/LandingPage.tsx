@@ -11,6 +11,7 @@ export default function LandingPage() {
   // const { data: session } = getServerSession(authop);
   // console.log(session);
 
+
  
   return (
     <section className=" py-20 flex flex-col items-center clip-custom bg-ai gap-12">
@@ -25,7 +26,7 @@ export default function LandingPage() {
         </p>
       </div>
 
-      <FindRideForm className="w-3/4"/>
+      <FindRideForm className="w-3/4" defaultValues={{}}/>
     </section>
   );
 }

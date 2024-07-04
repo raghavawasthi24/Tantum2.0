@@ -25,7 +25,7 @@ export function CustomizedCalendar({ field, className }: any) {
               "w-full pl-3 flex justify-start items-center rounded-none h-10"
             ,className)}
           >
-            <CalendarIcon className="h-4 w-4 mr-2 opacity-50" />
+            <CalendarIcon className="h-4 w-4 mx-1 mr-2 text-blue-500" />
             {field.value ? (
               format(field.value, "PPP")
             ) : (

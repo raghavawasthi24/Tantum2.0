@@ -6,7 +6,8 @@ export interface RideSchema extends Document {
   source: string;
   destination: string;
   date: Date;
-  time: string;
+  departure_time: string;
+  reaching_time:string,
   seatsVacant: number;
   price:number
 }

@@ -3,9 +3,7 @@ import { format } from "date-fns";
 import { CalendarIcon } from "lucide-react";
 import { Button } from "@/components/ui/button";
 import { Calendar } from "@/components/ui/calendar";
-import {
-  FormControl,
-} from "@/components/ui/form";
+import { FormControl } from "@/components/ui/form";
 import {
   Popover,
   PopoverContent,
@@ -14,7 +12,6 @@ import {
 import { cn } from "@/lib/utils";
 
 export function CustomizedCalendar({ field, className }: any) {
-
   return (
     <Popover>
       <PopoverTrigger asChild>
@@ -22,10 +19,11 @@ export function CustomizedCalendar({ field, className }: any) {
           <Button
             variant={"outline"}
             className={cn(
-              "w-full pl-3 flex justify-start items-center rounded-none h-10"
-            ,className)}
+              "w-full pl-3 flex justify-start items-center rounded-none h-10 text-muted-foreground",
+              className
+            )}
           >
-            <CalendarIcon className="h-4 w-4 mx-1 mr-2 text-blue-500" />
+            <CalendarIcon className="h-4 w-4 mx-1 mr-2" />
             {field.value ? (
               format(field.value, "PPP")
             ) : (

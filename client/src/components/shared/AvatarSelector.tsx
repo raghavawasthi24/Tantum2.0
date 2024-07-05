@@ -16,9 +16,10 @@ const uploadPreset = process.env.NEXT_PUBLIC_UPLOAD_PRESET;
 
 interface ImageUploadProps {
   onUploadComplete?: (url: string) => void;
+  form:any
 }
 
-const ImageUpload: React.FC<ImageUploadProps> = ({ onUploadComplete }) => {
+const ImageUpload: React.FC<ImageUploadProps> = ({ onUploadComplete, form }) => {
   const [loading, setLoading] = useState<boolean>(false);
   const [progress, setProgress] = useState<number>(0);
   const [selectedImage, setSelectedImage] = useState<File | null>(null);

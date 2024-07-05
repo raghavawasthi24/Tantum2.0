@@ -1,14 +1,8 @@
 "use client";
 
-import { zodResolver } from "@hookform/resolvers/zod";
-import { useForm } from "react-hook-form";
-import { z } from "zod";
-
 import { Button } from "@/components/ui/button";
 import {
-  Form,
   FormControl,
-  FormDescription,
   FormField,
   FormItem,
   FormLabel,
@@ -22,75 +16,20 @@ import {
   SelectValue,
 } from "@/components/ui/select";
 import { Input } from "@/components/ui/input";
-import { toast } from "@/components/ui/use-toast";
+import { CustomizedCalendar } from "@/components/shared/CustomizedCalender";
 
-const FormSchema = z.object({
-  username: z.string().min(2, {
-    message: "Username must be at least 2 characters.",
-  }),
-});
-
-export default function BasicDetails() {
-  const form = useForm<z.infer<typeof FormSchema>>({
-    resolver: zodResolver(FormSchema),
-    defaultValues: {
-      username: "",
-    },
-  });
-
-  function onSubmit(data: z.infer<typeof FormSchema>) {
-    toast({
-      title: "You submitted the following values:",
-      description: (
-        <pre className="mt-2 w-[340px] rounded-md bg-slate-950 p-4">
-          <code className="text-white">{JSON.stringify(data, null, 2)}</code>
-        </pre>
-      ),
-    });
-  }
-
+export default function BasicDetails({ form }: any) {
   return (
-    <Form {...form}>
-      <form
-        onSubmit={form.handleSubmit(onSubmit)}
-        className="md:w-1/2 h-full flex flex-col justify-center items-center gap-4 px-6"
-      >
-        <div className="w-full sm:max-w-[500px] grid grid-cols-2 gap-4">
-          <FormField
-            control={form.control}
-            name="username"
-            render={({ field }) => (
-              <FormItem>
-                <FormLabel>First Name</FormLabel>
-                <FormControl>
-                  <Input placeholder="shadcn" {...field} />
-                </FormControl>
-                <FormMessage />
-              </FormItem>
-            )}
-          />
-          <FormField
-            control={form.control}
-            name="username"
-            render={({ field }) => (
-              <FormItem>
-                <FormLabel>Last Name</FormLabel>
-                <FormControl>
-                  <Input placeholder="shadcn" {...field} />
-                </FormControl>
-                <FormMessage />
-              </FormItem>
-            )}
-          />
-        </div>
+    <div className="w-full h-full md:w-1/2 flex flex-col justify-center items-center gap-4">
+      <div className="w-full sm:max-w-[500px] grid grid-cols-2 gap-4">
         <FormField
           control={form.control}
-          name="username"
+          name="firstName"
           render={({ field }) => (
-            <FormItem className="w-full max-w-[500px]">
-              <FormLabel>Date of Birth</FormLabel>
+            <FormItem>
+              <FormLabel>First Name</FormLabel>
               <FormControl>
-                <Input placeholder="shadcn" {...field} />
+                <Input placeholder="Your first name" {...field} />
               </FormControl>
               <FormMessage />
             </FormItem>
@@ -98,35 +37,58 @@ export default function BasicDetails() {
         />
         <FormField
           control={form.control}
-          name="username"
+          name="lastName"
           render={({ field }) => (
-            <FormItem className="w-full max-w-[500px]">
-              <FormLabel>Gender</FormLabel>
+            <FormItem>
+              <FormLabel>Last Name</FormLabel>
               <FormControl>
-                <Select
-                  onValueChange={field.onChange}
-                  defaultValue={field.value}
-                >
-                  <FormControl>
-                    <SelectTrigger>
-                      <SelectValue placeholder="Select Gender" />
-                    </SelectTrigger>
-                  </FormControl>
-                  <SelectContent>
-                    <SelectItem value="male">Male</SelectItem>
-                    <SelectItem value="female">Female</SelectItem>
-                    <SelectItem value="other">Other</SelectItem>
-                  </SelectContent>
-                </Select>
+                <Input placeholder="Your family name" {...field} />
               </FormControl>
               <FormMessage />
             </FormItem>
           )}
         />
-        <Button type="submit" className="w-[100px] self-end my-8">
-          Submit
-        </Button>
-      </form>
-    </Form>
+      </div>
+      <FormField
+        control={form.control}
+        name="dob"
+        render={({ field }) => (
+          <FormItem className="flex flex-col w-full  sm:max-w-[500px]">
+            <FormLabel>Date of Birth</FormLabel>
+            <CustomizedCalendar
+              field={field}
+              className="w-full  sm:max-w-[500px]"
+            />
+          </FormItem>
+        )}
+      />
+      <FormField
+        control={form.control}
+        name="gender"
+        render={({ field }) => (
+          <FormItem className="w-full sm:max-w-[500px]">
+            <FormLabel>Gender</FormLabel>
+            <FormControl>
+              <Select onValueChange={field.onChange} defaultValue={field.value}>
+                <FormControl>
+                  <SelectTrigger>
+                    <SelectValue placeholder="Select Gender" />
+                  </SelectTrigger>
+                </FormControl>
+                <SelectContent>
+                  <SelectItem value="male">Male</SelectItem>
+                  <SelectItem value="female">Female</SelectItem>
+                  <SelectItem value="other">Other</SelectItem>
+                </SelectContent>
+              </Select>
+            </FormControl>
+            <FormMessage />
+          </FormItem>
+        )}
+      />
+      <Button type="submit" className="w-full sm:max-w-[500px] my-8">
+        Upload
+      </Button>
+    </div>
   );
 }

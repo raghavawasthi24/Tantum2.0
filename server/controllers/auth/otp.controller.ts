@@ -35,15 +35,19 @@ const sendOtp = async (req: Request, res: Response) => {
 const verifyOtp = async (req: Request, res: Response) => {
   const { email, otp } = req.body;
 
+  console.log(req.body);
+
   try {
     if (!email || !otp)
       return res.status(400).json({ message: "Invalid fields" });
 
     const user = await User.findOne({ email });
+    console.log("user",user);
 
     if (!user) return res.status(400).json({ message: "User not found" });
 
     let otpResult = otpVerification(user, otp);
+    console.log("otpres", otpResult);
     if (otpResult === "Email verified") {
       return res.status(200).json({ message: "Email verified" });
     } else {

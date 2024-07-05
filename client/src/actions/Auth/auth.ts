@@ -43,7 +43,7 @@ export const loginAction = async (data: z.infer<typeof LoginSchema>) => {
 export const VerifyOtpAction = async (data: z.infer<typeof VerifyOtpSchema>) => {
   console.log(data);
 
-  const res = await fetch(`${process.env.NEXT_PUBLIC_API_URL}/verify-email`, {
+  const res = await fetch(`${process.env.NEXT_PUBLIC_API_URL}/verify-login-email`, {
     method: "POST",
     headers: {
       "Content-Type": "application/json",

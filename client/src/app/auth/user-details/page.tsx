@@ -6,8 +6,14 @@ import { useForm } from "react-hook-form";
 import { z } from "zod";
 import { zodResolver } from "@hookform/resolvers/zod";
 import { Form } from "@/components/ui/form";
+import { updateUserDetails } from "@/actions/User/update-user-details";
+import { useRouter } from "next/navigation";
+import toast from "react-hot-toast";
+import Cookies from "js-cookie";
+
 
 export const FormSchema = z.object({
+  email: z.string(),
   firstName: z.string(),
   lastName: z.string(),
   avatar: z.string().optional(),
@@ -18,10 +24,25 @@ export const FormSchema = z.object({
 export default function Page() {
   const form = useForm<z.infer<typeof FormSchema>>({
     resolver: zodResolver(FormSchema),
+    defaultValues: {
+      email: Cookies.get("email") || ""
+    },
   });
 
-  function onSubmit(data: z.infer<typeof FormSchema>) {
-    console.log(data);
+  const router = useRouter();
+
+  async function onSubmit(data: z.infer<typeof FormSchema>) {
+    try{
+      const res = await updateUserDetails(data);
+    if(res){
+      toast.success("User details updated successfully");
+      router.push("/");  
+    }}
+    catch(error: any){
+      console.log(error);
+      const errorMessage = error.message || "Something went wrong!";
+      toast.error(errorMessage);
+    }
   }
 
   return (

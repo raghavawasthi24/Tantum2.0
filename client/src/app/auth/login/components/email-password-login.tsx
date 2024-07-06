@@ -45,7 +45,12 @@ export default function EmailPasswordLogin() {
       if (res?.status == 200) {
         toast.success("Login successful");
         router.push("/");
-      } else {
+      } 
+      else if(res?.status==201){
+        toast.success("Login successful");
+        router.push("/auth/user-details");
+      }
+      else {
         toast.error("Invalid Credentials");
       }
     } catch (error: any) {

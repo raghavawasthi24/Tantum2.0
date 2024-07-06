@@ -46,7 +46,7 @@ export default function Page() {
     try {
       const res = await VerifyOtpAction(data);
       toast.success(res);
-      router.push("/");
+      router.push("/auth/user-details");
     } catch (error: any) {
       console.log(error);
       const errorMessage = error.message || "Something went wrong!";

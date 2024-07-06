@@ -13,7 +13,7 @@ const userSchema = new mongoose.Schema<UserSchema>(
       expiresIn: { type: Date, default: null },
     },
     tokens: {
-      acessToken: { type: String, default: null },
+      accessToken: { type: String, default: null },
       refreshToken: { type: String, default: null },
       expiryDate: { type: Date, default: null },
     },

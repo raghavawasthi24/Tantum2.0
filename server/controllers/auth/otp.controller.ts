@@ -35,7 +35,7 @@ const sendOtp = async (req: Request, res: Response) => {
 const verifyOtp = async (req: Request, res: Response) => {
   const { email, otp } = req.body;
 
-  console.log(req.body);
+  // console.log(req.body);
 
   try {
     if (!email || !otp)

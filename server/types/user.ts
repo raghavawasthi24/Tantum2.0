@@ -31,4 +31,5 @@ export interface UserSchema extends Document {
   avatar: string;
   rideInfo: UserRideInfo;
   tokens: tokenSchema;
+  basicDetailsCompleted:boolean
 }

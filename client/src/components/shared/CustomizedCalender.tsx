@@ -19,7 +19,7 @@ export function CustomizedCalendar({ field, className }: any) {
           <Button
             variant={"outline"}
             className={cn(
-              "w-full pl-3 flex justify-start items-center rounded-none h-10 text-muted-foreground",
+              "w-full pl-3 flex justify-start items-center rounded-none h-10",
               className
             )}
           >

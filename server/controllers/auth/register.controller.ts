@@ -6,7 +6,6 @@ import { UserSchema } from "../../types/user";
 import { otpGenerate } from "../../services/otpgenerate";
 import { sendEmail } from "../../services/emailService";
 import { otpVerification } from "../../services/otpVerification";
-import { tokengenerate } from "../../services/tokengenerate";
 
 dotenv.config();
 
@@ -69,21 +68,21 @@ const verifyEmail = async (req: Request, res: Response) => {
 
     let otpResult = otpVerification(user, otp);
     if (otpResult === "Email verified") {
-      const token = tokengenerate(
-        email,
-        process.env.ACCESS_TOKEN_SECRET as string,
-        process.env.ACCESS_TOKEN_EXPIRY as string,
-        process.env.REFRESH_TOKEN_SECRET as string,
-        process.env.REFRESH_TOKEN_EXPIRY as string
-      );
+      // const token = tokengenerate(
+      //   email,
+      //   process.env.ACCESS_TOKEN_SECRET as string,
+      //   process.env.ACCESS_TOKEN_EXPIRY as string,
+      //   process.env.REFRESH_TOKEN_SECRET as string,
+      //   process.env.REFRESH_TOKEN_EXPIRY as string
+      // );
 
       user.isVerified = true;
-      user.tokens = token;
+      // user.tokens = token;
 
       await user.save();
       return res
         .status(200)
-        .json({ message: "Email verified", id: user._id, token });
+        .json({ message: "Email verified", id: user._id });
     } else {
       return res.status(400).json({ message: otpResult });
     }

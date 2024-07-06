@@ -16,10 +16,13 @@ const uploadPreset = process.env.NEXT_PUBLIC_UPLOAD_PRESET;
 
 interface ImageUploadProps {
   onUploadComplete?: (url: string) => void;
-  form:any
+  form: any;
 }
 
-const ImageUpload: React.FC<ImageUploadProps> = ({ onUploadComplete, form }) => {
+const ImageUpload: React.FC<ImageUploadProps> = ({
+  onUploadComplete,
+  form,
+}) => {
   const [loading, setLoading] = useState<boolean>(false);
   const [progress, setProgress] = useState<number>(0);
   const [selectedImage, setSelectedImage] = useState<File | null>(null);
@@ -37,6 +40,7 @@ const ImageUpload: React.FC<ImageUploadProps> = ({ onUploadComplete, form }) => 
   };
 
   const handleImageChange = (event: React.ChangeEvent<HTMLInputElement>) => {
+    console.log("event.target.files", event.target.files);
     if (event.target.files?.length) {
       const image = event.target.files[0];
       setSelectedImage(image);
@@ -54,18 +58,27 @@ const ImageUpload: React.FC<ImageUploadProps> = ({ onUploadComplete, form }) => 
     if (!image) return;
     setLoading(true);
 
+    console.log(image, uploadPreset, apiKey);
+
     const formData = new FormData();
     formData.append("file", image);
     formData.append("upload_preset", uploadPreset as string);
     formData.append("api_key", apiKey as string);
 
+    console.log("formData contents:");
+
     try {
-      const res :any= await uploadImageToCloudinary(formData, onUploadProgress);
-      if (res.status === 200) {
+      const res: any = await uploadImageToCloudinary(
+        formData,
+      );
+
+      console.log("res", res, res.url);
+      if (res) {
         setLoading(false);
-        setUploadedImagePath(res.data.url);
+        setUploadedImagePath(res.url);
+        form.setValue("avatar", res.url);
         if (onUploadComplete) {
-          onUploadComplete(res.data.url);
+          onUploadComplete(res.url);
         }
       }
     } catch (error) {
@@ -85,20 +98,15 @@ const ImageUpload: React.FC<ImageUploadProps> = ({ onUploadComplete, form }) => 
   const { getRootProps, getInputProps } = useDropzone({ onDrop });
 
   return (
-    <div className=" w-1/2 h-full px-6 flex justify-center py-4">
+    <div className=" w-1/2 h-full p-6 flex flex-col items-center gap-4">
       <div {...getRootProps()} className="h-full">
         <label
           htmlFor="dropzone-file"
-          className="relative flex flex-col items-center justify-center p-6 border-2 border-gray-300 border-dashed rounded-full cursor-pointer bg-gray-50 dark:hover:bg-bray-800 dark:bg-gray-700 hover:bg-gray-100 dark:border-gray-600 dark:hover:border-gray-500 dark:hover:bg-gray-600 w-64 visually-hidden-focusable h-64"
+          className="relative flex flex-col items-center justify-center border-2 border-gray-300 border-dashed rounded-full cursor-pointer bg-gray-50 dark:hover:bg-bray-800 dark:bg-gray-700 hover:bg-gray-100 dark:border-gray-600 dark:hover:border-gray-500 dark:hover:bg-gray-600 w-64 h-64 visually-hidden-focusable"
         >
           {loading && (
             <div className="text-center max-w-md">
-              <RadialProgress progress={progress} />
-              <p className="text-sm font-semibold">Uploading Picture</p>
-              <p className="text-xs text-gray-400">
-                Do not refresh or perform any other action while the picture is
-                being uploaded
-              </p>
+              <p className="">Uploading...</p>
             </div>
           )}
 
@@ -107,38 +115,30 @@ const ImageUpload: React.FC<ImageUploadProps> = ({ onUploadComplete, form }) => 
               <div className="border p-2 rounded-md max-w-min mx-auto">
                 <IoCloudUploadOutline size="1.6em" />
               </div>
-
               <p className="mt-2 text-sm text-gray-500 dark:text-gray-400">
                 <span className="font-semibold">Drag an image</span>
               </p>
               <p className="text-xs text-gray-400 dark:text-gray-400">
-                Select a image or drag here to upload directly
+                Select an image or drag here to upload directly
               </p>
             </div>
           )}
 
           {uploadedImagePath && !loading && (
-            <div className="text-center space-y-2">
+            <div className="text-center w-full h-full rounded-full overflow-hidden">
               <Image
-                width={1000}
-                height={1000}
+                width={250}
+                height={250}
                 src={uploadedImagePath}
-                className="w-full object-contain max-h-16 opacity-70"
+                className="object-cover w-full h-full"
                 alt="uploaded image"
               />
-              <div className="space-y-1">
-                <p className="text-sm font-semibold">Image Uploaded</p>
-                <p className="text-xs text-gray-400">
-                  Click here to upload another image
-                </p>
-              </div>
             </div>
           )}
         </label>
 
         <Input
           {...getInputProps()}
-          id="dropzone-file"
           accept="image/png, image/jpeg"
           type="file"
           className="hidden"
@@ -148,22 +148,14 @@ const ImageUpload: React.FC<ImageUploadProps> = ({ onUploadComplete, form }) => 
       </div>
 
       {!!uploadedImagePath && (
-        <div className="flex items-center justify-between">
-          <Link
-            href={uploadedImagePath}
-            className=" text-gray-500 text-xs hover:underline "
-          >
-            Click here to see uploaded image :D
-          </Link>
-
-          <Button
-            onClick={removeSelectedImage}
-            type="button"
-            variant="secondary"
-          >
-            {uploadedImagePath ? "Remove" : "Close"}
-          </Button>
-        </div>
+        <Button
+          onClick={removeSelectedImage}
+          type="button"
+          variant="destructive"
+          className="rounded-lg"
+        >
+          {uploadedImagePath ? "Remove" : "Close"}
+        </Button>
       )}
     </div>
   );

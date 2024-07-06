@@ -27,6 +27,7 @@ const userSchema = new mongoose.Schema<UserSchema>(
       offered: { type: [String] },
       booked: { type: [String] },
     },
+    basicDetailsCompleted:{type: Boolean, default:false}
   },
   {
     timestamps: true,

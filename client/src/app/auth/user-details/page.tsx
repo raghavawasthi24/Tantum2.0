@@ -10,20 +10,12 @@ import { updateUserDetails } from "@/actions/User/update-user-details";
 import { useRouter } from "next/navigation";
 import toast from "react-hot-toast";
 import Cookies from "js-cookie";
+import { UserDetailsSchema } from "@/schemas/user";
 
-
-export const FormSchema = z.object({
-  email: z.string(),
-  firstName: z.string(),
-  lastName: z.string(),
-  avatar: z.string().optional(),
-  dob: z.date(),
-  gender: z.string(),
-});
 
 export default function Page() {
-  const form = useForm<z.infer<typeof FormSchema>>({
-    resolver: zodResolver(FormSchema),
+  const form = useForm<z.infer<typeof UserDetailsSchema>>({
+    resolver: zodResolver(UserDetailsSchema),
     defaultValues: {
       email: Cookies.get("email") || ""
     },
@@ -31,7 +23,7 @@ export default function Page() {
 
   const router = useRouter();
 
-  async function onSubmit(data: z.infer<typeof FormSchema>) {
+  async function onSubmit(data: z.infer<typeof UserDetailsSchema>) {
     try{
       const res = await updateUserDetails(data);
     if(res){

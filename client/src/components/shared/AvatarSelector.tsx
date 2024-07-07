@@ -2,12 +2,10 @@
 
 import React, { useState, useCallback } from "react";
 import { useDropzone } from "react-dropzone";
-import { Button, buttonVariants } from "@/components/ui/button";
+import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
 import { IoCloudUploadOutline } from "react-icons/io5";
 import Image from "next/image";
-import Link from "next/link";
-import RadialProgress from "@/components/shared/radial-progress";
 import { uploadImageToCloudinary } from "@/actions/AvatarUpload";
 // import { AxiosProgressEvent } from "axios";
 
@@ -93,6 +91,8 @@ const ImageUpload: React.FC<ImageUploadProps> = ({
       setSelectedImage(image);
       handleImageUpload(image);
     }
+
+    //eslint-disable-next-line
   }, []);
 
   const { getRootProps, getInputProps } = useDropzone({ onDrop });

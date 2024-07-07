@@ -63,7 +63,7 @@ export default function Page() {
     <Suspense fallback={<div>Loading...</div>}>
       <SearchParamsFetcher setDefaultValues={setDefaultValues} />
       {defaultValues && (
-        <div className="min-h-screen p-4">
+        <div className="min-h-screen p-4 bg-gray-200">
           <FindRideForm
             className="w-full hidden md:flex mx-auto"
             defaultValues={defaultValues}

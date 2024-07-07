@@ -74,3 +74,23 @@
   animation: wiggle 10s linear infinite alternate;
   background-size: 105% !important;
 }
+
+.btn-grad {
+  background-image: linear-gradient(
+    to right,
+    #6a3093 0%,
+    #a044ff 51%,
+    #6a3093 100%
+  );
+  padding: 5px 10px;
+  transition: 0.5s;
+  color: white;
+  box-shadow: 0 0 20px #eee;
+  border-radius: 10px;
+}
+
+.btn-grad:hover {
+  background-position: right center; /* change the direction of the change here */
+  color: #fff;
+  text-decoration: none;
+}

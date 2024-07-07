@@ -4,21 +4,35 @@ import RegisterRide from "@/components/shared/Header/components/register-ride";
 import { Form } from "@/components/ui/form";
 import { PublishRideSchema } from "@/schemas/Ride";
 import { zodResolver } from "@hookform/resolvers/zod";
+import { useSession } from "next-auth/react";
 import { useRouter } from "next/navigation";
-import React, { useReducer } from "react";
+import React from "react";
 import { useForm } from "react-hook-form";
 import toast from "react-hot-toast";
 import { z } from "zod";
 
 export default function Page() {
+  const { data: session, status } = useSession();
+  const router = useRouter();
+
   const form = useForm<z.infer<typeof PublishRideSchema>>({
     resolver: zodResolver(PublishRideSchema),
     defaultValues: {
-      ownerId: "6659c6904364fe2614b46de2",
+      ownerId: session?.user.id,
     },
   });
 
-  const router = useRouter();
+  // Ensure session is loaded before rendering the form
+  if (status === "loading") {
+    return <div>Loading...</div>;
+  }
+
+  // If there's no session, return null to prevent rendering the form
+  if (!session) {
+    return null;
+  }
+
+  form.setValue("ownerId", session?.user.id);
 
   return (
     <Form {...form}>

@@ -16,14 +16,20 @@ import {
 import { Input } from "@/components/ui/input";
 import { Label } from "@/components/ui/label";
 import { LiaRupeeSignSolid } from "react-icons/lia";
+import { BiUser } from "react-icons/bi";
+import { timeDifference } from "@/helpers/timediffToAlpha";
+import { FaMotorcycle } from "react-icons/fa6";
+
 
 export default function RideCard({data}:any) {
   return (
-    <div className="rounded-xl px-2 py-4 border-2 grid gap-4 hover:bg-muted/5">
+    <div className="rounded-xl p-4  grid gap-4 bg-white">
       <div className="flex text-2xl sm:text-3xl">
         <p>{data.departure_time}</p>
         <div className="flex flex-col items-center">
-          <p className="text-xs -mb-2">3hr 10min</p>
+          <p className="text-xs -mb-2">
+            {timeDifference(data.departure_time, data.reaching_time)}
+          </p>
           <div className="flex items-center">
             <TbPointFilled />
             <div className="bg-black w-32 h-1 -mx-2"></div>
@@ -37,28 +43,34 @@ export default function RideCard({data}:any) {
         <div className="flex gap-2 items-end">
           <div className="flex items-center gap-2">
             <Avatar className="w-12 h-12">
-              <AvatarImage src="https://github.com/shadcn.png" alt="@shadcn" />
-              <AvatarFallback>CN</AvatarFallback>
+              <AvatarImage src={data?.ownerId?.avatar} alt="@shadcn" />
+              <AvatarFallback className="bg-gray-100">
+                <BiUser className="w-6 h-6" />
+              </AvatarFallback>
             </Avatar>
           </div>
           <div className="font-semibold">
-            <span>Satyam Singh</span>
+            <span>
+              {data?.ownerId?.firstName + "" + data?.ownerId?.lastName}
+            </span>
             <div className="flex items-center">
               <div className="mr-2 text-red-400 flex items-center">
-                4
+                {data?.ownerId?.rideInfo?.rating}
                 <FaStar className="w-3 h-3 ml-1" />
               </div>
-              <span className="text-sm">(412)</span>
+              <span className="text-sm">
+                {data?.ownerId?.rideInfo?.peopleRated}
+              </span>
             </div>
           </div>
-          <FaCar className="w-8 h-8 text-primary/50 ml-4" />
+          {data.vehicleType === "4wheeler"?<FaCar className="w-8 h-8 text-primary/50 ml-4" />:<FaMotorcycle className="w-8 h-8 text-primary/50 ml-4" />}
         </div>
 
         <Dialog>
           <DialogTrigger asChild>
-            <Button variant="outline" className="border-2 text-primary">
+            <Button variant="default" className="btn-grad">
               <LiaRupeeSignSolid className="w-6 h-6" />
-              <span className="text-3xl">483.00</span>
+              <span className="text-xl">{data?.price}</span>
             </Button>
           </DialogTrigger>
           <DialogContent className="sm:max-w-[425px]"></DialogContent>

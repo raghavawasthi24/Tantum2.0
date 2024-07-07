@@ -25,11 +25,6 @@ const login = async (req: Request, res: Response): Promise<any> => {
         .status(400)
         .send({ message: "Password or email is incorrect" });
 
-    if (!user.basicDetailsCompleted)
-      return res
-        .status(201)
-        .send({ message: "Login Successfully!", id: user._id });
-
     const token = tokengenerate(
       email,
       process.env.ACCESS_TOKEN_SECRET as string,
@@ -38,10 +33,11 @@ const login = async (req: Request, res: Response): Promise<any> => {
       process.env.REFRESH_TOKEN_EXPIRY as string
     );
 
-    return res.status(201).json({
+    return res.status(200).json({
       message: "Logged in",
       id: user._id,
       token,
+      basicDetailsCompleted: user.basicDetailsCompleted,
     });
   } catch (error) {
     console.error(error);

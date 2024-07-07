@@ -23,7 +23,7 @@
 import NextAuth, { NextAuthOptions } from "next-auth";
 import CredentialsProvider from "next-auth/providers/credentials";
 
-const authOptions: NextAuthOptions = {
+export const authOptions: NextAuthOptions = {
   providers: [
     CredentialsProvider({
       name: "Credentials",
@@ -49,6 +49,7 @@ const authOptions: NextAuthOptions = {
           },
         });
 
+
         if (res.status == 200) {
           const user = await res.json();
           return user;
@@ -60,17 +61,22 @@ const authOptions: NextAuthOptions = {
   ],
 
   callbacks: {
-    async jwt({ token, user }) {
-      console.log(token);
+    async jwt({ token, user }): Promise<any> {
       if (user) return { ...token, ...user };
+      // console.log("token is srtrar", token, "user hhggh yuguyfuf yugyu", user);
 
-      if (new Date().getTime() < token.token.expiresIn) return token;
+      // console.log("time", new Date().getTime())
 
-      return token;
+  if (new Date().getTime() < new Date(token.token.expiryDate).getTime()
+  ) {
+    return token;
+  }
+
+      return null;
     },
 
     async session({ token, session }) {
-      console.log(token, session);
+      // console.log(token);
       session.user = token;
       session.token = token.token;
 

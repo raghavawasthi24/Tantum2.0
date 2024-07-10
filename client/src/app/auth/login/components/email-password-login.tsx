@@ -51,6 +51,7 @@ export default function EmailPasswordLogin() {
         toast.error("Invalid Credentials");
       }
     } catch (error: any) {
+      console.log(error);
       toast.error(error.message || "An error occurred");
     }
   };

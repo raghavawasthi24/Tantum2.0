@@ -28,7 +28,6 @@ export const loginAction = async (data: z.infer<typeof LoginSchema>) => {
     method: "POST",
     headers: {
       "Content-Type": "application/json",
-      cache: "no-store",
     },
     body: JSON.stringify(data),
   });
@@ -47,7 +46,6 @@ export const VerifyOtpAction = async (data: z.infer<typeof VerifyOtpSchema>) => 
     method: "POST",
     headers: {
       "Content-Type": "application/json",
-      cache: "no-store",
     },
     body: JSON.stringify(data),
   });

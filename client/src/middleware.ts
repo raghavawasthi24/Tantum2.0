@@ -3,7 +3,7 @@ import type { NextRequest } from "next/server";
 import { getToken } from "next-auth/jwt";
 
 export const config = {
-  matcher: ["/publishRide", "/rides"],
+  matcher: ["/publishRide"],
 };
 
 export async function middleware(request: NextRequest) {

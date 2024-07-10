@@ -1,7 +1,7 @@
 import { Request, Response } from "express";
-import User from "../../models/user.model.js";
-import { sendEmail } from "../../services/emailService.js";
-import { tokenEncode } from "../../services/token-encode-decode.js";
+import User from "../../models/user.model";
+import { sendEmail } from "../../services/emailService";
+import { tokenEncode } from "../../services/token-encode-decode";
 import { tokenDecode } from "../../services/token-encode-decode";
 
 //TO VERIFY THE LINK SENT TO EMAIL

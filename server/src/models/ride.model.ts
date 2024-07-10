@@ -1,5 +1,5 @@
 import mongoose from "mongoose";
-import { RideSchema } from "../types/ride.js";
+import { RideSchema } from "../types/ride";
 
 const rideSchema = new mongoose.Schema<RideSchema>(
   {

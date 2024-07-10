@@ -1,7 +1,7 @@
 import { Request, Response } from "express";
 import * as dotenv from "dotenv";
-import User from "../../models/user.model.js";
-import { tokengenerate } from "../../services/tokengenerate.js";
+import User from "../../models/user.model";
+import { tokengenerate } from "../../services/tokengenerate";
 
 dotenv.config();
 

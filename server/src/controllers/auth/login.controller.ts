@@ -1,6 +1,6 @@
 import { Request, Response } from "express";
-import User from "../../models/user.model.js";
-import { tokengenerate } from "../../services/tokengenerate.js";
+import User from "../../models/user.model";
+import { tokengenerate } from "../../services/tokengenerate";
 import * as bcrypt from "bcrypt";
 
 

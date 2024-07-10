@@ -1,11 +1,11 @@
 import { Request, Response } from "express";
 import * as bcrypt from "bcrypt";
 import * as dotenv from "dotenv";
-import User from "../../models/user.model.js";
-import { UserSchema } from "../../types/user.js";
-import { otpGenerate } from "../../services/otpgenerate.js";
-import { sendEmail } from "../../services/emailService.js";
-import { otpVerification } from "../../services/otpVerification.js";
+import User from "../../models/user.model";
+import { UserSchema } from "../../types/user";
+import { otpGenerate } from "../../services/otpgenerate";
+import { sendEmail } from "../../services/emailService";
+import { otpVerification } from "../../services/otpVerification";
 
 dotenv.config();
 

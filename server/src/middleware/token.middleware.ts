@@ -1,7 +1,7 @@
 import { Request, Response, NextFunction } from "express";
-import User from "../models/user.model.js";
+import User from "../models/user.model";
 import * as jwt from "jsonwebtoken";
-import { UserSchema } from "../types/user.js";
+import { UserSchema } from "../types/user";
 
 const verifyToken = (req: any, res: any, next: NextFunction) => {
   /**  token must beign with Bearer

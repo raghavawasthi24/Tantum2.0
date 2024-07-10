@@ -1,5 +1,5 @@
 import { Request, Response } from "express";
-import RideModel from "../../models/ride.model.js";
+import RideModel from "../../models/ride.model";
 import UserModel from "../../models/user.model";
 
 //TO ADD NEW RIDE

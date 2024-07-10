@@ -1,17 +1,17 @@
 import * as express from "express";
-import { login } from "../controllers/auth/login.controller.js";
 import {
   signup,
   verifyEmail,
-} from "../controllers/auth/register.controller.js";
-import { sendOtp, verifyOtp } from "../controllers/auth/otp.controller.js";
+} from "../controllers/auth/register.controller";
+import { sendOtp, verifyOtp } from "../controllers/auth/otp.controller";
 import {
   sendLink,
   verifyLink,
-} from "../controllers/auth/link.controller.js";
-import { changePassword } from "../controllers/auth/password.controller.js";
-import { addRide, getRide } from "../controllers/rides/ride.controller.js";
-import { updateDetails } from "../controllers/user/update-detaills.controller.js";
+} from "../controllers/auth/link.controller";
+import { changePassword } from "../controllers/auth/password.controller";
+import { addRide, getRide } from "../controllers/rides/ride.controller";
+import { updateDetails } from "../controllers/user/update-detaills.controller";
+import { login } from "../controllers/auth/login.controller";
 
 const router = express.Router();
 

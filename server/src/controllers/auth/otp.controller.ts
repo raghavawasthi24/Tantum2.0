@@ -1,8 +1,8 @@
-import User from "../../models/user.model.js";
+import User from "../../models/user.model";
 import { Request, Response } from "express";
-import { otpGenerate } from "../../services/otpgenerate.js";
-import { sendEmail } from "../../services/emailService.js";
-import { otpVerification } from "../../services/otpVerification.js";
+import { otpGenerate } from "../../services/otpgenerate";
+import { sendEmail } from "../../services/emailService";
+import { otpVerification } from "../../services/otpVerification";
 
 const sendOtp = async (req: Request, res: Response) => {
   const { email } = req.body;

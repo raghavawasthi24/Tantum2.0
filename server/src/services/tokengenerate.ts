@@ -1,5 +1,5 @@
 import * as jwt from "jsonwebtoken";
-import { convertToSeconds } from "./convertToSeconds.js";
+import { convertToSeconds } from "./convertToSeconds";
 
 export const tokengenerate = (
   email: string,
@@ -8,19 +8,16 @@ export const tokengenerate = (
   refreshTokenSecret: string,
   refreshTokenExpiry: string | number
 ) => {
-
   // Convert expiry strings to seconds if provided
   const accessTokenExpirySeconds =
     typeof accessTokenExpiry === "string"
       ? convertToSeconds(accessTokenExpiry)
       : accessTokenExpiry;
 
-
-  // const refreshTokenExpirySeconds =
-  //   typeof refreshTokenExpiry === "string"
-  //     ? convertToSeconds(refreshTokenExpiry)
-  //     : refreshTokenExpiry;
-
+  const refreshTokenExpirySeconds =
+    typeof refreshTokenExpiry === "string"
+      ? convertToSeconds(refreshTokenExpiry)
+      : refreshTokenExpiry;
 
   const accessToken = jwt.sign(
     {
@@ -28,10 +25,9 @@ export const tokengenerate = (
     },
     accessTokenSecret,
     {
-      expiresIn: accessTokenExpiry,
+      expiresIn: accessTokenExpirySeconds,
     }
   );
-
 
   const refreshToken = jwt.sign(
     {
@@ -39,14 +35,13 @@ export const tokengenerate = (
     },
     refreshTokenSecret,
     {
-      expiresIn: refreshTokenExpiry,
+      expiresIn: refreshTokenExpirySeconds,
     }
   );
 
-  const currentTimestamp = new Date().getTime(); 
+  const currentTimestamp = new Date().getTime();
   const expiryTimestamp = currentTimestamp + accessTokenExpirySeconds * 1000;
   const expiryDate = new Date(expiryTimestamp);
 
   return { accessToken, refreshToken, expiryDate };
 };
-

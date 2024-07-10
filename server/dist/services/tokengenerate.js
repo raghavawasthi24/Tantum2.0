@@ -1,7 +1,7 @@
 "use strict";
 Object.defineProperty(exports, "__esModule", { value: true });
 exports.tokengenerate = void 0;
-const jwt = require("jsonwebtoken");
+const jsonwebtoken_1 = require("jsonwebtoken");
 const convertToSeconds_js_1 = require("./convertToSeconds.js");
 const tokengenerate = (email, accessTokenSecret, accessTokenExpiry, refreshTokenSecret, refreshTokenExpiry) => {
     // Convert expiry strings to seconds if provided
@@ -12,12 +12,12 @@ const tokengenerate = (email, accessTokenSecret, accessTokenExpiry, refreshToken
     //   typeof refreshTokenExpiry === "string"
     //     ? convertToSeconds(refreshTokenExpiry)
     //     : refreshTokenExpiry;
-    const accessToken = jwt.sign({
+    const accessToken = jsonwebtoken_1.default.sign({
         email: email,
     }, accessTokenSecret, {
         expiresIn: accessTokenExpiry,
     });
-    const refreshToken = jwt.sign({
+    const refreshToken = jsonwebtoken_1.default.sign({
         email: email,
     }, refreshTokenSecret, {
         expiresIn: refreshTokenExpiry,

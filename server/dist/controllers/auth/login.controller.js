@@ -12,7 +12,6 @@ Object.defineProperty(exports, "__esModule", { value: true });
 exports.login = void 0;
 const user_model_1 = require("../../models/user.model");
 const tokengenerate_1 = require("../../services/tokengenerate");
-const bcrypt = require("bcrypt");
 const login = (req, res) => __awaiter(void 0, void 0, void 0, function* () {
     const { email, password } = req.body;
     try {
@@ -22,12 +21,14 @@ const login = (req, res) => __awaiter(void 0, void 0, void 0, function* () {
         if (!user || !user.isVerified) {
             return res.status(400).send({ message: "Email is not registered" });
         }
-        const isPasswordMatched = yield bcrypt.compare(password, user.password);
-        if (!isPasswordMatched)
+        // const isPasswordMatched = await bcrypt.compare(password, user.password);
+        if (user.password !== password)
             return res
                 .status(400)
                 .send({ message: "Password or email is incorrect" });
         const token = (0, tokengenerate_1.tokengenerate)(email, process.env.ACCESS_TOKEN_SECRET, process.env.ACCESS_TOKEN_EXPIRY, process.env.REFRESH_TOKEN_SECRET, process.env.REFRESH_TOKEN_EXPIRY);
+        user.tokens = token;
+        user.save();
         return res.status(200).json({
             message: "Logged in",
             id: user._id,

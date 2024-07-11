@@ -14,7 +14,7 @@ const userSchema = new mongoose.Schema<UserSchema>(
     },
     tokens: {
       accessToken: { type: String, default: null },
-      // refreshToken: { type: String, default: null },
+      refreshToken: { type: String, default: null },
       expiryDate: { type: Date, default: null },
     },
     gender: { type: String, default: "" },

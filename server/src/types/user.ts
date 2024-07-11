@@ -7,7 +7,7 @@ interface OtpSchema {
 
 interface tokenSchema {
   accessToken: string;
-  // refreshToken: string;
+  refreshToken: string;
   expiryDate: Date;
 }
 

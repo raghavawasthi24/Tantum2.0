@@ -13,7 +13,7 @@ const userSchema = new mongoose_1.default.Schema({
     },
     tokens: {
         accessToken: { type: String, default: null },
-        // refreshToken: { type: String, default: null },
+        refreshToken: { type: String, default: null },
         expiryDate: { type: Date, default: null },
     },
     gender: { type: String, default: "" },

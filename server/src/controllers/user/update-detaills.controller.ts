@@ -29,7 +29,6 @@ const updateDetails = async (req: Request, res: Response): Promise<void> => {
         process.env.REFRESH_TOKEN_EXPIRY as string
       );
 
-      user.tokens = token;
       user.basicDetailsCompleted = true;
       await user.save();
 

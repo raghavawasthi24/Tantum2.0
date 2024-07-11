@@ -77,7 +77,6 @@ import CredentialsProvider from "next-auth/providers/credentials";
     async session({ token, session }) {
       // console.log(token);
       session.user = token;
-      session.token = token.token;
 
       return session;
     },

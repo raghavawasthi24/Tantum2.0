@@ -1,12 +1,16 @@
-"use client"
+"use client";
 import React from "react";
 import FindRideForm from "@/components/FindRideForm";
 import { useSession } from "next-auth/react";
+import { useRouter } from "next/navigation";
 
 export default function LandingPage() {
   // const session = await  getServerSession(authOptions);
-  const { data:session} = useSession();
+  const { data: session } = useSession();
   console.log("session on landing", session);
+
+  const router = useRouter();
+  router.refresh();
 
   return (
     <section className=" py-20 flex flex-col items-center clip-custom bg-ai gap-12">

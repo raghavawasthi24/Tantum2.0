@@ -23,7 +23,7 @@
 import NextAuth, { NextAuthOptions } from "next-auth";
 import CredentialsProvider from "next-auth/providers/credentials";
 
- const authOptions: NextAuthOptions = {
+const authOptions: NextAuthOptions = {
   providers: [
     CredentialsProvider({
       name: "Credentials",
@@ -49,9 +49,6 @@ import CredentialsProvider from "next-auth/providers/credentials";
           },
         });
 
-        console.log("res", res);
-
-
         if (res.status == 200) {
           const user = await res.json();
           return user;
@@ -69,10 +66,9 @@ import CredentialsProvider from "next-auth/providers/credentials";
 
       // console.log("time", new Date().getTime())
 
-  if (new Date().getTime() < new Date(token.token.expiryDate).getTime()
-  ) {
-    return token;
-  }
+      if (new Date().getTime() < new Date(token.token.expiryDate).getTime()) {
+        return token;
+      }
 
       return null;
     },

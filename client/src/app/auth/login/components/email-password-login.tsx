@@ -39,13 +39,10 @@ export default function EmailPasswordLogin() {
         email: data.email,
         password: data.password,
       });
-
-      console.log(res);
-
     
      if(res?.status==200){
         toast.success("Login successful");
-        router.push("/");
+        router.back();
       }
       else {
         toast.error("Invalid Credentials");

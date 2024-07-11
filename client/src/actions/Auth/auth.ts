@@ -7,7 +7,6 @@ export const registerAction = async (data: z.infer<typeof LoginSchema>) => {
     method: "POST",
     headers: {
       "Content-Type": "application/json",
-      cache: "no-store",
     },
     body: JSON.stringify(data),
   });

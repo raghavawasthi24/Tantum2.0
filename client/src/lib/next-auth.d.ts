@@ -8,8 +8,6 @@ declare module "next-auth" {
 
     token: {
       accessToken: string;
-      refreshToken: string;
-      expiryDate: number;
     };
     basicDetailsCompleted: boolean;
   }
@@ -23,8 +21,6 @@ declare module "next-auth/jwt" {
 
     token: {
       accessToken: string;
-      refreshToken: string;
-      expiryDate: number;
     };
     basicDetailsCompleted: boolean;
   }

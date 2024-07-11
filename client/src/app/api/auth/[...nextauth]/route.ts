@@ -49,6 +49,8 @@ import CredentialsProvider from "next-auth/providers/credentials";
           },
         });
 
+        console.log("res", res);
+
 
         if (res.status == 200) {
           const user = await res.json();

@@ -32,6 +32,7 @@ export default function EmailPasswordLogin() {
   const onSubmit = async (data: z.infer<typeof LoginSchema>) => {
     try {
       const res = await registerAction(data);
+      console.log(res);
       toast.success(res);
       Cookies.set("email", data.email, { expires: 1 }); // The cookie will expire in 1 day
       router.push("/auth/verify-otp");

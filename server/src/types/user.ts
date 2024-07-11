@@ -7,8 +7,8 @@ interface OtpSchema {
 
 interface tokenSchema {
   accessToken: string;
-  refreshToken: string;
-  expiryDate: Date;
+  // refreshToken: string;
+  // expiryDate: Date;
 }
 
 interface UserRideInfo {

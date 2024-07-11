@@ -14,10 +14,10 @@ export const tokengenerate = (
       ? convertToSeconds(accessTokenExpiry)
       : accessTokenExpiry;
 
-  const refreshTokenExpirySeconds =
-    typeof refreshTokenExpiry === "string"
-      ? convertToSeconds(refreshTokenExpiry)
-      : refreshTokenExpiry;
+  // const refreshTokenExpirySeconds =
+  //   typeof refreshTokenExpiry === "string"
+  //     ? convertToSeconds(refreshTokenExpiry)
+  //     : refreshTokenExpiry;
 
   const accessToken = jwt.sign(
     {
@@ -29,19 +29,19 @@ export const tokengenerate = (
     }
   );
 
-  const refreshToken = jwt.sign(
-    {
-      email: email,
-    },
-    refreshTokenSecret,
-    {
-      expiresIn: refreshTokenExpirySeconds,
-    }
-  );
+  // const refreshToken = jwt.sign(
+  //   {
+  //     email: email,
+  //   },
+  //   refreshTokenSecret,
+  //   {
+  //     expiresIn: refreshTokenExpirySeconds,
+  //   }
+  // );
 
-  const currentTimestamp = new Date().getTime();
-  const expiryTimestamp = currentTimestamp + accessTokenExpirySeconds * 1000;
-  const expiryDate = new Date(expiryTimestamp);
+  // const currentTimestamp = new Date().getTime();
+  // const expiryTimestamp = currentTimestamp + accessTokenExpirySeconds * 1000;
+  // const expiryDate = new Date(expiryTimestamp);
 
-  return { accessToken, refreshToken, expiryDate };
+  return { accessToken };
 };

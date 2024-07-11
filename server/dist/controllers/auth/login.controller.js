@@ -11,7 +11,6 @@ var __awaiter = (this && this.__awaiter) || function (thisArg, _arguments, P, ge
 Object.defineProperty(exports, "__esModule", { value: true });
 exports.login = void 0;
 const user_model_1 = require("../../models/user.model");
-const bcrypt = require("bcrypt");
 const login = (req, res) => __awaiter(void 0, void 0, void 0, function* () {
     const { email, password } = req.body;
     try {
@@ -21,11 +20,11 @@ const login = (req, res) => __awaiter(void 0, void 0, void 0, function* () {
         if (!user || !user.isVerified) {
             return res.status(400).send({ message: "Email is not registered" });
         }
-        const isPasswordMatched = yield bcrypt.compare(password, user.password);
-        if (!isPasswordMatched)
-            return res
-                .status(400)
-                .send({ message: "Password or email is incorrect" });
+        // const isPasswordMatched = await bcrypt.compare(password, user.password);
+        // if (!isPasswordMatched)
+        //   return res
+        //     .status(400)
+        //     .send({ message: "Password or email is incorrect" });
         // const token = tokengenerate(
         //   email,
         //   process.env.ACCESS_TOKEN_SECRET as string,

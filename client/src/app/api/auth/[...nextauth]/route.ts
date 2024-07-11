@@ -69,12 +69,9 @@ import CredentialsProvider from "next-auth/providers/credentials";
 
       // console.log("time", new Date().getTime())
 
-  if (new Date().getTime() < new Date(token.token.expiryDate).getTime()
-  ) {
-    return token;
-  }
 
-      return null;
+
+      return token;
     },
 
     async session({ token, session }) {

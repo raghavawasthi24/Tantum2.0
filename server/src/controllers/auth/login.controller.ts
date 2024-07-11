@@ -16,12 +16,12 @@ const login = async (req: Request, res: Response): Promise<any> => {
     if (!user || !user.isVerified) {
       return res.status(400).send({ message: "Email is not registered" });
     }
-    const isPasswordMatched = await bcrypt.compare(password, user.password);
+    // const isPasswordMatched = await bcrypt.compare(password, user.password);
 
-    if (!isPasswordMatched)
-      return res
-        .status(400)
-        .send({ message: "Password or email is incorrect" });
+    // if (!isPasswordMatched)
+    //   return res
+    //     .status(400)
+    //     .send({ message: "Password or email is incorrect" });
 
     // const token = tokengenerate(
     //   email,

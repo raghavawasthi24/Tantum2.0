@@ -1,6 +1,6 @@
 "use strict";
 Object.defineProperty(exports, "__esModule", { value: true });
-const user_model_js_1 = require("../models/user.model.js");
+const user_model_1 = require("../models/user.model");
 const jwt = require("jsonwebtoken");
 const verifyToken = (req, res, next) => {
     /**  token must beign with Bearer
@@ -16,7 +16,7 @@ const verifyToken = (req, res, next) => {
             }
             else {
                 console.log(decode.email);
-                user_model_js_1.default.findOne({
+                user_model_1.default.findOne({
                     email: decode.email,
                 })
                     .then((user) => {

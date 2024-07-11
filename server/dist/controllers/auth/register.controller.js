@@ -12,38 +12,38 @@ Object.defineProperty(exports, "__esModule", { value: true });
 exports.verifyEmail = exports.signup = void 0;
 const bcrypt = require("bcrypt");
 const dotenv = require("dotenv");
-const user_model_js_1 = require("../../models/user.model.js");
-const otpgenerate_js_1 = require("../../services/otpgenerate.js");
-const emailService_js_1 = require("../../services/emailService.js");
-const otpVerification_js_1 = require("../../services/otpVerification.js");
+const user_model_1 = require("../../models/user.model");
+const otpgenerate_1 = require("../../services/otpgenerate");
+const emailService_1 = require("../../services/emailService");
+const otpVerification_1 = require("../../services/otpVerification");
 dotenv.config();
 const signup = (req, res) => __awaiter(void 0, void 0, void 0, function* () {
     const { email, password } = req.body;
     try {
-        const existingUser = yield user_model_js_1.default.findOne({ email });
+        const existingUser = yield user_model_1.default.findOne({ email });
         if (existingUser && existingUser.isVerified) {
             res.status(400).json({ error: "User is already registered" });
             return;
         }
         const hashedPassword = yield bcrypt.hash(password, 15);
-        const newotp = (0, otpgenerate_js_1.otpGenerate)();
+        const newotp = (0, otpgenerate_1.otpGenerate)();
         const otp = {
             otp: newotp,
             expiresIn: new Date(new Date().getTime() + 60000),
         };
         if (!existingUser) {
-            const newUser = new user_model_js_1.default({
+            const newUser = new user_model_1.default({
                 email,
                 password: hashedPassword,
                 otp,
             });
             yield newUser.save();
-            (0, emailService_js_1.sendEmail)({ email, otp: newotp });
+            (0, emailService_1.sendEmail)({ email, otp: newotp });
             res.status(201).json({ message: "OTP is sent to your email" });
         }
         else {
-            (0, emailService_js_1.sendEmail)({ email, otp: newotp });
-            yield user_model_js_1.default.findOneAndUpdate({ email }, { password: hashedPassword, otp }, { new: true });
+            (0, emailService_1.sendEmail)({ email, otp: newotp });
+            yield user_model_1.default.findOneAndUpdate({ email }, { password: hashedPassword, otp }, { new: true });
             res.status(201).json({ message: "OTP is sent to your email" });
         }
     }
@@ -58,10 +58,10 @@ const verifyEmail = (req, res) => __awaiter(void 0, void 0, void 0, function* ()
     try {
         if (!email || !otp)
             return res.status(400).json({ message: "Invalid fields" });
-        const user = yield user_model_js_1.default.findOne({ email });
+        const user = yield user_model_1.default.findOne({ email });
         if (!user)
             return res.status(400).json({ message: "User not found" });
-        let otpResult = (0, otpVerification_js_1.otpVerification)(user, otp);
+        let otpResult = (0, otpVerification_1.otpVerification)(user, otp);
         if (otpResult === "Email verified") {
             // const token = tokengenerate(
             //   email,

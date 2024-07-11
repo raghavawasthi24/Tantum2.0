@@ -10,14 +10,14 @@ var __awaiter = (this && this.__awaiter) || function (thisArg, _arguments, P, ge
 };
 Object.defineProperty(exports, "__esModule", { value: true });
 exports.changePassword = void 0;
-const user_model_js_1 = require("../../models/user.model.js");
+const user_model_1 = require("../../models/user.model");
 const bcrypt = require("bcrypt");
 const changePassword = (req, res) => __awaiter(void 0, void 0, void 0, function* () {
     const { email, password } = req.body;
     try {
         if (!email || !password)
             return res.status(400).json({ message: "Invalid fields" });
-        const user = yield user_model_js_1.default.findOne({ email });
+        const user = yield user_model_1.default.findOne({ email });
         if (!user)
             return res.status(400).json({ message: "User not found" });
         const hashedPassword = yield bcrypt.hash(password, 15);

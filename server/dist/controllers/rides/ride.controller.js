@@ -10,7 +10,7 @@ var __awaiter = (this && this.__awaiter) || function (thisArg, _arguments, P, ge
 };
 Object.defineProperty(exports, "__esModule", { value: true });
 exports.getRide = exports.addRide = void 0;
-const ride_model_js_1 = require("../../models/ride.model.js");
+const ride_model_1 = require("../../models/ride.model");
 const user_model_1 = require("../../models/user.model");
 //TO ADD NEW RIDE
 const addRide = (req, res) => __awaiter(void 0, void 0, void 0, function* () {
@@ -19,7 +19,7 @@ const addRide = (req, res) => __awaiter(void 0, void 0, void 0, function* () {
         const user = yield user_model_1.default.findOne({ _id: rideDetails.ownerId });
         if (!user)
             return res.status(404).send({ message: "User not found" });
-        const ride = new ride_model_js_1.default(rideDetails);
+        const ride = new ride_model_1.default(rideDetails);
         yield ride.save();
         return res
             .status(201)
@@ -34,7 +34,7 @@ exports.addRide = addRide;
 const getRide = (req, res) => __awaiter(void 0, void 0, void 0, function* () {
     const rideDetails = req.body;
     try {
-        const ride = yield ride_model_js_1.default.find({
+        const ride = yield ride_model_1.default.find({
             source: rideDetails.source,
             destination: rideDetails.destination,
         }).populate("ownerId", "firstName lastName rideInfo _id avatar");

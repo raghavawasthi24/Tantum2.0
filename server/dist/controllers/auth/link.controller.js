@@ -10,17 +10,17 @@ var __awaiter = (this && this.__awaiter) || function (thisArg, _arguments, P, ge
 };
 Object.defineProperty(exports, "__esModule", { value: true });
 exports.sendLink = exports.verifyLink = void 0;
-const user_model_js_1 = require("../../models/user.model.js");
-const emailService_js_1 = require("../../services/emailService.js");
-const token_encode_decode_js_1 = require("../../services/token-encode-decode.js");
+const user_model_1 = require("../../models/user.model");
+const emailService_1 = require("../../services/emailService");
 const token_encode_decode_1 = require("../../services/token-encode-decode");
+const token_encode_decode_2 = require("../../services/token-encode-decode");
 //TO VERIFY THE LINK SENT TO EMAIL
 const verifyLink = (req, res) => __awaiter(void 0, void 0, void 0, function* () {
     var token = req.query.token;
     try {
         if (!token)
             return res.status(400).json({ message: "Invalid fields" });
-        const decode = (0, token_encode_decode_1.tokenDecode)(token, process.env.JWT_SECRET_KEY || "hjjhbjhbjhbjh");
+        const decode = (0, token_encode_decode_2.tokenDecode)(token, process.env.JWT_SECRET_KEY || "hjjhbjhbjhbjh");
         console.log(decode);
         if (!decode)
             return res.status(404).json({ message: "Something went wrong" });
@@ -38,12 +38,12 @@ const sendLink = (req, res) => __awaiter(void 0, void 0, void 0, function* () {
     try {
         if (!email)
             return res.status(400).json({ message: "Invalid fields" });
-        const user = yield user_model_js_1.default.findOne({ email });
+        const user = yield user_model_1.default.findOne({ email });
         if (!user)
             return res.status(404).json({ message: "Email is not registered" });
-        const token = (0, token_encode_decode_js_1.tokenEncode)(email, process.env.JWT_SECRET_KEY || "hjbdcbkhbck", "1h");
+        const token = (0, token_encode_decode_1.tokenEncode)(email, process.env.JWT_SECRET_KEY || "hjbdcbkhbck", "1h");
         let link = `http://localhost:3000/auth/forgot-password/${token}`;
-        (0, emailService_js_1.sendEmail)({ email, otp: link });
+        (0, emailService_1.sendEmail)({ email, otp: link });
         res.status(200).json({ message: "Link sent to your email" });
     }
     catch (error) {

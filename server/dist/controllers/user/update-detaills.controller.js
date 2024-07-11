@@ -11,13 +11,13 @@ var __awaiter = (this && this.__awaiter) || function (thisArg, _arguments, P, ge
 Object.defineProperty(exports, "__esModule", { value: true });
 exports.updateDetails = void 0;
 const dotenv = require("dotenv");
-const user_model_js_1 = require("../../models/user.model.js");
-const tokengenerate_js_1 = require("../../services/tokengenerate.js");
+const user_model_1 = require("../../models/user.model");
+const tokengenerate_1 = require("../../services/tokengenerate");
 dotenv.config();
 const updateDetails = (req, res) => __awaiter(void 0, void 0, void 0, function* () {
     const body = req.body;
     try {
-        const user = yield user_model_js_1.default.findOneAndUpdate({ email: body.email }, body, {
+        const user = yield user_model_1.default.findOneAndUpdate({ email: body.email }, body, {
             new: true,
         });
         console.log(user);
@@ -26,8 +26,7 @@ const updateDetails = (req, res) => __awaiter(void 0, void 0, void 0, function* 
             return;
         }
         if (!user.basicDetailsCompleted) {
-            const token = (0, tokengenerate_js_1.tokengenerate)(body.email, process.env.ACCESS_TOKEN_SECRET, process.env.ACCESS_TOKEN_EXPIRY, process.env.REFRESH_TOKEN_SECRET, process.env.REFRESH_TOKEN_EXPIRY);
-            user.tokens = token;
+            const token = (0, tokengenerate_1.tokengenerate)(body.email, process.env.ACCESS_TOKEN_SECRET, process.env.ACCESS_TOKEN_EXPIRY, process.env.REFRESH_TOKEN_SECRET, process.env.REFRESH_TOKEN_EXPIRY);
             user.basicDetailsCompleted = true;
             yield user.save();
             res.status(200).json({ message: "Details updated successfully", token });

@@ -12,6 +12,11 @@ const userSchema = new mongoose.Schema<UserSchema>(
       otp: { type: String, default: null },
       expiresIn: { type: Date, default: null },
     },
+    tokens: {
+      accessToken: { type: String, default: null },
+      // refreshToken: { type: String, default: null },
+      expiryDate: { type: Date, default: null },
+    },
     gender: { type: String, default: "" },
     dob: { type: Date, default: null },
     avatar: { type: String, default: null },

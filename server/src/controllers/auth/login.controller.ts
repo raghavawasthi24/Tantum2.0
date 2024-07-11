@@ -16,24 +16,25 @@ const login = async (req: Request, res: Response): Promise<any> => {
     if (!user || !user.isVerified) {
       return res.status(400).send({ message: "Email is not registered" });
     }
-    // const isPasswordMatched = await bcrypt.compare(password, user.password);
+    const isPasswordMatched = await bcrypt.compare(password, user.password);
 
-    // if (!isPasswordMatched)
-    //   return res
-    //     .status(400)
-    //     .send({ message: "Password or email is incorrect" });
+    if (!isPasswordMatched)
+      return res
+        .status(400)
+        .send({ message: "Password or email is incorrect" });
 
-    // const token = tokengenerate(
-    //   email,
-    //   process.env.ACCESS_TOKEN_SECRET as string,
-    //   process.env.ACCESS_TOKEN_EXPIRY as string,
-    //   process.env.REFRESH_TOKEN_SECRET as string,
-    //   process.env.REFRESH_TOKEN_EXPIRY as string
-    // );
+    const token = tokengenerate(
+      email,
+      process.env.ACCESS_TOKEN_SECRET as string,
+      process.env.ACCESS_TOKEN_EXPIRY as string,
+      process.env.REFRESH_TOKEN_SECRET as string,
+      process.env.REFRESH_TOKEN_EXPIRY as string
+    );
 
     return res.status(200).json({
       message: "Logged in",
       id: user._id,
+      token:token,
       basicDetailsCompleted: user.basicDetailsCompleted,
     });
   } catch (error) {

@@ -8,7 +8,7 @@ interface OtpSchema {
 interface tokenSchema {
   accessToken: string;
   // refreshToken: string;
-  // expiryDate: Date;
+  expiryDate: Date;
 }
 
 interface UserRideInfo {
@@ -30,5 +30,6 @@ export interface UserSchema extends Document {
   dob: Date;
   avatar: string;
   rideInfo: UserRideInfo;
+  tokens: tokenSchema;
   basicDetailsCompleted:boolean
 }

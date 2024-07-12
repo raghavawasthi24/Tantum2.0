@@ -13,6 +13,7 @@ export default function LandingPage() {
   
   useEffect(() => {
    router.refresh();
+   //eslint-disable-next-line
   }, []);
 
   return (

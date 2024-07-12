@@ -7,7 +7,6 @@ import { Input } from "@/components/ui/input";
 import { IoCloudUploadOutline } from "react-icons/io5";
 import Image from "next/image";
 import { uploadImageToCloudinary } from "@/actions/AvatarUpload";
-// import { AxiosProgressEvent } from "axios";
 
 const apiKey = process.env.NEXT_PUBLIC_API_KEY;
 const uploadPreset = process.env.NEXT_PUBLIC_UPLOAD_PRESET;

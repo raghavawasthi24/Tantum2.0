@@ -13,7 +13,11 @@ export default function page() {
   const form = useForm<z.infer<typeof UserDetailsSchema>>({
     resolver: zodResolver(UserDetailsSchema),
     defaultValues: {
-      email: Cookies.get("email") || "",
+      email: "raghavawasthi240@gmail.com",
+      firstName: "Raghav",
+      lastName: "Awasthi",
+      dob: new Date("1999-08-24"),
+      gender: "male"
     },
   });
   function onSubmit(data: z.infer<typeof UserDetailsSchema>) {}
@@ -25,7 +29,7 @@ export default function page() {
       <Form {...form}>
         <form
           onSubmit={form.handleSubmit(onSubmit)}
-          className="w-2/3 mx-auto flex gap-4 py-5"
+          className="w-2/3 mx-auto flex gap-8 py-5"
         >
           <ImageUpload form={form} />
           <BasicInfoForm form={form} />

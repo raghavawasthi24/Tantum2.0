@@ -4,18 +4,14 @@ import { FaStar } from "react-icons/fa";
 import { TbPointFilled } from "react-icons/tb";
 import { FaCar } from "react-icons/fa";
 import { Button } from "@/components/ui/button";
-import {
-  Dialog,
-  DialogContent,
-  DialogTrigger,
-} from "@/components/ui/dialog";
+import { Dialog, DialogContent, DialogTrigger } from "@/components/ui/dialog";
 import { LiaRupeeSignSolid } from "react-icons/lia";
 import { BiUser } from "react-icons/bi";
 import { timeDifference } from "@/helpers/timediffToAlpha";
 import { FaMotorcycle } from "react-icons/fa6";
+import { Separator } from "@/components/ui/separator";
 
-
-export default function RideCard({data}:any) {
+export default function RideCard({ data }: any) {
   return (
     <div className="rounded-xl p-4  grid gap-4 bg-white">
       <div className="flex text-2xl sm:text-3xl">
@@ -57,17 +53,64 @@ export default function RideCard({data}:any) {
               </span>
             </div>
           </div>
-          {data.vehicleType === "4wheeler"?<FaCar className="w-8 h-8 text-primary/50 ml-4" />:<FaMotorcycle className="w-8 h-8 text-primary/50 ml-4" />}
+          {data.vehicleType === "4wheeler" ? (
+            <FaCar className="w-8 h-8 text-primary/50 ml-4" />
+          ) : (
+            <FaMotorcycle className="w-8 h-8 text-primary/50 ml-4" />
+          )}
         </div>
 
         <Dialog>
           <DialogTrigger asChild>
-            <Button variant="default" className="btn-grad">
+            <Button variant="default" className="">
               <LiaRupeeSignSolid className="w-6 h-6" />
               <span className="text-xl">{data?.price}</span>
             </Button>
           </DialogTrigger>
-          <DialogContent className="sm:max-w-[425px]"></DialogContent>
+          <DialogContent className="sm:max-w-[425px]">
+            <div>
+              <p className="font-bold text-sm">FROM:</p>
+              <p className="uppercase">
+                {data.source}({data.departure_time} IST)
+              </p>
+            </div>
+            <div>
+              <p className="font-bold text-sm">TO:</p>
+              <p className="uppercase">
+                {data.destination}({data.reaching_time} IST)
+              </p>
+            </div>
+            <Separator className="my-2" />
+            <div>
+              <p className="font-bold text-sm">VEHICLE TYPE:</p>
+              <p className="uppercase">
+                {data.vehicleType === "4wheeler" ? "Car" : "Bike"}
+              </p>
+            </div>
+            <div>
+              <p className="font-bold text-sm">NO OF PERSON:</p>
+              <p className="uppercase">{}</p>
+            </div>
+            <div>
+              <p className="font-bold text-sm">TOTAL AMOUNT:</p>
+              <p className="uppercase">INR {data.price}</p>
+            </div>
+
+            <div className="text-sm font-medium">
+              <p>
+                Upon confirmation of this booking, you will receive all the rider
+                details on your registered email. Please be aware that we are not
+                responsible for any activities or incidents that may occur during
+                the ride.
+                <p>
+                  If you have any questions or concerns, please feel free to
+                  contact our support team.
+                </p>
+              </p>
+            </div>
+
+            <Button variant="default" className="w-full mt-4">Confirm </Button>
+          </DialogContent>
         </Dialog>
       </div>
     </div>

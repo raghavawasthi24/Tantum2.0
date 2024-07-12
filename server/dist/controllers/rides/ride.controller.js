@@ -20,12 +20,15 @@ const addRide = (req, res) => __awaiter(void 0, void 0, void 0, function* () {
         if (!user)
             return res.status(404).send({ message: "User not found" });
         const ride = new ride_model_1.default(rideDetails);
-        yield ride.save();
+        ride.passengers.push(rideDetails.ownerId);
+        user.rideInfo.offered.push(ride._id);
+        yield Promise.all([ride.save(), user.save()]);
         return res
             .status(201)
             .json({ message: "Your ride is recorded successfully" });
     }
     catch (error) {
+        console.log(error);
         res.status(400).json({ message: "Something went wrong!" });
     }
 });

@@ -27,7 +27,8 @@ const sendOtp = (req, res) => __awaiter(void 0, void 0, void 0, function* () {
             otp: newotp,
             expiresIn: new Date(new Date().getTime() + 60000),
         };
-        (0, emailService_1.sendEmail)({ email, otp: newotp });
+        let text = `Your OTP for verification is ${newotp}`;
+        (0, emailService_1.sendEmail)(email, text, newotp);
         user.otp = otp;
         yield user.save();
         res.status(200).json({ message: "OTP sent successfully" });

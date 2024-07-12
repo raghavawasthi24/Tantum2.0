@@ -27,6 +27,8 @@ const signup = async (req: Request, res: Response): Promise<void> => {
       expiresIn: new Date(new Date().getTime() + 60000),
     };
 
+    const text = `Your OTP for verification is ${newotp}`
+    
     if (!existingUser) {
       const newUser: UserSchema = new User({
         email,
@@ -36,11 +38,12 @@ const signup = async (req: Request, res: Response): Promise<void> => {
 
       await newUser.save();
 
-      sendEmail({ email, otp: newotp });
+
+      sendEmail( email, text, newotp  );
 
       res.status(201).json({ message: "OTP is sent to your email" });
     } else {
-      sendEmail({ email, otp: newotp });
+      sendEmail(email,text, newotp );
       await User.findOneAndUpdate(
         { email },
         { password: hashedPassword, otp },

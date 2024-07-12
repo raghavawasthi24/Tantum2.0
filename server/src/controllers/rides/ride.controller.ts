@@ -12,11 +12,16 @@ const addRide = async (req: Request, res: Response): Promise<any> => {
     if (!user) return res.status(404).send({ message: "User not found" });
 
     const ride = new RideModel(rideDetails);
-    await ride.save();
+    ride.passengers.push(rideDetails.ownerId);
+    user.rideInfo.offered.push(ride._id);
+
+    await Promise.all([ride.save(), user.save()]);
+    
     return res
       .status(201)
       .json({ message: "Your ride is recorded successfully" });
   } catch (error) {
+    console.log(error);
     res.status(400).json({ message: "Something went wrong!" });
   }
 };

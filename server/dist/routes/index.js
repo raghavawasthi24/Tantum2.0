@@ -8,6 +8,7 @@ const password_controller_1 = require("../controllers/auth/password.controller")
 const ride_controller_1 = require("../controllers/rides/ride.controller");
 const update_detaills_controller_1 = require("../controllers/user/update-detaills.controller");
 const login_controller_1 = require("../controllers/auth/login.controller");
+const book_ride_controller_1 = require("../controllers/rides/book-ride.controller");
 const router = express.Router();
 // Routes for user
 router.post("/login", login_controller_1.login);
@@ -21,6 +22,7 @@ router.post("/change-password", password_controller_1.changePassword);
 // Routes for rides
 router.post("/ride", ride_controller_1.addRide);
 router.post("/findride", ride_controller_1.getRide);
+router.post("/book-ride", book_ride_controller_1.bookRide);
 // Update user details
 router.patch("/update-details", update_detaills_controller_1.updateDetails);
 module.exports = router;

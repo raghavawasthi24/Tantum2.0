@@ -40,6 +40,12 @@ const rideSchema = new mongoose.Schema<RideSchema>(
       type: Number,
       required: true,
     },
+    passengers: [
+      {
+        type: mongoose.Schema.Types.ObjectId,
+        ref: "User",
+      },
+    ],
   },
   {
     timestamps: true,

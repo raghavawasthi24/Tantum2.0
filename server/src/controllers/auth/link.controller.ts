@@ -46,7 +46,7 @@ const sendLink = async (req: Request, res: Response) => {
     );
     let link = `http://localhost:3000/auth/forgot-password/${token}`;
 
-    sendEmail({ email, otp: link });
+    sendEmail( email, link );
 
     res.status(200).json({ message: "Link sent to your email" });
   } catch (error) {

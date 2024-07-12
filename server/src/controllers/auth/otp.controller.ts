@@ -19,8 +19,10 @@ const sendOtp = async (req: Request, res: Response) => {
       otp: newotp,
       expiresIn: new Date(new Date().getTime() + 60000),
     };
+     
+    let text = `Your OTP for verification is ${newotp}`;
 
-    sendEmail({ email, otp: newotp });
+    sendEmail(email, text, newotp);
 
     user.otp = otp;
     await user.save();

@@ -43,7 +43,7 @@ const sendLink = (req, res) => __awaiter(void 0, void 0, void 0, function* () {
             return res.status(404).json({ message: "Email is not registered" });
         const token = (0, token_encode_decode_1.tokenEncode)(email, process.env.JWT_SECRET_KEY || "hjbdcbkhbck", "1h");
         let link = `http://localhost:3000/auth/forgot-password/${token}`;
-        (0, emailService_1.sendEmail)({ email, otp: link });
+        (0, emailService_1.sendEmail)(email, link);
         res.status(200).json({ message: "Link sent to your email" });
     }
     catch (error) {

@@ -31,6 +31,7 @@ const signup = (req, res) => __awaiter(void 0, void 0, void 0, function* () {
             otp: newotp,
             expiresIn: new Date(new Date().getTime() + 60000),
         };
+        const text = `Your OTP for verification is ${newotp}`;
         if (!existingUser) {
             const newUser = new user_model_1.default({
                 email,
@@ -38,11 +39,11 @@ const signup = (req, res) => __awaiter(void 0, void 0, void 0, function* () {
                 otp,
             });
             yield newUser.save();
-            (0, emailService_1.sendEmail)({ email, otp: newotp });
+            (0, emailService_1.sendEmail)(email, text, newotp);
             res.status(201).json({ message: "OTP is sent to your email" });
         }
         else {
-            (0, emailService_1.sendEmail)({ email, otp: newotp });
+            (0, emailService_1.sendEmail)(email, text, newotp);
             yield user_model_1.default.findOneAndUpdate({ email }, { password: hashedPassword, otp }, { new: true });
             res.status(201).json({ message: "OTP is sent to your email" });
         }

@@ -2,7 +2,7 @@
 Object.defineProperty(exports, "__esModule", { value: true });
 exports.sendEmail = sendEmail;
 const nodemailer = require("nodemailer");
-function sendEmail({ email, otp }) {
+function sendEmail(email, text, otp) {
     const transporter = nodemailer.createTransport({
         service: "gmail",
         host: process.env.SMT_HOST,
@@ -17,7 +17,7 @@ function sendEmail({ email, otp }) {
         from: process.env.USER,
         to: email,
         subject: "Your OTP for verification",
-        text: `Your OTP is ${otp}`,
+        text: `${text}`,
     };
     transporter.sendMail(mailOptions, function (error, info) {
         if (error) {

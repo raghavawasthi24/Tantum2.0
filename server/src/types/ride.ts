@@ -9,5 +9,6 @@ export interface RideSchema extends Document {
   departure_time: string;
   reaching_time:string,
   seatsVacant: number;
+  passengers: Types.ObjectId[];
   price:number
 }

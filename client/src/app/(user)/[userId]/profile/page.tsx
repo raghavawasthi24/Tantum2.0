@@ -3,13 +3,12 @@ import React from "react";
 import { useForm } from "react-hook-form";
 import { z } from "zod";
 import { zodResolver } from "@hookform/resolvers/zod";
-import Cookies from "js-cookie";
 import { UserDetailsSchema } from "@/schemas/user";
 import ImageUpload from "@/components/shared/AvatarSelector";
 import BasicInfoForm from "./basic-info";
 import { Form } from "@/components/ui/form";
 
-export default function page() {
+export default function Page() {
   const form = useForm<z.infer<typeof UserDetailsSchema>>({
     resolver: zodResolver(UserDetailsSchema),
     defaultValues: {

@@ -18,29 +18,22 @@ import { FiLogOut } from "react-icons/fi";
 import Link from "next/link";
 import { usePathname } from "next/navigation";
 import { BiUser } from "react-icons/bi";
+import { Separator } from "@/components/ui/separator";
+import { FaCarAlt } from "react-icons/fa";
+
 
 export default function Header() {
   const loggedin = true;
   const ProfileMenu = [
     {
-      name: "My Profile",
+      name: "Your Profile",
       icon: <CgProfile className="w-4 h-4 mr-2" />,
       link: "/654/profile",
     },
     {
-      name: "My Rides",
-      icon: <RiMotorbikeFill className="w-4 h-4 mr-2" />,
+      name: "Your Rides",
+      icon: <FaCarAlt className="w-4 h-4 mr-2" />,
       link: "/654/rides",
-    },
-    {
-      name: "My Payments",
-      icon: <MdPayment className="w-4 h-4 mr-2" />,
-      link: "/654/payments",
-    },
-    {
-      name: "Settings",
-      icon: <IoIosSettings className="w-4 h-4 mr-2" />,
-      link: "/settings",
     },
   ];
 
@@ -90,25 +83,44 @@ export default function Header() {
                 </AvatarFallback>
               </Avatar>
             </SheetTrigger>
-            <SheetContent className="w-[300px] pt-12 flex flex-col justify-between">
+            <SheetContent className="w-[300px] pt-12">
               <div>
+                <div className="flex gap-2">
+                  <Avatar className="cursor-pointer">
+                    <AvatarImage
+                      src="https://github.com/shadcn.pg"
+                      alt="@shadcn"
+                    />
+                    <AvatarFallback className="bg-gray-100">
+                      <BiUser className="w-6 h-6" />
+                    </AvatarFallback>
+                  </Avatar>
+                  <div className="text-sm text-muted-foreground">
+                    <p>Raghav Awasthi</p>
+                    <p>raghav240@gmail.com</p>
+                  </div>
+                </div>
+                <Separator className="my-2" />
                 {ProfileMenu?.map((menu, key) => (
                   <Link
                     href={`${menu.link}`}
                     key={key}
-                    className="flex items-center text-[#4e4d4f] text-md font-medium  hover:bg-[#F3F3F3] p-2 rounded-lg cursor-pointer"
+                    className="flex items-center text-md font-medium text-gray-800  hover:bg-[#F3F3F3] p-2 rounded-lg cursor-pointer"
                   >
                     {menu.icon}
                     {menu.name}
                   </Link>
                 ))}
               </div>
+
+              <Separator className="my-2" />
+
               <Link
                 href="/logout"
-                className="flex items-center text-white bg-red-600 text-md font-medium p-2 rounded-lg cursor-pointer"
+                className="flex items-center text-md font-medium p-2 cursor-pointer bg-destructive text-background"
               >
                 <FiLogOut className="w-4 h-4 mr-2" />
-                Logout
+                Sign out
               </Link>
             </SheetContent>
           </Sheet>

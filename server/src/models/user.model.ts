@@ -23,9 +23,19 @@ const userSchema = new mongoose.Schema<UserSchema>(
     rideInfo: {
       rating: { type: Number, default: 0 },
       peopleRated: { type: Number, default: 0 },
-      comments: { type: [String] },
-      offered: { type: [String] },
-      booked: { type: [String] },
+      comments: { type: [String]},
+      offered: [
+        {
+          type: mongoose.Schema.Types.ObjectId,
+          ref: "Ride",
+        },
+      ],
+      booked: [
+        {
+          type: mongoose.Schema.Types.ObjectId,
+          ref: "Ride",
+        },
+      ],
     },
     basicDetailsCompleted: { type: Boolean, default: false },
   },

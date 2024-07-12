@@ -25,17 +25,17 @@ export default function Header() {
     {
       name: "My Profile",
       icon: <CgProfile className="w-4 h-4 mr-2" />,
-      link: "/profile",
+      link: "/654/profile",
     },
     {
       name: "My Rides",
       icon: <RiMotorbikeFill className="w-4 h-4 mr-2" />,
-      link: "/rides",
+      link: "/654/rides",
     },
     {
       name: "My Payments",
       icon: <MdPayment className="w-4 h-4 mr-2" />,
-      link: "/payments",
+      link: "/654/payments",
     },
     {
       name: "Settings",

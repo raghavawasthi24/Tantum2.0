@@ -91,7 +91,7 @@ const ImageUpload: React.FC<ImageUploadProps> = ({
   const { getRootProps, getInputProps } = useDropzone({ onDrop });
 
   return (
-    <div className=" w-1/2 h-full p-6 flex flex-col items-center gap-4">
+    <div className="w-full md:w-1/2 h-full p-6 flex flex-col items-center gap-4">
       <div {...getRootProps()} className="h-full">
         <label
           htmlFor="dropzone-file"

@@ -42,7 +42,7 @@ export default function ProfilePage({
     <Form {...form}>
       <form
         onSubmit={form.handleSubmit(onSubmit)}
-        className="w-2/3 mx-auto flex gap-8 py-5"
+        className="w-full flex flex-col md:flex-row gap-8 p-4"
       >
         <ImageUpload form={form} image={formValues?.avatar || null} />
         <BasicInfoForm form={form} />

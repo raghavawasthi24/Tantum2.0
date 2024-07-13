@@ -20,6 +20,7 @@ import { loginAction } from "@/actions/Auth/auth";
 import toast from "react-hot-toast";
 import { useRouter } from "next/navigation";
 import { signIn } from "next-auth/react";
+import Cookies from "js-cookie";
 
 export default function EmailPasswordLogin() {
   const router = useRouter();
@@ -42,6 +43,7 @@ export default function EmailPasswordLogin() {
     
      if(res?.status==200){
         toast.success("Login successful");
+        Cookies.set("email", data.email);
         router.back();
       }
       else {

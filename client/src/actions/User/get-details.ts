@@ -1,7 +1,6 @@
 "use server";
 
 export const getDetails = async (data: any) => {
-  try {
     const res = await fetch(
       `${process.env.NEXT_PUBLIC_API_URL}/get-details/${data.id}`,
       {
@@ -13,13 +12,7 @@ export const getDetails = async (data: any) => {
       }
     );
 
-    if (!res.ok) {
-      throw new Error("Something went wrong!");
-    }
-
+     if(res.ok)
     return await res.json();
-  } catch (error) {
-    console.log(error);
-    throw new Error("Something went wrong!");
-  }
+ 
 };

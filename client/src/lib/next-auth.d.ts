@@ -10,7 +10,6 @@ declare module "next-auth" {
       accessToken: string;
       expiryDate: number;
     };
-    basicDetailsCompleted: boolean;
   }
 }
 
@@ -24,6 +23,5 @@ declare module "next-auth/jwt" {
       accessToken: string;
       expiryDate: number;
     };
-    basicDetailsCompleted: boolean;
   }
 }

@@ -12,6 +12,10 @@ import { FaMotorcycle } from "react-icons/fa6";
 import { Separator } from "@/components/ui/separator";
 
 export default function RideCard({ data }: any) {
+
+  function Submit(){
+
+  }
   return (
     <div className="rounded-xl p-4  grid gap-4 bg-white">
       <div className="flex text-2xl sm:text-3xl">
@@ -109,7 +113,7 @@ export default function RideCard({ data }: any) {
               </p>
             </div>
 
-            <Button variant="default" className="w-full mt-4">Confirm </Button>
+            <Button variant="default" className="w-full mt-4" onClick={Submit}>Confirm </Button>
           </DialogContent>
         </Dialog>
       </div>

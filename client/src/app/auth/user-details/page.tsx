@@ -43,7 +43,7 @@ export default function Page() {
         onSubmit={form.handleSubmit(onSubmit)}
         className="w-full py-20 px-6 flex flex-col md:flex-row items-center gap-4"
       >
-        <ImageUpload form={form}/>
+        <ImageUpload form={form} image={""}/>
         <BasicDetails form={form} />
       </form>
     </Form>

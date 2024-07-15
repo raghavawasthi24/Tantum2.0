@@ -59,7 +59,7 @@ export default function BasicInfoForm({ form }: any) {
           <FormItem>
             <FormLabel>Email</FormLabel>
             <FormControl>
-              <Input {...field} />
+              <Input {...field} disabled={true} />
             </FormControl>
           </FormItem>
         )}
@@ -98,12 +98,12 @@ export default function BasicInfoForm({ form }: any) {
 
       <div className="border p-4 w-full">
         <Label>Change Password</Label>
-        <div className="flex justify-between gap-4">
+        <div className="flex flex-col justify-between gap-4">
           <p className="text-sm text-muted-foreground">
             Ensure the security of your account by regularly updating your
             password to keep your personal information safe and protected.
           </p>
-          <Button variant="destructive" size="sm">Change Password</Button>
+          <Button variant="destructive" size="sm" className="w-fit self-end">Change Password</Button>
         </div>
       </div>
 

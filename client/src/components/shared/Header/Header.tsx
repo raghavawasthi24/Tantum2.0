@@ -11,29 +11,47 @@ import {
   PopoverTrigger,
 } from "@/components/ui/popover";
 import { CgProfile } from "react-icons/cg";
-import { RiMotorbikeFill } from "react-icons/ri";
-import { MdPayment } from "react-icons/md";
-import { IoIosSettings } from "react-icons/io";
 import { FiLogOut } from "react-icons/fi";
 import Link from "next/link";
 import { usePathname } from "next/navigation";
 import { BiUser } from "react-icons/bi";
 import { Separator } from "@/components/ui/separator";
 import { FaCarAlt } from "react-icons/fa";
-
+import { signOut, useSession } from "next-auth/react";
+import { use, useEffect, useState } from "react";
+import { getDetails } from "@/actions/User/get-details";
+import { UserDetailsSchema } from "@/schemas/user";
+import { z } from "zod";
 
 export default function Header() {
   const loggedin = true;
+  const { data: session } = useSession();
+  const [details, setDetails] = useState({
+    avatar: "",
+    email: "",
+    firstName: "",
+    lastName: ""
+  });
+
+  useEffect(() => {
+    async function getUserDetails() {
+      const res = await getDetails({id:session?.user.id});
+      if(res)
+      setDetails(res);
+    }
+    getUserDetails();
+  }, [session]);
+  console.log(session);
   const ProfileMenu = [
     {
       name: "Your Profile",
       icon: <CgProfile className="w-4 h-4 mr-2" />,
-      link: "/654/profile",
+      link: `/${session?.user.id}/profile`,
     },
     {
       name: "Your Rides",
       icon: <FaCarAlt className="w-4 h-4 mr-2" />,
-      link: "/654/rides",
+      link: `/${session?.user.id}/rides`,
     },
   ];
 
@@ -73,11 +91,15 @@ export default function Header() {
 
         {/* condition to check whether logged In or not 
         displays signin when loggged out otherwise profile options  */}
-        {loggedin ? (
+        {session ? (
           <Sheet>
             <SheetTrigger asChild>
               <Avatar className="cursor-pointer">
-                <AvatarImage src="https://github.com/shadcn.pg" alt="@shadcn" />
+                <AvatarImage
+                  src={details?.avatar}
+                  alt="Profile Image"
+                  className="object-cover"
+                />
                 <AvatarFallback className="bg-gray-100">
                   <BiUser className="w-6 h-6" />
                 </AvatarFallback>
@@ -88,16 +110,17 @@ export default function Header() {
                 <div className="flex gap-2">
                   <Avatar className="cursor-pointer">
                     <AvatarImage
-                      src="https://github.com/shadcn.pg"
-                      alt="@shadcn"
+                      src={details?.avatar}
+                      alt="Profile Image"
+                      className="object-cover"
                     />
                     <AvatarFallback className="bg-gray-100">
                       <BiUser className="w-6 h-6" />
                     </AvatarFallback>
                   </Avatar>
                   <div className="text-sm text-muted-foreground">
-                    <p>Raghav Awasthi</p>
-                    <p>raghav240@gmail.com</p>
+                    <p>{`${details.firstName} ${details.lastName}`}</p>
+                    <p>{details.email}</p>
                   </div>
                 </div>
                 <Separator className="my-2" />
@@ -115,23 +138,20 @@ export default function Header() {
 
               <Separator className="my-2" />
 
-              <Link
-                href="/logout"
-                className="flex items-center text-md font-medium p-2 cursor-pointer bg-destructive text-background"
-              >
+              <Button size="sm" variant="destructive" className="w-full flex items-center" onClick={()=>signOut()}>
                 <FiLogOut className="w-4 h-4 mr-2" />
-                Sign out
-              </Link>
+                Sign Out
+              </Button>
+
             </SheetContent>
           </Sheet>
         ) : (
-          <Button
-            size="sm"
-            className="flex items-center font-semibold bg-[#272142]"
-          >
-            <CiGlobe className="w-4 h-4 mr-2" />
-            Sign In
-          </Button>
+          <Link href="/auth/login">
+            <Button size="sm" variant="outline" className="flex items-center">
+              <CiGlobe className="w-4 h-4 mr-2" />
+              Sign In
+            </Button>
+          </Link>
         )}
       </div>
     </nav>

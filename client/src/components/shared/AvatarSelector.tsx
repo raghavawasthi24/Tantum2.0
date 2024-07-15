@@ -14,27 +14,21 @@ const uploadPreset = process.env.NEXT_PUBLIC_UPLOAD_PRESET;
 interface ImageUploadProps {
   onUploadComplete?: (url: string) => void;
   form: any;
+  image:string | null
 }
 
 const ImageUpload: React.FC<ImageUploadProps> = ({
   onUploadComplete,
   form,
+  image
 }) => {
   const [loading, setLoading] = useState<boolean>(false);
   const [progress, setProgress] = useState<number>(0);
   const [selectedImage, setSelectedImage] = useState<File | null>(null);
   const [uploadedImagePath, setUploadedImagePath] = useState<string | null>(
-    null
+    image
   );
 
-  const onUploadProgress = (progressEvent: any) => {
-    if (progressEvent.total) {
-      const percentage = Math.round(
-        (progressEvent.loaded * 100) / progressEvent.total
-      );
-      setProgress(percentage);
-    }
-  };
 
   const handleImageChange = (event: React.ChangeEvent<HTMLInputElement>) => {
     console.log("event.target.files", event.target.files);
@@ -97,7 +91,7 @@ const ImageUpload: React.FC<ImageUploadProps> = ({
   const { getRootProps, getInputProps } = useDropzone({ onDrop });
 
   return (
-    <div className=" w-1/2 h-full p-6 flex flex-col items-center gap-4">
+    <div className="w-full md:w-1/2 h-full p-6 flex flex-col items-center gap-4">
       <div {...getRootProps()} className="h-full">
         <label
           htmlFor="dropzone-file"

@@ -35,6 +35,7 @@ export default function Header() {
 
   useEffect(() => {
     async function getUserDetails() {
+      console.log("landing page",session?.user.id)
       const res = await getDetails({id:session?.user.id});
       if(res)
       setDetails(res);

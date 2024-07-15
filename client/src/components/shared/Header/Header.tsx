@@ -35,7 +35,7 @@ export default function Header() {
 
   useEffect(() => {
     async function getUserDetails() {
-      const res = await getDetails({id:session?.user._id});
+      const res = await getDetails({id:session?.user.id});
       if(res)
       setDetails(res);
     }
@@ -46,12 +46,12 @@ export default function Header() {
     {
       name: "Your Profile",
       icon: <CgProfile className="w-4 h-4 mr-2" />,
-      link: `/${session?.user._id}/profile`,
+      link: `/${session?.user.id}/profile`,
     },
     {
       name: "Your Rides",
       icon: <FaCarAlt className="w-4 h-4 mr-2" />,
-      link: `/${session?.user._id}/rides`,
+      link: `/${session?.user.id}/rides`,
     },
   ];
 

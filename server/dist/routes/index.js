@@ -9,6 +9,8 @@ const ride_controller_1 = require("../controllers/rides/ride.controller");
 const update_detaills_controller_1 = require("../controllers/user/update-detaills.controller");
 const login_controller_1 = require("../controllers/auth/login.controller");
 const book_ride_controller_1 = require("../controllers/rides/book-ride.controller");
+const get_details_controller_1 = require("../controllers/user/get-details.controller");
+const get_ride_details_controller_1 = require("../controllers/user/get-ride-details.controller");
 const router = express.Router();
 // Routes for user
 router.post("/login", login_controller_1.login);
@@ -25,4 +27,6 @@ router.post("/findride", ride_controller_1.getRide);
 router.post("/book-ride", book_ride_controller_1.bookRide);
 // Update user details
 router.patch("/update-details", update_detaills_controller_1.updateDetails);
+router.get("/get-details/:_id", get_details_controller_1.getUserDetails);
+router.get("/get-ride-details/:_id", get_ride_details_controller_1.getRideDetails);
 module.exports = router;

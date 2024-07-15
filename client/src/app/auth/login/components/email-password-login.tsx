@@ -39,12 +39,13 @@ export default function EmailPasswordLogin() {
         redirect: false,
         email: data.email,
         password: data.password,
+        isLogin: true,
       });
     
      if(res?.status==200){
         toast.success("Login successful");
         Cookies.set("email", data.email);
-        router.back();
+        router.push("/");
       }
       else {
         toast.error("Invalid Credentials");

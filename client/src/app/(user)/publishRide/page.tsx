@@ -16,7 +16,7 @@ export default function Page() {
   const router = useRouter();
 
   const form = useForm<z.infer<typeof PublishRideSchema>>({
-    resolver: zodResolver(PublishRideSchema),
+    // resolver: zodResolver(PublishRideSchema),
     defaultValues: {
       ownerId: session?.user.id,
     },

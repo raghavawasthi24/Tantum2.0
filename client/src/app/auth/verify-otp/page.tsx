@@ -27,6 +27,7 @@ import toast from "react-hot-toast";
 import { VerifyOtpAction, resendOtpAction } from "@/actions/Auth/auth";
 import Cookies from "js-cookie";
 import { VerifyOtpSchema } from "@/schemas/Login";
+import { signIn } from "next-auth/react";
 
 
 
@@ -43,15 +44,25 @@ export default function Page() {
   const router = useRouter();
 
   async function onSubmit(data: z.infer<typeof VerifyOtpSchema>) {
-    try {
-      const res = await VerifyOtpAction(data);
-      toast.success(res);
-      router.push("/auth/user-details");
-    } catch (error: any) {
-      console.log(error);
-      const errorMessage = error.message || "Something went wrong!";
-      toast.error(errorMessage);
-    }
+     try {
+       // Call signIn with "credentials" provider
+       const res = await signIn("credentials", {
+         redirect: false,
+         ...data,
+         isLogin: false,
+       });
+
+       if (res?.status == 200) {
+         toast.success("Login successful");
+        //  Cookies.set("email", data.email);
+         router.push("/");
+       } else {
+         toast.error("Invalid Credentials");
+       }
+     } catch (error: any) {
+       console.log(JSON.parse(error));
+       toast.error(error.message || "An error occurred");
+     }
   }
 
   async function resendCode() {

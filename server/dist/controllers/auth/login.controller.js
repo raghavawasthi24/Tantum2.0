@@ -31,9 +31,8 @@ const login = (req, res) => __awaiter(void 0, void 0, void 0, function* () {
         user.save();
         return res.status(200).json({
             message: "Logged in",
-            id: user._id,
+            _id: user._id,
             token: token,
-            basicDetailsCompleted: user.basicDetailsCompleted,
         });
     }
     catch (error) {

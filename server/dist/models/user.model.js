@@ -2,8 +2,8 @@
 Object.defineProperty(exports, "__esModule", { value: true });
 const mongoose_1 = require("mongoose");
 const userSchema = new mongoose_1.default.Schema({
-    firstName: { type: String, default: "" },
-    lastName: { type: String, default: "" },
+    firstName: { type: String, required: true },
+    lastName: { type: String, required: true },
     email: { type: String, required: true },
     password: { type: String, required: true },
     isVerified: { type: Boolean, default: false },
@@ -16,15 +16,25 @@ const userSchema = new mongoose_1.default.Schema({
         refreshToken: { type: String, default: null },
         expiryDate: { type: Date, default: null },
     },
-    gender: { type: String, default: "" },
-    dob: { type: Date, default: null },
+    gender: { type: String, required: true },
+    dob: { type: Date, required: true },
     avatar: { type: String, default: null },
     rideInfo: {
         rating: { type: Number, default: 0 },
         peopleRated: { type: Number, default: 0 },
         comments: { type: [String] },
-        offered: { type: [String] },
-        booked: { type: [String] },
+        offered: [
+            {
+                type: mongoose_1.default.Schema.Types.ObjectId,
+                ref: "Ride",
+            },
+        ],
+        booked: [
+            {
+                type: mongoose_1.default.Schema.Types.ObjectId,
+                ref: "Ride",
+            },
+        ],
     },
     basicDetailsCompleted: { type: Boolean, default: false },
 }, {

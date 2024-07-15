@@ -6,10 +6,16 @@ const getRideDetails = async (req: Request, res: Response): Promise<void> => {
 
   try {
     // Exclude fields you don't want to return
-    const user = await User.findOne({ _id }).select(
-      "rideInfo"
-    ).populate("rideInfo.offered rideInfo.booked");
-
+   const user = await User.findOne({ _id })
+     .select("rideInfo")
+     .populate({
+       path: "rideInfo.offered rideInfo.booked",
+       populate: {
+         path: "passengers",
+         model: "User",
+         select: "firstName lastName _id avatar", // Select the fields you need from the User model
+       },
+     });
 
     if (!user) {
       res.status(404).json({ error: "User not found" });

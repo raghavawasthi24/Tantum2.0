@@ -20,8 +20,10 @@
 
 // export const handler = NextAuth(authOptions);
 
+import { OTPInput } from "input-otp";
 import NextAuth, { NextAuthOptions } from "next-auth";
 import CredentialsProvider from "next-auth/providers/credentials";
+import Cookies from "js-cookie";
 
 const authOptions: NextAuthOptions = {
   providers: [
@@ -33,10 +35,14 @@ const authOptions: NextAuthOptions = {
           type: "text",
         },
         password: { label: "Password", type: "password" },
+        isLogin : {label: "isLogin", type: "boolean"},
+        otp: {label: "otp", type: "text"}
       },
       async authorize(credentials, req) {
-        console.log("credentials");
-        if (!credentials?.email || !credentials?.password) return null;
+        console.log("credentials",credentials);
+        if(credentials?.isLogin=='true'){
+          console.log("isLogin")
+           if (!credentials?.email || !credentials?.password) return null;
         const { email, password } = credentials;
         const res = await fetch(`${process.env.NEXT_PUBLIC_API_URL}/login`, {
           method: "POST",
@@ -54,7 +60,30 @@ const authOptions: NextAuthOptions = {
           return user;
         }
 
-        return null;
+        return null;}
+        else{
+          if(!credentials?.otp) return null;
+          const { otp,email } = credentials;
+
+          console.log(credentials, Cookies.get("email"),"e,adfd");
+          const res = await fetch(`${process.env.NEXT_PUBLIC_API_URL}/verify-login-email`, {
+            method: "POST",
+            body: JSON.stringify({
+              otp,
+              email
+            }),
+            headers: {
+              "Content-Type": "application/json",
+            },
+          });
+
+          if (res.status == 200) {
+            const user = await res.json();
+            return user;
+          }
+
+          return null;
+        }
       },
     }),
   ],

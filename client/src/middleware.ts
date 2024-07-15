@@ -23,13 +23,6 @@ export async function middleware(request: NextRequest) {
     return NextResponse.redirect(url);
   }
 
-  if (!token.basicDetailsCompleted) {
-    const url = request.nextUrl.clone();
-    url.pathname = "/auth/user-details";
-    console.log("Redirecting to /auth/user-details");
-    return NextResponse.redirect(url);
-  }
-
   console.log("Allowing request to proceed");
   return NextResponse.next();
 }

@@ -3,14 +3,13 @@ import NextAuth from "next-auth";
 declare module "next-auth" {
   interface Session {
     user: {
-      _id: string;
+      id: string;
     };
 
     token: {
       accessToken: string;
       expiryDate: number;
     };
-    basicDetailsCompleted: boolean;
   }
 }
 
@@ -18,14 +17,11 @@ import { JWT } from "next-auth/jwt";
 
 declare module "next-auth/jwt" {
   interface JWT {
-    user:{
     id: string;
-    }
 
     token: {
       accessToken: string;
       expiryDate: number;
     };
-    basicDetailsCompleted: boolean;
   }
 }

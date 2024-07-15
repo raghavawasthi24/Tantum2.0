@@ -38,7 +38,6 @@ const login = async (req: Request, res: Response): Promise<any> => {
       message: "Logged in",
       _id: user._id,
       token:token,
-      basicDetailsCompleted: user.basicDetailsCompleted,
     });
   } catch (error) {
     console.error(error);

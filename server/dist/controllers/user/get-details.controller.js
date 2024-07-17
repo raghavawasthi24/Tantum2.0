@@ -15,7 +15,9 @@ const getUserDetails = (req, res) => __awaiter(void 0, void 0, void 0, function*
     const { _id } = req.params;
     try {
         // Exclude fields you don't want to return
+        console.log("id", _id);
         const user = yield user_model_1.default.findOne({ _id }).select("-password -isVerified -otp -tokens -rideInfo -basicDetailsCompleted");
+        console.log("user", user);
         if (!user) {
             res.status(404).json({ error: "User not found" });
             return;

@@ -73,7 +73,7 @@ const verifyEmail = (req, res) => __awaiter(void 0, void 0, void 0, function* ()
             yield user.save();
             return res
                 .status(200)
-                .json({ message: "Email verified", _id: user._id, token });
+                .json({ message: "Email verified", id: user._id, token });
         }
         else {
             return res.status(400).json({ message: otpResult });

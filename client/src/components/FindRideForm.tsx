@@ -21,7 +21,7 @@ import { CustomizedCalendar } from "@/components/shared/CustomizedCalender";
 import { cities } from "@/constants";
 import { RideSchema } from "@/schemas/Ride";
 import { cn } from "@/lib/utils";
-import { useRouter } from "next/navigation";
+import { usePathname, useRouter } from "next/navigation";
 import { IoIosSearch } from "react-icons/io";
 
 export default function FindRideForm({ className, defaultValues }: any) {
@@ -34,7 +34,7 @@ export default function FindRideForm({ className, defaultValues }: any) {
   });
 
   const router = useRouter();
-
+  const path= usePathname()
   // const onSubmit = async (data: z.infer<typeof RideSchema>) => {
   //   try {
   //     const res = await getRide(data);
@@ -127,10 +127,11 @@ export default function FindRideForm({ className, defaultValues }: any) {
             </FormItem>
           )}
         />
-        <Button type="submit" className="bg-destructive hover:bg-destructive">
+        {path!="/rides"? <Button type="submit" className="bg-destructive hover:bg-destructive">
           <IoIosSearch className="w-4 h-4 mr-1" />
           Find
-        </Button>
+        </Button>:null}
+       
       </form>
     </Form>
   );

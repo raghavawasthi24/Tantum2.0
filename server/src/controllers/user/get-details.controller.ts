@@ -6,9 +6,13 @@ const getUserDetails = async (req: Request, res: Response): Promise<void> => {
 
   try {
     // Exclude fields you don't want to return
+
+    console.log("id", _id);
     const user = await User.findOne({ _id }).select(
       "-password -isVerified -otp -tokens -rideInfo -basicDetailsCompleted"
     );
+
+    console.log("user", user);
 
     if (!user) {
       res.status(404).json({ error: "User not found" });

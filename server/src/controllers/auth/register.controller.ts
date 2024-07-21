@@ -87,7 +87,7 @@ const verifyEmail = async (req: Request, res: Response) => {
       await user.save();
       return res
         .status(200)
-        .json({ message: "Email verified", _id: user._id, token });
+        .json({ message: "Email verified", id: user._id, token });
     } else {
       return res.status(400).json({ message: otpResult });
     }

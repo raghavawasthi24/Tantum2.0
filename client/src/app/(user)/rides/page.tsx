@@ -86,7 +86,7 @@ export default function Page() {
           </div>
           <div className="flex justify-center gap-8 py-4">
             {/* <FilterRides /> */}
-            <Rides allRides={allRides} />
+            <Rides allRides={allRides} seatsVacant={defaultValues.seatsVacant}/>
           </div>
         </div>
       )}
